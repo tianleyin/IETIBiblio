@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' https://fonts.gstatic.com https://ajax.googleapis.com https://www.googleapis.com https://kit.fontawesome.com data: https://musicbrainz.org gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' https://fonts.googleapis.com https://ajax.googleapis.com 'unsafe-inline'; media-src *; img-src * 'self' data: content:; connect-src 'self' http://mediamaster.ieti.site https://www.googleapis.com;"> -->
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <link rel="stylesheet" href="../../static/reset.css">
+    <link rel="stylesheet" href="../../static/styles.css">
+    <!-- <link rel="stylesheet" href="{% static 'biblieti/css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'biblieti/css/styles.css' %}"> -->
+    <title>Biblioteca MariCarmen</title>
+</head>
+
+<body class="landing-body">
+    <header>
+        <!-- <img src="{% static 'icons/books.svg' %}" alt="Icono"> -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-books">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+            <path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+            <path d="M5 8h4" />
+            <path d="M9 16h4" />
+            <path
+                d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" />
+            <path d="M14 9l4 -1" />
+            <path d="M16 16l3.923 -.98" />
+        </svg>
+        <h1>Biblioteca MariCarmen</h1>
+    </header>
+    <main>
+        <div class="left-container">
+            <h2>CERCA AL CATÀLEG</h2>
+            <div class="search-container" id="search-container">
+                <!-- <form action="{% url 'search' %}" method="GET"> -->
+                <form action="" method="get">
+                    <label for="searchInfo">Nom del llibre:</label>
+                    <input type="text" id="searchInfo" name="searchInfo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                        <path d="M21 21l-6 -6" />
+                    </svg>
+                </form>
+            </div>
+        </div>
+        <div class="right-container">
+            <h2 class="">INICIA SESSIÓ</h2>
+            <!-- <form action="{% url 'login' %}" method="POST" id="loginForm"> -->
+            <form id="loginForm" action="" method="post">
+                <label for="email">Adreça de correu electrònic:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Contrasenya:</label>
+                <input type="password" id="password" name="password" required class="">
+                <input type="submit" value="Iniciar Sessió">
+            </form>
+        </div>
+    </main>
+
+</body>
+
+</html>
