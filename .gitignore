@@ -1,7 +1,14 @@
 # Ignorar archivos generados por Django
-*.pyc
 *.pyo
 *.pyd
+*.pyc
+/env/
+/venv/
+/static/*
+/media/*
+.env
+db.sqlite3
+.coverage
 __pycache__
 
 # Ignorar archivos de configuración local
@@ -9,3 +16,4 @@ __pycache__
 *.db
 *.log
 *.env
+env.py
