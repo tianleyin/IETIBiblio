@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div id="search-product">
+    <header class="expanding-header">
+        <div class="visible-section">
+            <span id="expand-header">CERCA AVANÇADA</span>
+            <nav>
+                <ul>
+                    <li><a href="">TORNAR A L'INICI</a></li>
+                </ul>
+            </nav>
+        </div>
+        <hr>
+        <form>
+            <fieldset>
+                <legend>Disponibilitat dels productes a cercar</legend>
+                <div class="form-row space-around">
+                    <div>
+                        <input type="radio">
+                        <label>Cercar tots els productes</label>
+                    </div>
+                    <div>
+                        <input type="radio">
+                        <label>Productes disponibles</label>
+                    </div>
+                    <div>
+                        <input type="radio">
+                        <label>Productes no disponibles</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Filtres de cerca</legend>
+                <div class="form-row space-around">
+                    <div>
+                        <label for="product-name">Nom del producte</label>
+                        <input type="text" id="product-name">
+                    </div>
+                    <div>
+                        <label for="product-category">Tipus</label>
+                        <select>
+                            <option selected>Qualsevol</option>
+                            <option>Llibre</option>
+                            <option>CD</option>
+                            <option>DVD</option>
+                            <option>Blu-Ray</option>
+                            <option>Dispositiu</option>
+                        </select>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </header>
+</div>
+<script src="{% static 'search_product_controller.js' %}"></script>
+{% endblock %}
