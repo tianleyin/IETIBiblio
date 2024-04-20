@@ -38,7 +38,7 @@ class DVD(Catalogue):
     duration = models.IntegerField()
 
 class BR(Catalogue):
-    resolution = models.CharField(max_length=10)
+    resolution = models.CharField(max_length=100)
 
 class Device(Catalogue):
     manufacturer = models.CharField(max_length=100)
