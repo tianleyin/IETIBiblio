@@ -1,0 +1,161 @@
+:root {
+    --black: #000000;
+    --dark-brown: #886750;
+    --light-brown: #CAB08F;
+    --gray: #E1D9CE;
+    --white: #ffffff;
+    --accent-green: #295135;
+}
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+header {
+    width: 100vw;
+    background-color: var(--dark-brown);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--white);
+}
+
+header:not(.expanding-header) {
+    padding: 18px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header nav a {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--white);
+    text-decoration: none;
+}
+
+header nav a:hover {
+    border-bottom: solid 1px var(--white);
+}
+
+.expanding-header {
+    transition: height 0.5s ease-in-out;
+    height: 50px;
+    height: 50px;
+    overflow-y: hidden;
+}
+
+.expanding-header.expanded {
+    max-height: 2000px;
+    height: 350px;
+}
+
+.visible-section {
+    padding: 18px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#expand-header {
+    cursor:pointer
+}
+
+.expanding-header hr {
+    margin: 8px 12px;
+    border-color: var(--white);
+}
+
+.expanding-header form {
+    padding: 0 12px;
+}
+
+.expanding-header legend {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+fieldset {
+    border: solid 2px var(--light-brown);
+    padding: 16px 8px;
+    margin: 12px 0;
+    min-height: 80px;
+    border-radius: 4px;
+}
+
+legend {
+    padding: 0 4px;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+}
+
+.space-around {
+    justify-content: space-between;
+}
+
+.form-row label {
+    margin-right: 8px;
+}
+
+.form-row > div {
+    width: 100%;
+}
+
+.hidden {
+    visibility: hidden;
+}
