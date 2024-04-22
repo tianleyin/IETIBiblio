@@ -27,6 +27,9 @@ DEBUG = DBUG
 
 ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://biblio3.ieti.site',
+]
 
 # Application definition
 
