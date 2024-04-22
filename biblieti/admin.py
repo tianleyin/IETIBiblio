@@ -8,7 +8,7 @@ class LogsAdmin(admin.ModelAdmin):
     readonly_fields = ('date', 'type', 'client_ip', 'action', 'user_mail', 'current_page')
 
 # Register your models here.
-admin.site.register(User)
+admin.site.register(User_ieti)
 admin.site.register(Book)
 admin.site.register(CD)
 admin.site.register(DVD)
