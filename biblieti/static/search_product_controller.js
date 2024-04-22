@@ -113,6 +113,10 @@ $(() => {
         }
     })
 
+    $("#reset-filter").off().click(function(e) {
+        createNotification('error', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam feugiat auctor mauris id posuere. Suspendisse sed sodales urna. Sed maximus.')
+    })
+
     $("#search-button").off().click(function(e) {
         e.preventDefault()
         let productName = $("#product-name").val() == "" ? "null" : $("#product-name").val()

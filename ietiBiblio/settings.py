@@ -126,7 +126,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     BASE_DIR / 'biblieti/static',
 )
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_ROOT = '/public/static/'
 MEDIA_ROOT =  '/public/media/'
 

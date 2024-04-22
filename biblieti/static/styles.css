@@ -5,6 +5,8 @@
     --gray: #E1D9CE;
     --white: #ffffff;
     --accent-green: #295135;
+    --warning-yellow: #f0c547;
+    --error-red: #E94444;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -215,4 +217,48 @@ main {
 .product-card p {
     font-size: 14px;
     margin: 4px 0
+}
+
+.notification {
+    background: none !important;
+    display: flex !important;
+    align-items: center;
+}
+
+.notification .message {
+    display: flex;
+    align-items: center;
+}
+
+.notification .message span {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 12px;
+    border-radius: 4px;
+}
+
+.notification .message svg {
+    flex: 1 0 0;
+    min-width: 36px;
+    max-width: 36px;
+    min-height: 36px;
+    max-height: 36px;
+}
+
+.notification button {
+    opacity: 1;
+}
+
+.notification.info {
+    background-color: var(--accent-green) !important;
+}
+
+.notification.warning {
+    background-color: var(--warning-yellow) !important;
+    color: var(--black) !important
+}
+
+.notification.error {
+    background-color: var(--error-red) !important;
 }
