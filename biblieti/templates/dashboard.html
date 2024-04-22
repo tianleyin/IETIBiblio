@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div id="search-product">
+    <header class="expanding-header">
+        <div class="visible-section">
+            <span id="expand-header">CERCA AVANÇADA</span>
+            <nav>
+                <ul>
+                    <li><a href="">TORNAR A L'INICI</a></li>
+                </ul>
+            </nav>
+        </div>
+        <hr>
+        <form>
+            <fieldset>
+                <legend>Disponibilitat dels productes a cercar</legend>
+                <div class="form-row space-around">
+                    <div>
+                        <input type="radio" name="producte-availability" id="all">
+                        <label>Cercar tots els productes</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="producte-availability" id="available">
+                        <label>Productes disponibles</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="producte-availability" id="not-available">
+                        <label>Productes no disponibles</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Filtres de cerca</legend>
+                <div class="form-row space-around">
+                    <div>
+                        <label for="product-name">Nom del producte</label>
+                        <input type="text" id="product-name">
+                    </div>
+                    <div>
+                        <label for="product-type">Tipus</label>
+                        <select id="product-type">
+                            <option value="Any" selected>Qualsevol</option>
+                            <option value="Book">Llibre</option>
+                            <option value="CD">CD</option>
+                            <option value="DVD">DVD</option>
+                            <option value="BR">Blu-Ray</option>
+                            <option value="Device">Dispositiu</option>
+                        </select>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </fieldset>
+            <div id="dynamic-fieldset">
+            </div>
+            <div class="form-row space-around button-row">
+                <div id="button-container">
+                    <button class="accent-button" type="reset" id="reset-filter">Eliminar filtre</button>
+                    <button class="accent-button">Cercar</button>
+                </div>
+        </form>
+    </header>
+</div>
+<script src="{% static 'search_product_controller.js' %}"></script>
+{% endblock %}
