@@ -4,3 +4,6 @@ from django.http import HttpResponse
 # Create your views here.
 def busqueda(request):
     return render(request, 'search_product.html')
+
+def test(request):
+    return render(request, 'test.html')

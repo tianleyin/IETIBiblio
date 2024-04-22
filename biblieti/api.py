@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 from .models import *
-
+from django.utils import timezone
 from rest_framework.decorators import api_view
+import json
 # from rest_framework.decorators import api_view
 
 def hello(request):
@@ -47,3 +48,21 @@ def get_products(request, type, availability):
             else:
                 item['available'] = True
     return JsonResponse(filteredData, safe=False)
+
+
+@api_view(['POST'])
+def send_log(request):
+    data = json.loads(request.body)
+    current_date = timezone.now()
+    level = data.get('type')
+    client_ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_CLIENT_IP') or request.META.get('REMOTE_ADDR')
+    action = data.get('message')
+    user_mail = data.get('user_mail')
+    current_page = request.META.get('HTTP_REFERER')
+    
+    if current_date and level and client_ip and action and user_mail and current_page:
+        log_entry = Logs.objects.create(date=current_date, type=level, client_ip=client_ip, action=action, user_mail=user_mail, current_page=current_page)
+        log_entry.save()
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False, 'error': 'Datos incompletos'})

@@ -78,3 +78,7 @@ class Logs(models.Model):
     action = models.TextField()
     user_mail = models.EmailField(max_length=255)
     current_page = models.CharField(max_length=255)
+    
+    def clean(self):
+        if self.type not in dict(self.type_choices).keys():
+            raise ValidationError('El tipo de log no es válido.')

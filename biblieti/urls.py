@@ -23,4 +23,6 @@ urlpatterns = [
     path('busqueda/', busqueda, name='busqueda'),
     path('api/hello/', api.hello, name='hello'),
     path('api/get_products/<str:type>,<str:availability>', api.get_products, name='get_products'),
+    path('send_log/', api.send_log, name='send_log'),
+    path('test/', test),
 ]
