@@ -15,16 +15,15 @@ def user_login(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         try:
-            user = User.objects.get(mail=email)
+            user = User_ieti.objects.get(mail=email)
             if check_password(password, user.password):
                 # Usuario autenticado correctamente
                 # Realiza el login del usuario
-                login(request, user)
                 return render(request, 'dashboard.html')  # Redirige al usuario a la página de inicio después del inicio de sesión exitoso
             else:
                 # Contraseña incorrecta
                 return render(request, 'landing_page.html', {'error': 'Credenciales inválidas, Contraseña Incorrecta'})
-        except User.DoesNotExist:
+        except User_ieti.DoesNotExist:
             # Usuario no encontrado
             return render(request, 'landing_page.html', {'error': 'Credenciales inválidas, No existe el Usuario'})
     else:
@@ -33,3 +32,6 @@ def user_login(request):
 
 def busqueda(request):
     return render(request, 'search_product.html')
+
+def test(request):
+    return render(request, 'test.html')

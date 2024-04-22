@@ -24,8 +24,11 @@ SECRET_KEY = SKEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = DBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://biblio3.ieti.site',
+]
 
 # Application definition
 
@@ -120,15 +123,16 @@ USE_TZ = True
 
 #STATIC_URL = 'static/'
 #STATIC_ROOT = ''
-
-MEDIA_URL = '/media/'
+STATIC_ROOT = 'static/'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    BASE_DIR / 'biblieti/static',
-)
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATIC_ROOT = '/public/static/'
-MEDIA_ROOT =  '/public/media/'
+
+#MEDIA_URL = '/media/'
+#STATIC_URL = '/static/'
+#STATICFILES_DIRS = (
+#    BASE_DIR / 'biblieti/static',
+#)
+#STATIC_ROOT = '/public/static/'
+#MEDIA_ROOT =  '/public/media/'
 
 
 # Default primary key field type
