@@ -120,14 +120,16 @@ USE_TZ = True
 
 #STATIC_URL = 'static/'
 #STATIC_ROOT = ''
-
-MEDIA_URL = '/media/'
+STATIC_ROOT = 'static/'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    BASE_DIR / 'biblieti/static',
-)
-STATIC_ROOT = '/public/static/'
-MEDIA_ROOT =  '/public/media/'
+
+#MEDIA_URL = '/media/'
+#STATIC_URL = '/static/'
+#STATICFILES_DIRS = (
+#    BASE_DIR / 'biblieti/static',
+#)
+#STATIC_ROOT = '/public/static/'
+#MEDIA_ROOT =  '/public/media/'
 
 
 # Default primary key field type
