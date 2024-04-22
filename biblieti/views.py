@@ -1,21 +1,35 @@
 # views.py
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import *
 
 def landing_page(request):
-    return render(request, 'biblieti/landing_page.html')
+    return render(request, 'landing_page.html')
 
 
 def user_login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        User = authenticate(request, email=email, password=password)
-        if User is not None:
-            login(request, User)
-            return redirect('dashboard')  # Redirigir a la página de inicio después del inicio de sesión exitoso
-        else:
-            # Mostrar un mensaje de error de inicio de sesión en caso de credenciales incorrectas
-            return render(request, 'biblieti/landing_page.html', {'error': 'Credenciales inválidas'})
+        try:
+            user = User.objects.get(mail=email)
+            if check_password(password, user.password):
+                # Usuario autenticado correctamente
+                # Realiza el login del usuario
+                login(request, user)
+                return render(request, 'dashboard.html')  # Redirige al usuario a la página de inicio después del inicio de sesión exitoso
+            else:
+                # Contraseña incorrecta
+                return render(request, 'landing_page.html', {'error': 'Credenciales inválidas, Contraseña Incorrecta'})
+        except User.DoesNotExist:
+            # Usuario no encontrado
+            return render(request, 'landing_page.html', {'error': 'Credenciales inválidas, No existe el Usuario'})
     else:
-        return render(request, 'biblieti/landing_page.html')
+        return render(request, 'landing_page.html')
+
+
+def busqueda(request):
+    return render(request, 'search_product.html')
