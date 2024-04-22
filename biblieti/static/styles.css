@@ -1,5 +1,5 @@
 :root {
-    --black: #000000;
+    --black: #292021;
     --dark-brown: #886750;
     --light-brown: #CAB08F;
     --gray: #E1D9CE;
@@ -218,6 +218,7 @@ main {
     font-family: 'Inter', sans-serif;
     padding: 8px;
     background-color: var(--dark-brown);
+    color: var(--white)
 }
 
 .product-card h2 {
