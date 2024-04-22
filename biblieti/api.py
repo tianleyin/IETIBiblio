@@ -53,11 +53,11 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
         for item in dvdData:
             item['type'] = 'DVD'
         filteredData.extend(dvdData)
-        brData = list(BR.objects.filter(resolution__contains=resolution).values())
+        brData = list(BR.objects.filter(name__contains=name,resolution__contains=resolution).values())
         for item in brData:
             item['type'] = 'BR'
         filteredData.extend(brData)
-        deviceData = list(Device.objects.filter(manufacturer__contains=manufacturer,model__contains=model).values())
+        deviceData = list(Device.objects.filter(name__contains=name,manufacturer__contains=manufacturer,model__contains=model).values())
         for item in deviceData:
             item['type'] = 'Device'
         filteredData.extend(deviceData)
@@ -83,11 +83,11 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
         for item in filteredData:
             item['type'] = 'DVD'
     elif (type == 'BR'):
-        filteredData = list(BR.objects.filter(resolution__contains=resolution).values())
+        filteredData = list(BR.objects.filter(name__contains=name,resolution__contains=resolution).values())
         for item in filteredData:
             item['type'] = 'BR'
     elif (type == 'Device'):
-        filteredData = list(Device.objects.filter(manufacturer__contains=manufacturer,model__contains=model).values())
+        filteredData = list(Device.objects.filter(name__contains=name,manufacturer__contains=manufacturer,model__contains=model).values())
         for item in filteredData:
             item['type'] = 'Device'
     for item in filteredData:

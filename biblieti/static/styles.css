@@ -79,6 +79,17 @@ header:not(.expanding-header) {
     justify-content: space-between;
 }
 
+header nav {
+    display: flex;
+    gap: 12px;
+}
+
+header nav ul {
+    display: flex;
+    gap: 12px;
+    list-style: none;
+}
+
 header nav a {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
@@ -190,7 +201,7 @@ legend {
 }
 
 main {
-    height: calc(100vh - 50px);
+    min-height: calc(100vh - 50px);
     background-color: var(--light-brown);
     overflow-y: scroll;
 }
@@ -261,4 +272,31 @@ main {
 
 .notification.error {
     background-color: var(--error-red) !important;
+}
+
+#welcome {
+    padding: 32px 16px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+#welcome h1 {
+    font-family: 'Bowlby One', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 12px 0;
+}
+
+#welcome button {
+    height: 40px;
+    padding: 8px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 4px;
+    border: none;
+    background-color: var(--gray);
+    cursor: pointer;
 }
