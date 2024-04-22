@@ -25,7 +25,7 @@ SECRET_KEY = SKEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = DBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
