@@ -80,7 +80,7 @@ class Command(BaseCommand):
 
         # Seed Users
         for _ in range(10):
-            User.objects.create(
+            User_ieti.objects.create(
                 name=fake.name(),
                 mail=fake.email(),
                 password=fake.password(),
@@ -91,7 +91,7 @@ class Command(BaseCommand):
                 # You might want to seed the image field here as well
             )
 
-        all_users = User.objects.all()
+        all_users = User_ieti.objects.all()
 
         """Catalogue.objects.create(
             name="Institut " + fake.catch_phrase(),
@@ -150,7 +150,7 @@ class Command(BaseCommand):
             )
 
         # seed Loan and Booking
-        all_users = User.objects.all()
+        all_users = User_ieti.objects.all()
         catalogues = Catalogue.objects.all()
         for _ in range(5):
             user = random.choice(all_users)

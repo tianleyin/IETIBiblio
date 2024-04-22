@@ -199,6 +199,149 @@ legend {
     border-radius: 4px;
     cursor: pointer;
 }
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: "Bowlby One", sans-serif;
+}
+
+p,
+input,
+label {
+    font-family: "Inter", sans-serif;
+}
+
+/* landing_page */
+#landing-page header {
+    background-color: #886750;
+    color: #FFFFFF;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+}
+
+#landing-page header svg {
+    margin-right: 10px;
+}
+
+#landing-page main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Divide en dos columnas iguales */
+    height: 100vh;
+    /* Altura del contenedor igual a la altura de la ventana */
+}
+
+.left-container {
+    background-color: #CAB08F;
+    padding: 35% 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.left-container h2 {
+    margin-bottom: 10px;
+}
+
+.search-container {
+    display: block;
+    width: 80%;
+}
+
+.search-container label {
+    display: block;
+    /* Mostrar cada etiqueta en una línea separada */
+    margin-bottom: 5px;
+}
+
+/* Estilos para los campos de entrada */
+.search-container input {
+    width: 100%;
+    /* Espaciado interno */
+    margin-bottom: 10px;
+    /* Espacio inferior entre campos de entrada */
+    border: 1px solid #ccc;
+    /* Borde gris */
+    border-radius: 4px;
+    /* Bordes redondeados */
+    box-sizing: border-box;
+    /* Incluir el borde en el ancho total */
+    padding: 5px;
+    position: relative;
+}
+
+.right-container {
+    background-color: #292021;
+    padding: 35% 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+/* Estilos para el título */
+.right-container h2 {
+    margin-bottom: 10px;
+    /* Espacio inferior */
+}
+
+/* Estilos para el formulario */
+#loginForm {
+    display: inline-block;
+    /* Permite centrar horizontalmente */
+    width: 80%;
+}
+
+/* Estilos para las etiquetas de los campos */
+#loginForm label {
+    display: block;
+    /* Muestra cada etiqueta en una línea */
+    margin-bottom: 5px;
+    /* Espacio inferior */
+}
+
+/* Estilos para los campos de entrada */
+#loginForm input[type="email"],
+#loginForm input[type="password"] {
+    width: 100%;
+    /* Ancho del campo */
+    padding: 5px;
+    /* Relleno */
+    margin-bottom: 10px;
+    /* Espacio inferior */
+    border: 1px solid #ccc;
+    /* Borde */
+    border-radius: 4px;
+    /* Bordes redondeados */
+    box-sizing: border-box;
+    /* Tamaño de la caja */
+}
+
+/* Estilos para el botón de enviar */
+#loginForm input[type="submit"] {
+    background-color: #295135;
+    /* Color de fondo */
+    color: #fff;
+    /* Color del texto */
+    cursor: pointer;
+    /* Cursor al pasar */
+    border: none;
+    padding: 8px 30px;
+    border-radius: 4px;
+    float: right;
+}
 
 main {
     min-height: calc(100vh - 50px);
