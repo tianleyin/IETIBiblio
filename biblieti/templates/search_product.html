@@ -5,7 +5,12 @@
 <div id="search-product">
     <header class="expanding-header">
         <div class="visible-section">
-            <span id="expand-header">CERCA AVANÇADA</span>
+            <span id="expand-header">
+                CERCA AVANÇADA
+                <div id="chevron-container">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>
+                </div>
+            </span>
             <nav>
                 <ul>
                     <li><a href="">TORNAR A L'INICI</a></li>
@@ -58,10 +63,14 @@
             <div class="form-row space-around button-row">
                 <div id="button-container">
                     <button class="accent-button" type="reset" id="reset-filter">Eliminar filtre</button>
-                    <button class="accent-button">Cercar</button>
+                    <button class="accent-button" id="search-button">Cercar</button>
                 </div>
         </form>
     </header>
+    <main>
+        <ul id="search-results">
+        </ul>
+    </main>
 </div>
 <script src="{% static 'search_product_controller.js' %}"></script>
 {% endblock %}

@@ -1,11 +1,17 @@
 $(() => {
+    let productType = "Any"
     $("#expand-header").off().on("click", () => {
         $(".expanding-header").toggleClass("expanded")
+        if ($(".expanding-header").hasClass("expanded")) {
+            $("#chevron-container").html(`<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-up"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 15l6 -6l6 6" /></svg>`)
+        } else {
+            $("#chevron-container").html(`<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>`)
+        }
     })
 
     $("#product-type").off().on("change", function () {
-        let type = $("#product-type").val()
-        switch (type) {
+        productType = $("#product-type").val()
+        switch (productType) {
             case "Any":
                 $("#dynamic-fieldset").html("")
                 break
@@ -106,4 +112,100 @@ $(() => {
                 break
         }
     })
+
+    $("#search-button").off().click(function(e) {
+        e.preventDefault()
+        let productName = $("#product-name").val() == "" ? "null" : $("#product-name").val()
+        let availability = "All"
+        if ($("#available").is(":checked")) {
+            availability = "Available"
+        } else if ($("#not-available").is(":checked")) {
+            availability = "Unavailable"
+        }
+        let author = 'null'
+        let ISBN = 'null'
+        let publishYear = 'null'
+        let artist = 'null'
+        let tracks = 0
+        let director = 'null'
+        let duration = 0
+        let resolution = 'null'
+        let manufacturer = 'null'
+        let model = 'null'
+        switch (productType) {
+            case "Book":
+                author = $("#author").val()
+                ISBN = $("#ISBN").val()
+                publishYear = $("#publish-year").val()
+                break
+            case "CD":
+                artist = $("#artist").val()
+                tracks = $("#tracks").val()
+                break
+            case "DVD":
+                director = $("#director").val()
+                duration = $("#duration").val()
+                break
+            case "BR":
+                resolution = $("#resolution").val()
+                break
+            case "Device":
+                manufacturer = $("#manufacturer").val()
+                model = $("#model").val()
+                break
+        }
+        requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model)
+    })
+
+    function requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model) {
+        return new Promise((resolve, reject) => {
+            fetch(`/api/get_products/${productType},${availability},${productName},${author},${ISBN},${publishYear},${artist},${tracks},${director},${duration},${resolution},${manufacturer},${model}`)
+            .then(response => response.json())
+            .then(data => {
+                renderProducts(data)
+            })
+        })
+    }
+
+    function renderProducts(data) {
+        $("#search-results").empty()
+        data.forEach(element => {
+            let translatedType = ""
+            switch (element.type) {
+                case "Book":
+                    translatedType = "Llibre"
+                    break
+                case "CD":
+                    translatedType = "CD"
+                    break
+                case "DVD":
+                    translatedType = "DVD"
+                    break
+                case "BR":
+                    translatedType = "Blu-Ray"
+                    break
+                case "Device":
+                    translatedType = "Dispositiu"
+                    break
+            }
+            let translatedAvailability = ""
+            if (element.availability == "available") {
+                translatedAvailability = "Disponible"
+            } else {
+                translatedAvailability = "No disponible"
+            }
+            $("#search-results").append(`
+            <li>
+                <div class="product-card">
+                    <h2>${element.name}</h2>
+                    <p>${translatedType}</p>
+                    <p>${translatedAvailability}</p>
+                </div>
+            </li>
+            `)
+        });
+        $(".expanding-header").removeClass("expanded")
+        
+        $("#chevron-container").html(`<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>`)
+    }
 })
