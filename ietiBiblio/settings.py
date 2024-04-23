@@ -28,6 +28,7 @@ ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://biblio3.ieti.site',
+    'http://127.0.0.1:8000',
 ]
 
 # Application definition
