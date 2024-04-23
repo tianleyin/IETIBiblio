@@ -130,4 +130,4 @@ def send_log(request):
             return Response({'success': False, 'error': 'Datos incompletos', 'data':{data}, 'user_mail':user_mail, 'current_date':current_date, 'level':level, 'client_ip':client_ip, 'action':action, 'current_page':current_page})
     except Exception as e:
         # Captura cualquier excepción y envía los detalles como respuesta
-        return Response({'success': False, 'error': str(e)})   
+        return Response({'success': False, 'error': str(e), 'data':data}) 
