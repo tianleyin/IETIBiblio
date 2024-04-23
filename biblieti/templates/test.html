@@ -4,7 +4,11 @@
 
 <h1>Esto es una pagina de test</h1>
 <script>
-    send_log("info", "log de prueba", "example3@gmail.com");
+    save_log("info", "log de prueba repetido");
+    save_log("warning", "log de prueba2");
+    save_log("fatal", "log de prueba3");
+    save_log("info", "log de prueba repetido");
+    
 </script>
 
 {% endblock %}
