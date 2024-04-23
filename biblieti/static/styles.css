@@ -268,8 +268,6 @@ label {
 /* Estilos para los campos de entrada */
 .search-container input {
     width: 100%;
-    /* Espaciado interno */
-    margin-bottom: 10px;
     /* Espacio inferior entre campos de entrada */
     border: 1px solid #ccc;
     /* Borde gris */
@@ -279,6 +277,42 @@ label {
     /* Incluir el borde en el ancho total */
     padding: 5px;
     position: relative;
+}
+
+#search-row {
+    display: flex;
+    max-height: 28px;
+}
+
+#search-row > div {
+    flex: 0 0 75%;
+    margin-right: 12px;
+}
+
+.search-container-inner {
+    position: relative;
+    z-index: 200;
+}
+
+#absolute-div {
+    width: 100%;
+    background-color: var(--white);
+    position: absolute;
+    top: 36px;
+    border-radius: 4px;
+}
+
+
+#absolute-div ul li {
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 3px;
+    font-family: 'Inter', sans-serif;
+    padding: 6px;
+    margin: 4px 8px;
+}
+
+#absolute-div ul li:hover {
+    background-color: var(--gray);
 }
 
 .right-container {

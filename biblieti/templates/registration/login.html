@@ -26,17 +26,26 @@
         <div class="left-container">
             <h2>CERCA AL CATÀLEG</h2>
             <div class="search-container" id="search-container">
-                <form action="" method="get">
+                <form action="/busqueda/" method="POST" id="search-form">
+                    {% csrf_token %}
                     <label for="searchInfo">Nom del llibre:</label>
-                    <input type="text" id="searchInfo" name="searchInfo">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="icon icon-tabler icons-tabler-outline icon-tabler-search">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
-                        <path d="M21 21l-6 -6" />
-                    </svg>
-                    <input type="submit" value="Buscar">
+                    <div id="search-row">
+                        <div class="search-container-inner" id="search-container-inner">
+                            <input type="text" id="searchInfo" name="searchInfo">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-search">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                                <path d="M21 21l-6 -6" />
+                            </svg>
+                            <div id="absolute-div">
+                                <ul>
+                                </ul>
+                            </div>
+                        </div>
+                        <input type="submit" value="Buscar" id="btn-search">
+                    </div>
                 </form>
             </div>
         </div>
@@ -44,11 +53,7 @@
             <h2 class="">INICIA SESSIÓ</h2>
             <form action="{% url 'login' %}" method="post" id="loginForm">
                 {% csrf_token %}
-                {{ form}}
-                <label for="email">Adreça de correu electrònic:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="password">Contrasenya:</label>
-                <input type="password" id="password" name="password" required>
+                {{ form }}
                 <input type="submit" value="Iniciar Sessió">
             </form>
         </div>

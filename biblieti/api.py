@@ -61,6 +61,7 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
         deviceData = list(Device.objects.filter(name__contains=name,manufacturer__contains=manufacturer,model__contains=model).values())
         for item in deviceData:
             item['type'] = 'Device'
+        print(filteredData)
         filteredData.extend(deviceData)
     elif (type == 'Book'):
         if (publication_year != 'null'):
@@ -93,12 +94,12 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
             item['type'] = 'Device'
     for item in filteredData:
         if Booking.objects.filter(catalogue_id=item['id']).exists():
-            if request.data.get('availability' == 'available'):
+            if availability == 'available':
                 filteredData.remove(item)
             else:
                 item['available'] = False
         else:
-            if request.data.get('availability' == 'not-available'):
+            if availability == 'not-available':
                 filteredData.remove(item)
             else:
                 item['available'] = True

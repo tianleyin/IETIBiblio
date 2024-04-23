@@ -81,8 +81,8 @@ class Command(BaseCommand):
         # Seed Users
         for _ in range(10):
             User_ieti.objects.create(
-                name=fake.name(),
-                mail=fake.email(),
+                username=fake.name(),
+                email=fake.email(),
                 password=fake.password(),
                 role=random.choice(['student', 'librarian', 'superadmin']),
                 date_of_birth=fake.date_of_birth(),

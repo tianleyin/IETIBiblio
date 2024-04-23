@@ -140,3 +140,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = ''
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = '/'
+
+AUTH_USER_MODEL = "biblieti.User_ieti"
+LOGIN_REDIRECT_URL = 'dashboard'
