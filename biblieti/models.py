@@ -1,22 +1,30 @@
 # Create your models here.
 from django.db import models
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import AbstractUser
 
-class User_ieti(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=40)
-    mail = models.EmailField(max_length=255)
-    password = models.CharField(max_length=255)
+class User_ieti(AbstractUser):
     role_choices = [
         ('student', 'Student'),
         ('librarian', 'Librarian'),
         ('superadmin', 'Super Admin')
     ]
+
+    is_superuser = models.BooleanField(default=False)
+    username = models.CharField(max_length=40, unique=True)
+    #mail = models.EmailField(max_length=255, unique=True)
+    password = models.CharField(max_length=255)
     role = models.CharField(max_length=20, choices=role_choices)
     date_of_birth = models.DateField(null=True, blank=True)
     school = models.CharField(max_length=100, null=True, blank=True)
     cycle = models.CharField(max_length=100, null=True, blank=True)
     picture = models.ImageField(upload_to='imgs/', blank=True, null=True)
+    USERNAME_FIELD = 'username'
+    # def save(self, *args, **kwargs):
+    #     # Hashear la contraseña antes de guardarla en la base de datos
+    #     if self.password:
+    #         self.password = make_password(self.password)
+    #     super().save(*args, **kwargs)
 
 
 

@@ -125,11 +125,11 @@ USE_TZ = True
 #STATIC_ROOT = ''
 STATIC_ROOT = 'static/'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    BASE_DIR / 'biblieti/static',
-)
-STATIC_ROOT = '/public/static/'
-MEDIA_ROOT =  '/public/media/'
+#STATICFILES_DIRS = (
+#    BASE_DIR / 'biblieti/static',
+#)
+#STATIC_ROOT = '/public/static/'
+#MEDIA_ROOT =  '/public/media/'
 
 
 # Default primary key field type
@@ -140,3 +140,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = ''
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = '/'
+
+AUTH_USER_MODEL = "biblieti.User_ieti"
+LOGIN_REDIRECT_URL = 'dashboard'

@@ -1,4 +1,5 @@
 $(() => {
+    console.log()
     let productType = "Any"
     $("#expand-header").off().on("click", () => {
         $(".expanding-header").toggleClass("expanded")
