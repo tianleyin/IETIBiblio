@@ -21,6 +21,7 @@ from biblieti.views import *
 
 urlpatterns = [
     path('busqueda/', busqueda, name='busqueda'),
+    path('dashboard/', dashboard, name='dashboard'),
     path('api/hello/', api.hello, name='hello'),
     path('api/get_products/<str:type>,<str:availability>', api.get_products, name='get_products'),
     path('send_log/', api.send_log, name='send_log'),

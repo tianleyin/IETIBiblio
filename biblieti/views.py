@@ -19,7 +19,7 @@ def user_login(request):
             if check_password(password, user.password):
                 # Usuario autenticado correctamente
                 # Realiza el login del usuario
-                return render(request, 'dashboard.html')  # Redirige al usuario a la página de inicio después del inicio de sesión exitoso
+                return redirect('dashboard')  # Redirige al usuario a la página de inicio después del inicio de sesión exitoso
             else:
                 # Contraseña incorrecta
                 return render(request, 'landing_page.html', {'error': 'Credenciales inválidas, Contraseña Incorrecta'})
@@ -35,3 +35,6 @@ def busqueda(request):
 
 def test(request):
     return render(request, 'test.html')
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
