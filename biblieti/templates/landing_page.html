@@ -53,7 +53,7 @@
             </form>
         </div>
     </main>
-    <script src="{% static 'landing_page_controller.js' %}"></script>
+    <script src="{% static 'landing_page_controller.js' %}?no-cache={% now "U" %}"></script>
 </div>
 
 {% endblock %}

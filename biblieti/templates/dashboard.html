@@ -29,7 +29,7 @@
                 <li><a href="/change_password">CANVIAR CONTRASENYA</a></li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit">logout</button>
+                    <button id="btn-logout" type="submit">logout</button>
                 </form>
             </ul>
         </nav>
@@ -40,5 +40,6 @@
             <a href="/user_data" class="btn-user-data">Mostrar les meves dades</a>
         </div>
     </main>
+    <script src="{% static 'dashboard_controller.js' %}?no-cache={% now "U" %}"></script>
 </div>
 {% endblock %}

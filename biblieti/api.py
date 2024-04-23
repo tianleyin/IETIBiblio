@@ -113,7 +113,7 @@ def send_log(request):
     level = data.get('type')
     client_ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_CLIENT_IP') or request.META.get('REMOTE_ADDR')
     action = data.get('message')
-    user_mail = data.get('user_mail')
+    user_mail = request.user.email
     current_page = request.META.get('HTTP_REFERER')
     
     if current_date and level and client_ip and action and user_mail and current_page:
