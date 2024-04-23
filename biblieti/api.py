@@ -114,7 +114,7 @@ def send_log(request):
     else:
         user_mail = None
 
-    data = request.data
+    data = json.loads(request.body)
     current_date = timezone.now()
     level = data.get('type')
     client_ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_CLIENT_IP') or request.META.get('REMOTE_ADDR')
