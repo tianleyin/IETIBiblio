@@ -111,10 +111,9 @@ def send_log(request):
     if request.user.is_authenticated:
         user_mail = request.user.email
     else:
-        # Si el usuario no está autenticado, asignar None o un valor predeterminado al correo electrónico
         user_mail = None
 
-    data = json.loads(request.body)
+    data = request.data
     current_date = timezone.now()
     level = data.get('type')
     client_ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_CLIENT_IP') or request.META.get('REMOTE_ADDR')
