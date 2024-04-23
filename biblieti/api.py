@@ -125,4 +125,4 @@ def send_log(request):
         log_entry.save()
         return JsonResponse({'success': True})
     else:
-        return JsonResponse({'success': False, 'error': 'Datos incompletos'})
+        return JsonResponse({'success': False, 'error': 'Datos incompletos', 'data':{data}, 'user_mail':user_mail, 'current_date':current_date, 'level':level, 'client_ip':client_ip, 'action':action, 'current_page':current_page})
