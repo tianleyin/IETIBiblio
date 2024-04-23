@@ -149,6 +149,7 @@ table {
     box-sizing: border-box;
 }
 
+/* COMMON HEADER */
 header {
     background-color: var(--dark-brown);
     font-family: 'Inter', sans-serif;
@@ -188,6 +189,8 @@ header nav a {
 header nav a:hover {
     border-bottom: solid 1px var(--white);
 }
+
+/* EXPANDING HEADER FOR ADVANCED SEARCH */
 
 .expanding-header {
     transition: height 0.5s ease-in-out;
