@@ -11,7 +11,7 @@ def landing_page(request):
     return render(request, 'landing_page.html')
 
 
-def user_login(request):
+"""def user_login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -28,7 +28,7 @@ def user_login(request):
             # Usuario no encontrado
             return render(request, 'landing_page.html', {'error': 'Credenciales inválidas, No existe el Usuario'})
     else:
-        return render(request, 'landing_page.html')
+        return render(request, 'landing_page.html')"""
 
 
 def busqueda(request):
