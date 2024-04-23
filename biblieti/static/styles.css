@@ -63,7 +63,6 @@ table {
 }
 
 header {
-    width: 100vw;
     background-color: var(--dark-brown);
     font-family: 'Inter', sans-serif;
     font-weight: 600;
@@ -229,8 +228,8 @@ label {
 
 /* landing_page */
 #landing-page header {
-    background-color: #886750;
-    color: #FFFFFF;
+    background-color: var(--dark-brown);
+    color: var(--white);
     padding: 20px;
     position: fixed;
     top: 0;
@@ -256,7 +255,7 @@ label {
 }
 
 .left-container {
-    background-color: #CAB08F;
+    background-color: var(--light-brown);
     padding: 35% 20px;
     display: flex;
     flex-direction: column;
@@ -302,7 +301,7 @@ label {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    color: #FFFFFF;
+    color: var(--white);
 }
 
 /* Estilos para el título */
@@ -345,9 +344,9 @@ label {
 
 /* Estilos para el botón de enviar */
 #loginForm input[type="submit"] {
-    background-color: #295135;
+    background-color: var(--accent-green);
     /* Color de fondo */
-    color: #fff;
+    color: var(--white);
     /* Color del texto */
     cursor: pointer;
     /* Cursor al pasar */

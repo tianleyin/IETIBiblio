@@ -17,11 +17,6 @@ class User_ieti(models.Model):
     school = models.CharField(max_length=100, null=True, blank=True)
     cycle = models.CharField(max_length=100, null=True, blank=True)
     picture = models.ImageField(upload_to='imgs/', blank=True, null=True)
-    def save(self, *args, **kwargs):
-        # Hashear la contraseña antes de guardarla en la base de datos
-        if self.password:
-            self.password = make_password(self.password)
-        super().save(*args, **kwargs)
 
 
 
