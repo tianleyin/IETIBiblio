@@ -29,7 +29,7 @@
                 <li><a href="/change_password">CANVIAR CONTRASENYA</a></li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit">logout</button>
+                    <button type="submit">TANCAR SESSIÓ</button>
                 </form>
             </ul>
         </nav>
@@ -37,7 +37,7 @@
     <main>
         <div id="welcome">
             <h1>BENVINGUT/DA {{ username }}</h1>
-            <button class="btn-user-data">Mostrar les meves dades</button>
+            <a class="btn-user-data" href="/user_data">Mostrar les meves dades</a>
         </div>
     </main>
 </div>

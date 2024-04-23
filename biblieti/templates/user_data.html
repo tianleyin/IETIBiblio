@@ -25,11 +25,11 @@
         
         <nav>
             <ul>
-                <li><a href="/">TORNAR A L'INICI</a></li>
+                <li><a href="/dashboard">DASHBOARD</a></li>
                 <li><a href="/change_password">CANVIAR CONTRASENYA</a></li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit" id="btn-logout">logout</button>
+                    <button type="submit" id="btn-logout">TANCAR SESSIÓ</button>
                 </form>
             </ul>
         </nav>
@@ -52,7 +52,7 @@
             <input type="text" id="school" name="school" value="{{ user.school }}">
             <label for="cycle">Cicle:</label>
             <input type="text" id="cycle" name="cycle" value="{{ user.cycle }}">
-            <input type="submit" value="Actualitzar">
+            <input type="submit" value="Desar canvis">
         </form>
     </main>
 </div>
