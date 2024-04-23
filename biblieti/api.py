@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from .models import *
 from django.utils import timezone
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 import json
 # from rest_framework.decorators import api_view
 
@@ -123,6 +124,6 @@ def send_log(request):
     if current_date and level and client_ip and action and user_mail and current_page:
         log_entry = Logs.objects.create(date=current_date, type=level, client_ip=client_ip, action=action, user_mail=user_mail, current_page=current_page)
         log_entry.save()
-        return JsonResponse({'success': True})
+        return Response({'success': True})
     else:
-        return JsonResponse({'success': False, 'error': 'Datos incompletos', 'data':{data}, 'user_mail':user_mail, 'current_date':current_date, 'level':level, 'client_ip':client_ip, 'action':action, 'current_page':current_page})
+        return Response({'success': False, 'error': 'Datos incompletos', 'data':{data}, 'user_mail':user_mail, 'current_date':current_date, 'level':level, 'client_ip':client_ip, 'action':action, 'current_page':current_page})
