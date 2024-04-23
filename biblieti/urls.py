@@ -27,10 +27,9 @@ urlpatterns = [
     path('api/get_products/<str:type>,<str:availability>,<str:name>,<str:author>,<str:ISBN>,<str:publication_year>,<str:artist>,<int:tracks>,<str:director>,<int:duration>,<str:resolution>,<str:manufacturer>,<str:model>', api.get_products, name='get_products'),
     path('send_log/', api.send_log, name='send_log'),
     path('test/', test),
-    path('', auth_views.LoginView.as_view(), name='login'),
+    path('', login_view, name='login'),
     path('forgot_password/', auth_views.PasswordResetView.as_view(), name='forgot_password'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('change_password/', auth_views.PasswordChangeView.as_view(), name='change_password'),
     path('user_data/', user_data, name='user_data'),
-    #path('', views.landing_page, name='landing_page'),
 ]

@@ -26,8 +26,7 @@
         <div class="left-container">
             <h2>CERCA AL CATÀLEG</h2>
             <div class="search-container" id="search-container">
-                <form action="/busqueda/" method="POST" id="search-form">
-                    {% csrf_token %}
+                <form action="/busqueda/" method="GET" id="search-form">
                     <label for="searchInfo">Nom del llibre:</label>
                     <div id="search-row">
                         <div class="search-container-inner" id="search-container-inner">
@@ -51,13 +50,21 @@
         </div>
         <div class="right-container">
             <h2 class="">INICIA SESSIÓ</h2>
-            <form action="{% url 'login' %}" method="post" id="loginForm">
+            <form action="" method="post" id="loginForm">
                 {% csrf_token %}
-                {{ form }}
+                <label for="username">Nom d'usuari:</label>
+                <input type="text" id="username" name="username">
+                <label for="password">Contrasenya:</label>
+                <input type="password" id="password" name="password">
                 <input type="submit" value="Iniciar Sessió">
             </form>
         </div>
     </main>
+    {% if error %}
+    <script>
+        createNotification("error", "{{ errorMsg }}");
+    </script>
+    {% endif %}    
     <script src="{% static 'landing_page_controller.js' %}"></script>
 </div>
 

@@ -11,26 +11,6 @@ def landing_page(request):
     return render(request, 'landing_page.html')
 
 
-def user_login(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        try:
-            user = User_ieti.objects.get(mail=email)
-            if check_password(password, user.password):
-                # Usuario autenticado correctamente
-                # Realiza el login del usuario
-                return render(request, 'dashboard.html')  # Redirige al usuario a la página de inicio después del inicio de sesión exitoso
-            else:
-                # Contraseña incorrecta
-                return render(request, 'landing_page.html', {'error': 'Credenciales inválidas, Contraseña Incorrecta'})
-        except User_ieti.DoesNotExist:
-            # Usuario no encontrado
-            return render(request, 'landing_page.html', {'error': 'Credenciales inválidas, No existe el Usuario'})
-    else:
-        return render(request, 'landing_page.html')
-
-
 def busqueda(request):
     return render(request, 'search_product.html')
 
@@ -52,6 +32,25 @@ def user_data(request):
         pass
     print(request.user.username)
     return render(request, 'user_data.html', {'user': request.user})
+
+def login_view(request):
+    data = {}
+    if request.method == "POST":
+        username = request.POST.get("username").lower()
+        password = request.POST.get("password")
+        try:
+            user = User_ieti.objects.get(username=username)
+            if user is not None:
+                login(request, user)
+                print(request.user)
+                return redirect("dashboard")
+            else:
+                data['error'] = True
+                data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
+        except:
+            data['error'] = True
+            data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
+    return render(request, "registration/login.html", data)
 
 def test(request):
     return render(request, 'test.html')

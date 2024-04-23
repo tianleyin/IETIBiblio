@@ -1,6 +1,9 @@
 $(() => {
-    console.log()
     let productType = "Any"
+    let url = new URL(window.location)
+    if (url.searchParams && url.searchParams.get("searchInfo")) {
+        requestProducts(url.searchParams.get("searchInfo"), "All", "null", "null", "null", "null", 0, "null", 0, "null", "null", "null")
+    }
     $("#expand-header").off().on("click", () => {
         $(".expanding-header").toggleClass("expanded")
         if ($(".expanding-header").hasClass("expanded")) {
