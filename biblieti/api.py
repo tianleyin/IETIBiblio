@@ -13,29 +13,84 @@ def hello(request):
         }, safe=False)
 
 @api_view(['GET'])
-def get_products(request, type, availability):
+def get_products(request, type, availability, name, author, ISBN, publication_year, artist, tracks, director, duration, resolution, manufacturer, model):
+    print(type)
+    if (name == 'null'):
+        name = ''
+    if (author == 'null'):
+        author = ''
+    if (ISBN == 'null'):
+        ISBN = ''
+    if (artist == 'null'):
+        artist = ''
+    if (director == 'null'):
+        director = ''
+    if (resolution == 'null'):
+        resolution = ''
+    if (manufacturer == 'null'):
+        manufacturer = ''
+    if (model == 'null'):
+        model = ''
     filteredData = []
     if (type == 'Any'):
-        bookData = list(Book.objects.all().values())
+        if (publication_year != 'null'):
+            bookData = list(Book.objects.filter(name__contains=name,author__contains=author,ISBN__contains=ISBN,publication_year=publication_year).values())
+        else:
+            bookData = list(Book.objects.filter(name__contains=name,author__contains=author,ISBN__contains=ISBN).values())
+        for item in bookData:
+            item['type'] = 'Book'
         filteredData.extend(bookData)
-        cdData = list(CD.objects.all().values())
+        if (tracks != 0):
+            cdData = list(CD.objects.filter(name__contains=name,artist__contains=artist,tracks=tracks).values())
+        else:
+            cdData = list(CD.objects.filter(name__contains=name,artist__contains=artist).values())
+        for item in cdData:
+            item['type'] = 'CD'
         filteredData.extend(cdData)
-        dvdData = list(DVD.objects.all().values())
+        if duration != 0:
+            dvdData = list(DVD.objects.filter(name__contains=name,director__contains=director,duration=duration).values())
+        else:
+            dvdData = list(DVD.objects.filter(name__contains=name,director__contains=director).values())            
+        for item in dvdData:
+            item['type'] = 'DVD'
         filteredData.extend(dvdData)
-        brData = list(BR.objects.all().values())
+        brData = list(BR.objects.filter(name__contains=name,resolution__contains=resolution).values())
+        for item in brData:
+            item['type'] = 'BR'
         filteredData.extend(brData)
-        deviceData = list(Device.objects.all().values())
+        deviceData = list(Device.objects.filter(name__contains=name,manufacturer__contains=manufacturer,model__contains=model).values())
+        for item in deviceData:
+            item['type'] = 'Device'
         filteredData.extend(deviceData)
     elif (type == 'Book'):
-        filteredData = list(Book.objects.filter(name__contains=availability).values())
+        if (publication_year != 'null'):
+            filteredData = list(Book.objects.filter(name__contains=name,author__contains=author,ISBN__contains=ISBN,publication_year=publication_year).values())
+        else:
+            filteredData = list(Book.objects.filter(name__contains=name,author__contains=author,ISBN__contains=ISBN).values())
+        for item in filteredData:
+            item['type'] = 'Book'
     elif (type == 'CD'):
-        filteredData = list(CD.objects.all().values())
+        if (tracks != 0):
+            filteredData = list(CD.objects.filter(name__contains=name,artist__contains=artist,tracks=tracks).values())
+        else:
+            filteredData = list(CD.objects.filter(name__contains=name,artist__contains=artist).values())
+        for item in filteredData:
+            item['type'] = 'CD'
     elif (type == 'DVD'):
-        filteredData = list(DVD.objects.all().values())
+        if duration != 0:
+            filteredData = list(DVD.objects.filter(name__contains=name,director__contains=director,duration=duration).values())
+        else:
+            filteredData = list(DVD.objects.filter(name__contains=name,director__contains=director).values())
+        for item in filteredData:
+            item['type'] = 'DVD'
     elif (type == 'BR'):
-        filteredData = list(BR.objects.all().values())
+        filteredData = list(BR.objects.filter(name__contains=name,resolution__contains=resolution).values())
+        for item in filteredData:
+            item['type'] = 'BR'
     elif (type == 'Device'):
-        filteredData = list(Device.objects.all().values())
+        filteredData = list(Device.objects.filter(name__contains=name,manufacturer__contains=manufacturer,model__contains=model).values())
+        for item in filteredData:
+            item['type'] = 'Device'
     for item in filteredData:
         if Booking.objects.filter(catalogue_id=item['id']).exists():
             if request.data.get('availability' == 'available'):

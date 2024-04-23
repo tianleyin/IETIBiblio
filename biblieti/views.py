@@ -33,6 +33,9 @@ def user_login(request):
 def busqueda(request):
     return render(request, 'search_product.html')
 
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
 def test(request):
     return render(request, 'test.html')
 

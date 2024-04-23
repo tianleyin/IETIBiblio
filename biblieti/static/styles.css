@@ -5,6 +5,8 @@
     --gray: #E1D9CE;
     --white: #ffffff;
     --accent-green: #295135;
+    --warning-yellow: #f0c547;
+    --error-red: #E94444;
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -77,6 +79,17 @@ header:not(.expanding-header) {
     justify-content: space-between;
 }
 
+header nav {
+    display: flex;
+    gap: 12px;
+}
+
+header nav ul {
+    display: flex;
+    gap: 12px;
+    list-style: none;
+}
+
 header nav a {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
@@ -109,7 +122,9 @@ header nav a:hover {
 }
 
 #expand-header {
-    cursor:pointer
+    cursor:pointer;
+    display: flex;
+    align-items: center;
 }
 
 .expanding-header hr {
@@ -342,6 +357,79 @@ label {
     float: right;
 }
 
+main {
+    min-height: calc(100vh - 50px);
+    background-color: var(--light-brown);
+    overflow-y: scroll;
+}
+
+#search-results {
+    padding: 0 12px;
+}
+
+.product-card {
+    width: 100%;
+    border-radius: 4px;
+    min-height: 100px;
+    margin: 12px 0;
+    font-family: 'Inter', sans-serif;
+    padding: 8px;
+    background-color: var(--dark-brown);
+}
+
+.product-card h2 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.product-card p {
+    font-size: 14px;
+    margin: 4px 0
+}
+
+.notification {
+    background: none !important;
+    display: flex !important;
+    align-items: center;
+}
+
+.notification .message {
+    display: flex;
+    align-items: center;
+}
+
+.notification .message span {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 12px;
+    border-radius: 4px;
+}
+
+.notification .message svg {
+    flex: 1 0 0;
+    min-width: 36px;
+    max-width: 36px;
+    min-height: 36px;
+    max-height: 36px;
+}
+
+.notification button {
+    opacity: 1;
+}
+
+.notification.info {
+    background-color: var(--accent-green) !important;
+}
+
+.notification.warning {
+    background-color: var(--warning-yellow) !important;
+    color: var(--black) !important
+}
+
+.notification.error {
+    background-color: var(--error-red) !important;
+}
 
 #welcome {
     padding: 32px 16px 0;
