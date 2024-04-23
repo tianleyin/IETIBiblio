@@ -117,9 +117,9 @@ def send_log(request):
 
         data = json.loads(request.body)
         current_date = timezone.now()
-        level = data.get('type')
+        level = data["type"]
         client_ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_CLIENT_IP') or request.META.get('REMOTE_ADDR')
-        action = data.get('message')
+        action = data["message"]
         current_page = request.META.get('HTTP_REFERER')
         
         if current_date and level and client_ip and action and user_mail and current_page:
