@@ -10,7 +10,6 @@ from .models import *
 def landing_page(request):
     return render(request, 'landing_page.html')
 
-
 def busqueda(request):
     return render(request, 'search_product.html')
 
@@ -28,6 +27,8 @@ def user_data(request):
         user = User_ieti.objects.get(username=current_user)
         user.username = request.POST.get('name')
         user.mail = request.POST.get('email')
+        user.school = request.POST.get('school')
+        user.cycle = request.POST.get('cycle')
         user.save()
         pass
     print(request.user.username)
