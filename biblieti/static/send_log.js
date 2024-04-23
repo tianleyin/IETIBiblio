@@ -22,8 +22,6 @@ function check_local_storage() {
         // Envía cada log al servidor utilizando la función send_log()
         console.log("sended log: ");
         console.log(log);
-        console.log(log.type);
-        console.log(log.message);
         send_log(log.type, log.message);
     });
     // Limpia el localStorage después de enviar los logs

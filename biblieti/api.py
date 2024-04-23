@@ -113,7 +113,7 @@ def send_log(request):
         if request.user.is_authenticated:
             user_mail = request.user.email
         else:
-            user_mail = None
+            user_mail = "None@none.none"
 
         data = json.loads(request.body)
         current_date = timezone.now()
