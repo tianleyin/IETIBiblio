@@ -20,7 +20,7 @@ def landing_page(request):
             if check_password(password, user.password):
                 # Usuario autenticado correctamente
                 # Realiza el login del usuario
-                return render(request, 'dashboard.html')  # Redirige al usuario a la página de inicio después del inicio de sesión exitoso
+                return redirect('dashboard')  # Redirige al usuario a la página de inicio después del inicio de sesión exitoso
             else:
                 # Contraseña incorrecta
                 return render(request, 'landing_page.html', {'error': 'Credenciales inválidas, Contraseña Incorrecta'})
