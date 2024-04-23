@@ -109,21 +109,25 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
 
 @api_view(['POST'])
 def send_log(request):
-    if request.user.is_authenticated:
-        user_mail = request.user.email
-    else:
-        user_mail = None
+    try:
+        if request.user.is_authenticated:
+            user_mail = request.user.email
+        else:
+            user_mail = None
 
-    data = json.loads(request.body)
-    current_date = timezone.now()
-    level = data.get('type')
-    client_ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_CLIENT_IP') or request.META.get('REMOTE_ADDR')
-    action = data.get('message')
-    current_page = request.META.get('HTTP_REFERER')
-    
-    if current_date and level and client_ip and action and user_mail and current_page:
-        log_entry = Logs.objects.create(date=current_date, type=level, client_ip=client_ip, action=action, user_mail=user_mail, current_page=current_page)
-        log_entry.save()
-        return Response({'success': True})
-    else:
-        return Response({'success': False, 'error': 'Datos incompletos', 'data':{data}, 'user_mail':user_mail, 'current_date':current_date, 'level':level, 'client_ip':client_ip, 'action':action, 'current_page':current_page})
+        data = json.loads(request.body)
+        current_date = timezone.now()
+        level = data.get('type')
+        client_ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_CLIENT_IP') or request.META.get('REMOTE_ADDR')
+        action = data.get('message')
+        current_page = request.META.get('HTTP_REFERER')
+        
+        if current_date and level and client_ip and action and user_mail and current_page:
+            log_entry = Logs.objects.create(date=current_date, type=level, client_ip=client_ip, action=action, user_mail=user_mail, current_page=current_page)
+            log_entry.save()
+            return Response({'success': True})
+        else:
+            return Response({'success': False, 'error': 'Datos incompletos', 'data':{data}, 'user_mail':user_mail, 'current_date':current_date, 'level':level, 'client_ip':client_ip, 'action':action, 'current_page':current_page})
+    except Exception as e:
+        # Captura cualquier excepción y envía los detalles como respuesta
+        return Response({'success': False, 'error': str(e)})   
