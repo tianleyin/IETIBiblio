@@ -2,7 +2,7 @@ function save_log(type, message) {
     // Esta función guarda el log en el localStorage
     var logsString = localStorage.getItem('logs');
     var logs = logsString ? JSON.parse(logsString) : [];
-    
+
     logs.push({type: type, message: message}); // Agrega el nuevo log a la lista
     localStorage.setItem('logs', JSON.stringify(logs)); // Guarda la lista actualizada en el localStorage
 }
@@ -24,7 +24,7 @@ function check_local_storage() {
 
 function send_log(type, message) {
     $.ajax({
-        url: '/send_log/', // La URL a la que deseas enviar la solicitud POST
+        url: '/api/send_log/', // La URL a la que deseas enviar la solicitud POST
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
