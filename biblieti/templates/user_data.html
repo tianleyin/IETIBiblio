@@ -35,7 +35,7 @@
         </nav>
     </header>
     <main id="user-data">
-        <form method="POST">
+        <form id="update-form" method="POST">
             {% csrf_token %}
             <img src="{{ user.picture }}">
             <label for="name">Nom d'usuari:</label>
