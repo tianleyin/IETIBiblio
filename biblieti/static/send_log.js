@@ -14,9 +14,12 @@ function check_local_storage() {
     var logsString = localStorage.getItem('logs');
     var logs = logsString ? JSON.parse(logsString) : [];
 
+    console.log("chek local storage. Current localstorage: " + localStorage.getItem("logs"));
+
     logs.forEach(function(log) {
         // Envía cada log al servidor utilizando la función send_log()
-        console.log("sended log: " + log);
+        console.log("sended log: ");
+        console.log(log);
         send_log(log.type, log.message);
     });
     // Limpia el localStorage después de enviar los logs
