@@ -89,7 +89,7 @@ class Logs(models.Model):
     type = models.CharField(max_length=20, choices=type_choices)
     client_ip = models.CharField(max_length=255)
     action = models.TextField()
-    user_name = models.CharField(max_length=255)
+    user_name = models.CharField(max_length=255, default="Anonymous")
     current_page = models.CharField(max_length=255)
     
     def clean(self):
