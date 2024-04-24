@@ -2,10 +2,10 @@ from django.contrib import admin
 from .models import *
 
 class LogsAdmin(admin.ModelAdmin):
-    list_display = ('date', 'type', 'client_ip', 'action', 'user_mail', 'current_page')
-    list_filter = ('date', 'type', 'client_ip', 'user_mail')
-    search_fields = ('date', 'action', 'user_mail', 'current_page')
-    readonly_fields = ('date', 'type', 'client_ip', 'action', 'user_mail', 'current_page')
+    list_display = ('date', 'type', 'client_ip', 'action', 'user_name', 'current_page')
+    list_filter = ('date', 'type', 'client_ip', 'user_name')
+    search_fields = ('date', 'action', 'user_name', 'current_page')
+    readonly_fields = ('date', 'type', 'client_ip', 'action', 'user_name', 'current_page')
 
 # Register your models here.
 admin.site.register(User_ieti)
