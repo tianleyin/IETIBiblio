@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Esto es una pagina de test</h1>
+<script>
+    save_log("info", "log de prueba repetido");
+    save_log("warning", "log de prueba2");
+    save_log("fatal", "log de prueba3");
+    save_log("info", "log de prueba repetido");
+    
+</script>
+
+{% endblock %}
