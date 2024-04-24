@@ -30,6 +30,6 @@ urlpatterns = [
     path('', login_view, name='login'),
     path('forgot_password/', auth_views.PasswordResetView.as_view(), name='forgot_password'),
     path('logout/', auth_views.LogoutView.as_view(template_name='logout_custom.html'), name='logout'),
-    path('change_password/', auth_views.PasswordChangeView.as_view(), name='change_password'),
+    path('change_password/', auth_views.PasswordChangeView.as_view(success_url=reverse_lazy('dashboard')), name='change_password'),
     path('user_data/', user_data, name='user_data'),
 ]
