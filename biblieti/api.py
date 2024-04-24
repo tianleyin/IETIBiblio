@@ -110,19 +110,20 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
 @api_view(['POST'])
 def send_log(request):
     try:
-        data = json.loads(request.body)
+        data = request.data
         current_date = timezone.now()
         level = data.get('type')
         client_ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_CLIENT_IP') or request.META.get('REMOTE_ADDR')
         action = data.get('message')
-        current_page = request.META.get('HTTP_REFERER')
+        current_page = data.get('current_page')
         
         if current_date and level and client_ip and action and current_page:
             log_entry = Logs.objects.create(date=current_date, type=level, client_ip=client_ip, action=action, current_page=current_page)
             log_entry.save()
             return Response({'success': True})
         else:
-            return Response({'success': False, 'error': 'Datos incompletos', 'data':{data}, 'current_date':current_date, 'level':level, 'client_ip':client_ip, 'action':action, 'current_page':current_page})
+            return Response({'success': False, 'error': 'Datos incompletos', 'current_date':current_date, 'level':level, 'client_ip':client_ip, 'action':action, 'current_page':current_page})
+
     except Exception as e:
         # Captura cualquier excepción y envía los detalles como respuesta
-        return Response({'success': False, 'error': str(e), 'data':data}) 
+        return Response({'success': False, 'error': str(e)})

@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import *
+from django.utils import timezone
 
 def landing_page(request):
     return render(request, 'landing_page.html')
@@ -44,6 +45,17 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 print(request.user)
+
+                # save log of login user
+                current_date = timezone.now()
+                level = "info"
+                client_ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_CLIENT_IP') or request.META.get('REMOTE_ADDR')
+                action = "succesfull login of " + username
+                current_page = "landing_page"
+
+                log_entry = Logs.objects.create(date=current_date, type=level, client_ip=client_ip, action=action, current_page=current_page)
+                log_entry.save()
+
                 return redirect("dashboard")
             else:
                 data['error'] = True
