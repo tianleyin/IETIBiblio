@@ -110,11 +110,6 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
 @api_view(['POST'])
 def send_log(request):
     try:
-        if request.user.is_authenticated:
-            user_name = request.user.username
-        else:
-            user_name = "Anonymus"
-
         data = json.loads(request.body)
         current_date = timezone.now()
         level = data.get('type')
@@ -122,12 +117,12 @@ def send_log(request):
         action = data.get('message')
         current_page = request.META.get('HTTP_REFERER')
         
-        if current_date and level and client_ip and action and user_name and current_page:
-            log_entry = Logs.objects.create(date=current_date, type=level, client_ip=client_ip, action=action, user_name=user_name, current_page=current_page)
+        if current_date and level and client_ip and action and current_page:
+            log_entry = Logs.objects.create(date=current_date, type=level, client_ip=client_ip, action=action, current_page=current_page)
             log_entry.save()
             return Response({'success': True})
         else:
-            return Response({'success': False, 'error': 'Datos incompletos', 'data':{data}, 'user_name':user_name, 'current_date':current_date, 'level':level, 'client_ip':client_ip, 'action':action, 'current_page':current_page})
+            return Response({'success': False, 'error': 'Datos incompletos', 'data':{data}, 'current_date':current_date, 'level':level, 'client_ip':client_ip, 'action':action, 'current_page':current_page})
     except Exception as e:
         # Captura cualquier excepción y envía los detalles como respuesta
         return Response({'success': False, 'error': str(e), 'data':data}) 
