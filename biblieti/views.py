@@ -40,7 +40,7 @@ def login_view(request):
         password = request.POST.get("password")
         try:
             user = User_ieti.objects.get(username=username)
-            if user is not None:
+            if user is not None and check_password(password, user.password):
                 login(request, user)
                 print(request.user)
                 return redirect("dashboard")
