@@ -10,7 +10,8 @@ class Command(BaseCommand):
     help = 'Seeder2: Populate database with authors and books'
 
     def handle(self, *args, **kwargs):
-        fake = Faker('es_ES')
+        fake_es = Faker('es_ES')
+        fake_en = Faker('en_US')
 
         titles_cat = [
             "Cent anys de solitud",
@@ -32,7 +33,27 @@ class Command(BaseCommand):
             "Orgull i prejudici",
             "Orgullo y prejuicio",
             "Crim i càstig",
-            "Crimen y castigo"
+            "Crimen y castigo",
+            "El secret de la muntanya",
+            "El misteri de la masia",
+            "L'enigma del far",
+            "L'illa perduda",
+            "El tresor del pirata",
+            "La llegenda del drac",
+            "El poder de la màgia",
+            "El regne oblidat",
+            "La princesa sense corona",
+            "El cavaller de la nit",
+            "L'ombra del passat",
+            "El xiuxiueig del vent",
+            "L'eco dels somnis",
+            "El xiuxiueig de les estrelles",
+            "El laberint dels secrets",
+            "El destí del heroi",
+            "La clau del laberint",
+            "L'últim vol del fènix",
+            "La senda del guerrrer",
+            "La dansa de les ombres"
         ]
 
         titles_es = [
@@ -55,7 +76,27 @@ class Command(BaseCommand):
             "La sombra del viento",
             "La casa de Bernarda Alba",
             "La regenta",
-            "La colmena"
+            "La colmena",
+            "La herencia perdida",
+            "El secreto del bosque",
+            "El misterio de la mansión",
+            "El tesoro del pirata",
+            "La leyenda del caballero",
+            "El enigma del faro",
+            "El vuelo del águila",
+            "La senda del destino",
+            "El susurro de las sombras",
+            "La melodía del alma",
+            "El jardín de las ilusiones",
+            "El eco del silencio",
+            "El laberinto de los recuerdos",
+            "El sueño del navegante",
+            "La estrella fugaz",
+            "El susurro de la luna",
+            "La promesa del mañana",
+            "La voz del viento",
+            "El fuego eterno",
+            "El canto de los sueños"
         ]
         
         subjectList = [
@@ -72,11 +113,11 @@ class Command(BaseCommand):
 
         # Create books with random authors
         for _ in range(100):
-            author_list.append(fake.name())
+            author_list.append(fake_es.name())
 
 
         for author_name in author_list:
-            num_books = random.randint(1,10)
+            num_books = random.randint(1,4)
             for _ in range(num_books):
                 if random.choice([True, False]):
                     title = random.choice(titles_cat)
@@ -86,30 +127,45 @@ class Command(BaseCommand):
                 Book.objects.create(
                     name = title,
                     author = author_name,
-                    ISBN = fake.isbn10(),
-                    publication_year = fake.year()
+                    ISBN = fake_es.isbn10(),
+                    publication_year = fake_es.year()
                 )
+                
+                Book.objects.create(
+                    name = fake_es.sentence(nb_words=random.randint(1, 5)),
+                    author = author_name,
+                    ISBN = fake_es.isbn10(),
+                    publication_year = fake_es.year()
+                )
+                
+                Book.objects.create(
+                    name = fake_en.sentence(nb_words=random.randint(1, 5)),
+                    author = author_name,
+                    ISBN = fake_es.isbn10(),
+                    publication_year = fake_es.year()
+                )
+                
 
         for _ in range(3):
             User_ieti.objects.create(
-                username=fake.name(),
-                email=fake.email(),
-                password=fake.password(),
+                username=fake_es.name(),
+                email=fake_es.email(),
+                password=fake_es.password(),
                 role='librarian',
-                date_of_birth=fake.date_of_birth(),
+                date_of_birth=fake_es.date_of_birth(),
                 school="Institut Esteve Terradas i Illa",
                 # You might want to seed the image field here as well
             )
         
         for _ in range(15):
             User_ieti.objects.create(
-                username=fake.name(),
-                email=fake.email(),
-                password=fake.password(),
+                username=fake_es.name(),
+                email=fake_es.email(),
+                password=fake_es.password(),
                 role='student',
-                date_of_birth=fake.date_of_birth(),
+                date_of_birth=fake_es.date_of_birth(),
                 school="Institut Esteve Terradas i Illa",
-                cycle=fake.random_element(elements=('Grau Superior DAW', 'Grau Superior DAM', 'Grau Mig Electromecànica de vehicles automòbils', 'Grau Mig Gestió administrativa', 'Grau Mig Mecanització')),
+                cycle=fake_es.random_element(elements=('Grau Superior DAW', 'Grau Superior DAM', 'Grau Mig Electromecànica de vehicles automòbils', 'Grau Mig Gestió administrativa', 'Grau Mig Mecanització')),
                 # You might want to seed the image field here as well
             )
         
