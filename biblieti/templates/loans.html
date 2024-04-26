@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div id="search-product">
+    <header class="expanding-header">
+        <div class="visible-section">
+            <span id="expand-header">
+                CERCA AVANÇADA
+                <div id="chevron-container">
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>
+                </div>
+            </span>
+            <nav>
+                <ul>
+                    <li><a href="/dashboard">DASHBOARD</a></li>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button id="btn-logout" type="submit">TANCAR SESSIÓ</button>
+                    </form>
+                </ul>
+            </nav>
+        </div>
+        <hr>
+        <form>
+            <fieldset>
+                <legend>Filtres de cerca</legend>
+                <div class="form-row space-around">
+                    <div>
+                        <label for="product-name">Nom del producte</label>
+                        <input type="text" id="product-name">
+                    </div>
+                    <div>
+                        <label for="product-type">Tipus</label>
+                        <select id="product-type">
+                            <option value="Any" selected>Qualsevol</option>
+                            <option value="Book">Llibre</option>
+                            <option value="CD">CD</option>
+                            <option value="DVD">DVD</option>
+                            <option value="BR">Blu-Ray</option>
+                            <option value="Device">Dispositiu</option>
+                        </select>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </fieldset>
+            <div id="dynamic-fieldset">
+            </div>
+            <div class="form-row space-around button-row">
+                <div id="button-container">
+                    <button class="accent-button" type="reset" id="reset-filter">Eliminar filtre</button>
+                    <button class="accent-button" id="search-button">Cercar</button>
+                </div>
+        </form>
+    </header>
+    <main>
+        <ul id="search-results">
+        </ul>
+    </main>
+</div>
+
+<script src="{% static 'search_product_controller.js' %}?no-cache={% now "U" %}"></script>
+<script src="{% static 'loans_controller.js' %}?no-cache={% now "U" %}"></script>
+
+{% endblock %}
