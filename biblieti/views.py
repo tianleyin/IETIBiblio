@@ -32,6 +32,14 @@ def loans(request):
         return redirect('dashboard')
     return render(request, "loans.html")
 
+def loans_form(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    if not request.user.role == "librarian" and not request.user.role == "superadmin":
+        return redirect('dashboard')
+    return render(request, "loans_form.html")
+    
+
 def user_data(request):
     if not request.user.is_authenticated:
         return redirect('login')

@@ -135,12 +135,6 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
                 item['available'] = True
     return JsonResponse(filteredData, safe=False)
 
-@api_view(['GET'])
-def get_loans(request):
-    loans = Loan.objects.all()
-    loans_data = list(loans.values())
-    return JsonResponse(loans_data, safe=False)
-
 @api_view(['POST'])
 def send_log(request):
     try:
