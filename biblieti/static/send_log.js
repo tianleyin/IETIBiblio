@@ -5,8 +5,8 @@ function save_log(type, message) {
 
     logs.push({type: type, message: message, current_page: window.location.href}); // Agrega el nuevo log a la lista
     localStorage.setItem('logs', JSON.stringify(logs)); // Guarda la lista actualizada en el localStorage
-    console.log("saved log. Current localstorage: ");
-    console.log(localStorage.getItem("logs"));
+    //console.log("saved log. Current localstorage: ");
+    //console.log(localStorage.getItem("logs"));
 }
 
 
@@ -15,13 +15,13 @@ function check_local_storage() {
     var logsString = localStorage.getItem('logs');
     var logs = logsString ? JSON.parse(logsString) : [];
 
-    console.log("chek local storage. Current localstorage: ");
-    console.log(localStorage.getItem("logs"));
+    //console.log("chek local storage. Current localstorage: ");
+    //console.log(localStorage.getItem("logs"));
 
     logs.forEach(function(log) {
         // Envía cada log al servidor utilizando la función send_log()
-        console.log("sended log: ");
-        console.log(log);
+        //console.log("sended log: ");
+        //console.log(log);
         send_log(log.type, log.message, log.current_page);
     });
     // Limpia el localStorage después de enviar los logs
