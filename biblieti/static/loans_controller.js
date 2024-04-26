@@ -138,24 +138,24 @@ $(() => {
         let model = 'null'
         switch (productType) {
             case "Book":
-                author = $("#author").val()
-                ISBN = $("#ISBN").val()
-                publishYear = $("#publish-year").val()
+                author = $("#author").val() == "" ? "null" : $("#author").val()
+                ISBN = $("#ISBN").val() == "" ? "null" : $("#ISBN").val()
+                publishYear = $("#publish-year").val() == "" ? "null" : $("#publish-year").val()
                 break
             case "CD":
-                artist = $("#artist").val()
-                tracks = $("#tracks").val()
+                artist = $("#artist").val() == "" ? "null" : $("#artist").val()
+                tracks = $("#tracks").val() == "" ? 0 : $("#tracks").val()
                 break
             case "DVD":
-                director = $("#director").val()
+                director = $("#director").val() == "" ? "null" : $("#director").val()
                 duration = $("#duration").val()
                 break
             case "BR":
-                resolution = $("#resolution").val()
+                resolution = $("#resolution").val() == "" ? "null" : $("#resolution").val()
                 break
             case "Device":
-                manufacturer = $("#manufacturer").val()
-                model = $("#model").val()
+                manufacturer = $("#manufacturer").val() == "" ? "null" : $("#manufacturer").val()
+                model = $("#model").val() == "" ? "null" : $("#model").val()
                 break
         }
         requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model)
@@ -176,21 +176,27 @@ $(() => {
         $("#search-results").empty()
         data.forEach(element => {
             let translatedType = ""
+            let href = ""
             switch (element.type) {
                 case "Book":
                     translatedType = "Llibre"
+                    href = `${element.id},${element.name},${element.ISBN},${element.author},${element.publication_year}`
                     break
                 case "CD":
                     translatedType = "CD"
+                    href = `${element.id},${element.name},${element.ISBN},${element.artist},${element.tracks}`
                     break
                 case "DVD":
                     translatedType = "DVD"
+                    href = `${element.id},${element.name},${element.director},${element.duration}`
                     break
                 case "BR":
                     translatedType = "Blu-Ray"
+                    href = `${element.id},${element.name},${element.resolution}`
                     break
                 case "Device":
                     translatedType = "Dispositiu"
+                    href = `${element.id},${element.manufacturer},${element.model}`
                     break
             }
             let translatedAvailability = ""
@@ -202,7 +208,7 @@ $(() => {
                         <h2>${element.name}</h2>
                         <p>${translatedType}</p>
                         <p>${translatedAvailability}</p>
-                        <a href="loans/${element.id} class='loan-button'">Prestar</a>
+                        <a href="loans/${href}" class='loan-button'>Prestar</a>
                     </div>
                 </li>
                 `)
