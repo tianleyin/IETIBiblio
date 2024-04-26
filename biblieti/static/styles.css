@@ -534,6 +534,7 @@ main {
     font-weight: 600;
     margin: 0 12px;
     border-radius: 4px;
+    white-space: pre-line;
 }
 
 .notification .message svg {
@@ -701,4 +702,19 @@ main {
     cursor: pointer;
     border: none;
     color: var(--white);
+}
+
+
+#import_csv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+#import_csv textarea {
+    resize: none;
+    width: calc(100vw - 80px);
+    height: calc(100vh - 100px);
 }
