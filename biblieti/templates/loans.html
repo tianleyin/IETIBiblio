@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<nav>
+    <ul>
+        <li><a href="/dashboard">DASHBOARD</a></li>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button id="btn-logout" type="submit">TANCAR SESSIÓ</button>
+        </form>
+    </ul>
+</nav>
+
+<main id="loans-data">
+
+</main>
+
+<script src="{% static 'loans_controller.js' %}?no-cache={% now "U" %}"></script>
+
+{% endblock %}

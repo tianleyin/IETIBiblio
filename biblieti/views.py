@@ -22,8 +22,15 @@ def dashboard(request, notification=None, notificationMsg=None):
         notificationMsg = request.session.get('notificationMsg')
         request.session.pop('notification')
         request.session.pop('notificationMsg')
-        return render(request, 'dashboard.html', {'username': request.user.username, 'notification': notification, 'notificationMsg': notificationMsg})
-    return render(request, 'dashboard.html', {'username': request.user.username})
+        return render(request, 'dashboard.html', {'user': request.user, 'notification': notification, 'notificationMsg': notificationMsg})
+    return render(request, 'dashboard.html', {'user': request.user})
+
+def loans(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    if not request.user.role == "librarian" and not request.user.role == "superadmin":
+        return redirect('dashboard')
+    return render(request, "loans.html")
 
 def user_data(request):
     if not request.user.is_authenticated:
