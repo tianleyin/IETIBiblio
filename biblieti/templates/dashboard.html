@@ -41,5 +41,10 @@
         </div>
     </main>
     <script src="{% static 'dashboard_controller.js' %}?no-cache={% now "U" %}"></script>
+    {% if notification %}
+    <script>
+        createNotification("{{notification}}", "{{ notificationMsg }}");
+    </script>
+    {% endif %}
 </div>
 {% endblock %}

@@ -1,4 +1,4 @@
-function createNotification(type, msg) {
+function createNotification(type, msg, node) {
     let nodeElement = ""
     switch (type) {
         case "info":
@@ -22,11 +22,21 @@ function createNotification(type, msg) {
             `)
             break
     }
-    console.log(nodeElement)
-    Toastify({
+    options = {
         node: nodeElement[0],
         className: `notification ${type}`,
         close: true,
         duration: -1,
-    }).showToast();
+    }
+    console.log(node.offset())
+    if (!node) {
+        options.position = "center"
+    } else {
+        options.position = "left"
+        options.offset = {
+            x: node.offset().left,
+            y: node.offset().top
+        }
+    }
+    Toastify(options).showToast();
 }
