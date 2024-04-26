@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from .models import *
+from django.db.models import Q
 from django.utils import timezone
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -12,6 +13,34 @@ def hello(request):
             "status": "OK",
             "hello": "World",
         }, safe=False)
+
+@api_view(['GET'])
+def get_products_landing(request, search):
+    try:
+        search_int = int(search)
+    except ValueError:
+        search_int = 99999999999999999999999999999999999999999999999999999999
+
+    filteredData = Catalogue.objects.filter(
+
+        Q(name__icontains=search) |  # Usamos icontains para que la búsqueda no sea sensible a mayúsculas y minúsculas
+        Q(book__author__icontains=search) |
+        Q(book__ISBN__icontains=search) |
+        Q(book__publication_year__icontains=search_int) |
+        Q(cd__artist__icontains=search) |
+        Q(cd__tracks__contains=search_int) |
+        Q(dvd__director__icontains=search) |
+        Q(dvd__duration__contains=search_int) |
+        Q(br__resolution__icontains=search) |
+        Q(device__manufacturer__icontains=search) |
+        Q(device__model__icontains=search)
+
+    ).distinct()
+
+    #return JsonResponse(list(filteredData.values()), safe=False)
+    # Serializa los resultados y devuelve una respuesta JSON
+    serialized_data = [item.serialize() for item in filteredData]
+    return JsonResponse(serialized_data, safe=False)
 
 @api_view(['GET'])
 def get_products(request, type, availability, name, author, ISBN, publication_year, artist, tracks, director, duration, resolution, manufacturer, model):

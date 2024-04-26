@@ -37,6 +37,47 @@ class Catalogue(models.Model):
     def __str__(self):
         return self.name
 
+    def serialize(self):
+        # Serializar campos propios para devolverlos en un formato json
+        data = {
+            'name': self.name
+        }
+
+        # Si tienes un objeto relacionado CD, puedes serializar su artista
+        if hasattr(self, 'book'):
+            data['book'] = {
+                'author': self.book.author,
+                'ISBN': self.book.ISBN,
+                'publication_year': self.book.publication_year
+            }
+
+        if hasattr(self, 'cd'):
+            data['cd'] = {
+                'artist': self.cd.artist,
+                'tracks': self.cd.tracks
+            }
+
+        if hasattr(self, 'dvd'):
+            data['dvd'] = {
+                'director': self.dvd.director,
+                'duration': self.dvd.duration
+            }
+
+        if hasattr(self, 'br'):
+            data['br'] = {
+                'resolution': self.br.resolution
+            }
+
+        if hasattr(self, 'device'):
+            data['device'] = {
+                'manufacturer': self.device.manufacturer,
+                'model': self.device.model
+            }
+
+        
+
+        return data
+
 class Book(Catalogue):
     author = models.CharField(max_length=100)
     ISBN = models.CharField(max_length=20)
