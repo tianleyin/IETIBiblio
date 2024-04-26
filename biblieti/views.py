@@ -7,6 +7,32 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import *
 from django.utils import timezone
+import re
+
+
+def validar_contrasena(contrasena):
+    # Longitud entre 8 y 16 caracteres
+    if not 8 <= len(contrasena) <= 16:
+        return False
+
+    # Al menos una letra mayúscula
+    if not re.search(r'[A-Z]', contrasena):
+        return False
+
+    # Al menos una letra minúscula
+    if not re.search(r'[a-z]', contrasena):
+        return False
+
+    # Al menos un número
+    if not re.search(r'\d', contrasena):
+        return False
+
+    # Al menos un símbolo
+    if not re.search(r'[!@#$%^&*()-_=+{};:,.<>?]', contrasena):
+        return False
+
+    return True
+
 
 def landing_page(request):
     return render(request, 'landing_page.html')
@@ -50,9 +76,9 @@ def login_view(request):
         password = request.POST.get("password")
         try:
             user = User_ieti.objects.get(username=username)
-            if user is not None and check_password(password, user.password):
+            print(password)
+            if user is not None and validar_contrasena(password) and check_password(password, user.password):
                 login(request, user)
-                print(request.user)
 
                 # save log of login user
                 current_date = timezone.now()
@@ -67,7 +93,10 @@ def login_view(request):
                 return redirect("dashboard")
             else:
                 data['error'] = True
-                data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
+                if not validar_contrasena(password):
+                    data['errorMsg'] = "La contrasenya ha de tenir entre 8 i 16 caràcters, com a mínim una lletra majúscula, una lletra minúscula, un número i un símbol."
+                else:
+                    data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
         except:
             data['error'] = True
             data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
