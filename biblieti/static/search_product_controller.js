@@ -117,9 +117,9 @@ $(() => {
         }
     })
 
-    $("#reset-filter").off().click(function(e) {
-        createNotification('error', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam feugiat auctor mauris id posuere. Suspendisse sed sodales urna. Sed maximus.')
-    })
+    //$("#reset-filter").off().click(function(e) {
+        //createNotification('error', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam feugiat auctor mauris id posuere. Suspendisse sed sodales urna. Sed maximus.')
+    //})
 
     $("#search-button").off().click(function(e) {
         e.preventDefault()
@@ -127,8 +127,6 @@ $(() => {
         let availability = "All"
         if ($("#available").is(":checked")) {
             availability = "Available"
-        } else if ($("#not-available").is(":checked")) {
-            availability = "Unavailable"
         }
         let author = 'null'
         let ISBN = 'null'

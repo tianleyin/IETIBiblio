@@ -416,6 +416,14 @@ label {
     background-color: var(--gray);
 }
 
+#absolute-div .catalogue {
+    font-weight: bold;
+}
+
+#absolute-div ul.item li {
+    padding: 0;
+}
+
 .right-container {
     background-color: #292021;
     padding: 35% 20px;
