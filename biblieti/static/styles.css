@@ -290,6 +290,11 @@ legend {
     cursor: pointer;
 }
 
+.accent-color-link {
+    color: var(--white);
+
+}
+
 h1,
 h2,
 h3,

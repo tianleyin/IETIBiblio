@@ -14,9 +14,15 @@ def landing_page(request):
 def busqueda(request):
     return render(request, 'search_product.html')
 
-def dashboard(request):
+def dashboard(request, notification=None, notificationMsg=None):
     if not request.user.is_authenticated:
         return redirect('login')
+    if request.session.get('notification') is not None:
+        notification = request.session.get('notification')
+        notificationMsg = request.session.get('notificationMsg')
+        request.session.pop('notification')
+        request.session.pop('notificationMsg')
+        return render(request, 'dashboard.html', {'username': request.user.username, 'notification': notification, 'notificationMsg': notificationMsg})
     return render(request, 'dashboard.html', {'username': request.user.username})
 
 def user_data(request):
@@ -31,7 +37,9 @@ def user_data(request):
         user.school = request.POST.get('school')
         user.cycle = request.POST.get('cycle')
         user.save()
-        pass
+        request.session['notification'] = 'info'
+        request.session['notificationMsg'] = 'Dades actualitzades correctament.'
+        return redirect('dashboard')
     print(request.user.username)
     return render(request, 'user_data.html', {'user': request.user})
 

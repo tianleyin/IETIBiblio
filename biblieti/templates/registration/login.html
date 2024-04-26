@@ -46,13 +46,14 @@
                 <input type="text" id="username" name="username">
                 <label for="password">Contrasenya:</label>
                 <input type="password" id="password" name="password">
+                <a href="{% url 'forgot_password' %}" class="accent-color-link">Has oblidat la contrasenya?</a>
                 <input type="submit" value="Iniciar Sessió">
             </form>
         </div>
     </main>
     {% if error %}
     <script>
-        createNotification("error", "{{ errorMsg }}");
+        createNotification("error", "{{ errorMsg }}", $("#loginForm"));
     </script>
     {% endif %}    
     <script src="{% static 'landing_page_controller.js' %}?no-cache={% now "U" %}"></script>
