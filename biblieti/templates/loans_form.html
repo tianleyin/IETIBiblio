@@ -1,21 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<nav>
 
-</nav>
 <main>
     <h1>Formulari de préstec</h1>
     <h2>Element a prestar:</h2>
     <ul id="element-data"></ul>
-    <form action="{% url 'do_loan' %}" method="post">
+    <form action="{% url 'do_loan' %}" method="post" id="loanForm">
         {% csrf_token %}
         {{ form}}
         <label for="email">Adreça de correu electrònic de l'usuari que vol fer el préstec:</label>
         <input type="email" id="email" name="email" required>
+        <input type="hidden" id="id" name="id">
         <input type="submit" value="Fer préstec">
     </form>
 </main>
+{% if error %}
+    <script>
+        createNotification("error", "{{ errorMsg }}", $("#loanForm"));
+    </script>
+{% endif %} 
 
 
 <script src="{% static 'loans_form_controller.js' %}?no-cache={% now "U" %}"></script>

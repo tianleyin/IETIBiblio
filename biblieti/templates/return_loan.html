@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<nav>
+    <ul>
+        <li><a href="/">DASHBOARD</a></li>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button id="btn-logout" type="submit">TANCAR SESSIÓ</button>
+        </form>
+    </ul>
+</nav>
+<main>
+    <h1 class="title">Buscar Préstecs</h1>
+    <form id="search-loan">
+        <label for="mail">Correu del usuari</label>
+        <input type="text" name="mail" id="mail">
+    </form>
+    <ul id="user-loans"></ul>
+</main>
+
+
+
+
+<script src="{% static 'return_loan_controller.js' %}?no-cache={% now "U" %}"></script>
+{% if notification %}
+    <script>
+        createNotification("{{notification}}", "{{ notificationMsg }}");
+    </script>
+{% endif %}
+
+{% endblock %}
