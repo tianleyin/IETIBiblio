@@ -1,4 +1,7 @@
 $(() => {
+
+    $(".expanding-header").toggleClass('expanded');
+
     let productType = "Any"
     let url = new URL(window.location)
     if (url.searchParams && url.searchParams.get("searchInfo")) {

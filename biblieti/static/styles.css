@@ -500,9 +500,9 @@ main {
     width: 100%;
     border-radius: 4px;
     min-height: 100px;
-    margin: 12px 0;
+    margin: 15px 0;
     font-family: 'Inter', sans-serif;
-    padding: 8px;
+    padding: 15px;
     background-color: var(--dark-brown);
     color: var(--white)
 }
@@ -510,11 +510,16 @@ main {
 .product-card h2 {
     font-size: 16px;
     font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .product-card p {
     font-size: 14px;
-    margin: 4px 0
+    margin: 9px 0
+}
+
+.product-card p:last-child {
+    margin-bottom: 15px !important;
 }
 
 .notification {
@@ -701,4 +706,104 @@ main {
     cursor: pointer;
     border: none;
     color: var(--white);
+}
+
+/* Loans */
+.loan-button {
+    margin: 25px auto;
+    text-decoration: none;  
+    color: var(--white);
+    padding: 3px 6px;
+    background-color: var(--accent-green);
+    border-radius: 4px;
+}
+
+/* loans_form */
+#loan-form-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#loan-form-header svg {
+    margin-right: 10px;
+}
+
+#loan-form-header nav {
+    display: flex;
+    gap: 12px;
+}
+
+#loan-form-header nav ul {
+    display: flex;
+    gap:12px;
+    list-style: none;
+    align-items: center;
+}
+
+#btn-logout {
+    border: none;
+    background-color: transparent;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+#btn-logout:hover {
+    border-bottom: solid 1px var(--white);
+    cursor: pointer;
+}
+
+#loans-form-main {
+    margin: 0 auto; /* Margen automático en los lados para centrar */
+    text-align: center; /* Centrar el contenido horizontalmente */
+}
+
+#loans-form-main h1 {
+    margin-top: 55px;
+    margin-bottom: 20px;
+}
+
+#loans-form-main h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#loans-form-main ul {
+    list-style: none;
+    padding: 0;
+}
+
+#loans-form-main label {
+    display: block;
+    margin-top: 10px;
+}
+
+#loans-form-main input[type="email"],
+#loans-form-main input[type="submit"] {
+    width: 40%;
+    padding: 10px;
+    margin-top: 15px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: none;
+}
+
+#loans-form-main input[type="hidden"] {
+    display: none;
+}
+
+#loans-form-main ul {
+    margin-bottom: 25px;
+}
+
+#loans-form-main ul li {
+    margin-bottom: 10px;
+}
+
+#loans-form-main input[type="submit"]:hover {
+    cursor: pointer;
 }
