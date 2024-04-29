@@ -565,9 +565,14 @@ main {
 #welcome {
     padding: 32px 16px 0;
     width: 100%;
+}
+
+#welcome a {
+    display: block;
+    margin: 24px 0;
+    width: 400px;
     display: flex;
     align-items: center;
-    gap: 48px;
 }
 
 #welcome h1 {
@@ -717,4 +722,28 @@ main {
     resize: none;
     width: calc(100vw - 80px);
     height: calc(100vh - 100px);
+}
+
+#loans_form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loans_form form {
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+#loans_form input:not([type="submit"]) {
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: var(--gray);
 }

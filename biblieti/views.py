@@ -122,6 +122,19 @@ def import_csv(request):
             #product.save()
     return render(request, 'import_csv.html', data)
 
+def add_user(request):
+    if request.method == "POST":
+        print(request.POST)
+        username = request.POST.get("name")
+        email = request.POST.get("email")
+        role = request.POST.get("role")
+        cycle = request.POST.get("cycle")
+        User_ieti.objects.create(username=username, email=email, role=role, cycle=cycle, password="Password12345erfdsc<vs")
+    return render(request, 'add_user.html')
+
+def edit_user_list(request):
+    data = {"users": list(User_ieti.objects.all())}
+    return render(request, 'edit_user_list.html', data)
 
 def test(request):
     return render(request, 'test.html')

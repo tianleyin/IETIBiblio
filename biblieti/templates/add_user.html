@@ -25,32 +25,39 @@
         
         <nav>
             <ul>
-                <li><a href="/">TORNAR A L'INICI</a></li>
+                <li><a href="/dashboard">DASHBOARD</a></li>
                 <li><a href="/change_password">CANVIAR CONTRASENYA</a></li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button id="btn-logout" type="submit">TANCAR SESSIÓ</button>
+                    <button type="submit" id="btn-logout">TANCAR SESSIÓ</button>
                 </form>
             </ul>
         </nav>
     </header>
-    <main>
-        <div id="welcome">
-            <h1>BENVINGUT/DA {{ user.username }}</h1>
-            <a href="/user_data" class="btn-user-data">Mostrar les meves dades</a>
-            {% if user.role == 'librarian' %}
-            <a href="/add_user" class="btn-user-data">Afegir un usuari</a>
-            <a href="/edit_user" class="btn-user-data">Editar un usuari</a>
-            <a href="/loans" class="btn-user-data">Realitzar un préstec</a>
-            <a href="/return_loan" class="btn-user-data">Retornar un préstec</a>
-            {% endif %}
-        </div>
+    <main id="user-data">
+        <form id="create-form" method="POST">
+            {% csrf_token %}
+            <img src="{{ user.picture }}">
+            <label for="name">Nom d'usuari:</label>
+            <input type="text" id="name" name="name" value="">
+            <label for="email">Correu electrònic:</label>
+            <input type="email" id="email" name="email" value="">
+            <label for="role">Rol:</label>
+            <select name="role" id="role">
+                <option value="student">Estudiant</option>
+                <option value="librarian">Bibliotecari</option>
+            </select>
+            <!--
+            <label for="birth-date">Data de naixement</label>
+            <input type="date" id="birth-date" name="birth-date" value="{{ user.date_of_birth }}">
+            <label for="school">Escola:</label>
+            <input type="text" id="school" name="school" value="{{ user.school }}">
+            -->
+            <label for="cycle">Cicle:</label>
+            <input type="text" id="cycle" name="cycle" value="">
+            <input type="submit" id="update-user-data" value="Desar usuari">
+        </form>
     </main>
-    <script src="{% static 'dashboard_controller.js' %}?no-cache={% now "U" %}"></script>
-    {% if notification %}
-    <script>
-        createNotification("{{notification}}", "{{ notificationMsg }}");
-    </script>
-    {% endif %}
+    <script src="{% static 'add_user_controller.js' %}?no-cache={% now "U" %}"></script>
 </div>
 {% endblock %}
