@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
+from rest_framework import serializers
 
 
 class User_ieti(AbstractUser):
@@ -135,3 +136,38 @@ class Logs(models.Model):
     def clean(self):
         if self.type not in dict(self.type_choices).keys():
             raise ValidationError('El tipo de log no es válido.')
+
+class CatalogueSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Catalogue
+        fields = ['id', 'name', 'picture']
+
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ['author', 'ISBN', 'publication_year']
+
+class CDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CD
+        fields = ['artist', 'tracks']
+
+class DVDSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DVD
+        fields = ['director', 'duration']
+
+class BRSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BR
+        fields = ['resolution']
+
+class DeviceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Device
+        fields = ['manufacturer', 'model']
+
+class LoanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Loan
+        fields = ['id', 'catalogue', 'user', 'date_of_loan', 'date_of_return']

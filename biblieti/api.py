@@ -204,4 +204,26 @@ def do_loan(request):
             data['error'] = True
             data['errorMsg'] = 'Error al realitzar el préstec.'
             return render(request, 'loans_form.html', data)
+
+@api_view(['GET'])
+def get_user_loans(request):
+    try:
+        email = request.GET.get('email')
+        user = User_ieti.objects.get(email=email)
+        user_loans = Loan.objects.filter(user=user)
+
+        loan_data = LoanSerializer(user_loans, many=True).data
+        for loan in loan_data:
+            catalogue_id = loan['catalogue']
+            catalogue = Catalogue.objects.get(id=catalogue_id)
+            catalogue_serializer = CatalogueSerializer(catalogue).data
+            loan['catalogue'] = catalogue_serializer
+
+        return Response(loan_data)
+
+    except Exception as e:
+        print(e)
+        return Response({'error': 'Hubo un error al obtener los préstamos del usuario'}, status=500)
+
+
         
