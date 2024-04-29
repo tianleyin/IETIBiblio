@@ -36,8 +36,12 @@
     </header>
     <main>
         <div id="welcome">
-            <h1>BENVINGUT/DA {{ username }}</h1>
+            <h1>BENVINGUT/DA {{ user.username }}</h1>
             <a href="/user_data" class="btn-user-data">Mostrar les meves dades</a>
+            {% if user.role == 'librarian' %}
+            <a href="/loans" class="btn-user-data">Realitzar un préstec</a>
+            <a href="/return_loan" class="btn-user-data">Retornar un préstec</a>
+            {% endif %}
         </div>
     </main>
     <script src="{% static 'dashboard_controller.js' %}?no-cache={% now "U" %}"></script>

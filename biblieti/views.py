@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import *
 from django.utils import timezone
@@ -48,8 +49,38 @@ def dashboard(request, notification=None, notificationMsg=None):
         notificationMsg = request.session.get('notificationMsg')
         request.session.pop('notification')
         request.session.pop('notificationMsg')
-        return render(request, 'dashboard.html', {'username': request.user.username, 'notification': notification, 'notificationMsg': notificationMsg})
-    return render(request, 'dashboard.html', {'username': request.user.username})
+        return render(request, 'dashboard.html', {'user': request.user, 'notification': notification, 'notificationMsg': notificationMsg})
+    return render(request, 'dashboard.html', {'user': request.user})
+
+def loans(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    if not request.user.role == "librarian" and not request.user.role == "superadmin":
+        return redirect('dashboard')
+    
+    data = {}
+    message_list = messages.get_messages(request)
+    for message in message_list:
+        data['info'] = True
+        data['infoMsg'] = message
+    return render(request, "loans.html", data)
+
+def loans_form(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    if not request.user.role == "librarian" and not request.user.role == "superadmin":
+        return redirect('dashboard')
+    return render(request, "loans_form.html")
+    
+def return_loan(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    if not request.user.role == "librarian" and not request.user.role == "superadmin":
+        return redirect('dashboard')
+    
+    data = {}
+    return render(request, "return_loan.html", data)
+
 
 def user_data(request):
     if not request.user.is_authenticated:
