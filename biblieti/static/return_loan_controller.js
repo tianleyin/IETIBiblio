@@ -23,11 +23,11 @@ function getLoans(email) {
 function displayLoans(response) {
     response.forEach(element => {
         console.log(element.catalogue);
+        $("#user-loans").append(`
+        <li>${element.catalogue.name}</li>
+        `)
     });
 
-    $("#user-loans").append(`
-    <li>${response.catalogue}</li>
-    <li>
-    `)
+    
     //console.log(response.catalogue)
 }

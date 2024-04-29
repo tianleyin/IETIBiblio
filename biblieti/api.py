@@ -207,6 +207,7 @@ def do_loan(request):
 
 @api_view(['GET'])
 def get_user_loans(request):
+    # ojo pensar en como devolver tambien el objeto, si es cd, dv, book...
     try:
         email = request.GET.get('email')
         user = User_ieti.objects.get(email=email)
