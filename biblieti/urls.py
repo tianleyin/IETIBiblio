@@ -28,6 +28,7 @@ urlpatterns = [
     path('api/do_loan/', api.do_loan, name='do_loan'),
     path('return_loan/', return_loan, name='return_loan'),
     path('api/get_user_loans/', api.get_user_loans, name='get_user_loans'),
+    path('api/delete_loan/', api.delete_loan, name='delete_loan'),
     path('api/hello/', api.hello, name='hello'),
     path('api/get_products/<str:type>,<str:availability>,<str:name>,<str:author>,<str:ISBN>,<str:publication_year>,<str:artist>,<int:tracks>,<str:director>,<int:duration>,<str:resolution>,<str:manufacturer>,<str:model>', api.get_products, name='get_products'),
     path('api/get_products_landing/<str:search>', api.get_products_landing, name='get_products_landing'),
