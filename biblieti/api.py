@@ -2,8 +2,11 @@ from django.http import JsonResponse
 from .models import *
 from django.db.models import Q
 from django.utils import timezone
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from datetime import timedelta
 import json
 # from rest_framework.decorators import api_view
 
@@ -155,3 +158,88 @@ def send_log(request):
     except Exception as e:
         # Captura cualquier excepción y envía los detalles como respuesta
         return Response({'success': False, 'error': str(e)})
+    
+@api_view(['POST'])
+def do_loan(request):
+    if request.method == 'POST':
+        data = {}
+        # Obtener el correo electrónico del cuerpo de la solicitud POST
+        email = request.data.get('email')
+        # Obtener el id del Catálogo
+        catalogue_id = request.data.get('id')
+
+        # Comprobar si existe un usuario con ese correo electrónico
+        try:
+            user = User_ieti.objects.get(email=email)
+            catalogue = Catalogue.objects.get(id=catalogue_id)
+
+            loan = Loan.objects.create(
+                catalogue=catalogue,
+                user=user,
+                date_of_loan=timezone.now(),
+                date_of_return=timezone.now() + timedelta(days=30)  # La fecha de retorno se puede establecer más tarde con un archivo de configuracion o por un campo en el formulario de loan_form
+            )
+
+            # Guardar el préstamo en la base de datos
+            loan.save()
+            #data['info'] = True
+            #data['infoMsg'] = 'Préstec realitzat correctament'
+
+            messages.success(request, 'Préstec realitzat correctament')
+            return redirect("loans")
+
+        except User_ieti.DoesNotExist:
+            # Si el usuario no existe, hacer algo aquí
+            data['error'] = True
+            data['errorMsg'] = 'Usuari amb correu ' + email + ' no trobat'
+            return render(request, 'loans_form.html', data)
+        
+        except Catalogue.DoesNotExist:
+            data['error'] = True
+            data['errorMsg'] = 'Element no disponible per prestar. No existeix'
+            return render(request, 'loans_form.html', data)
+        
+        except Exception as e:
+            print(e)
+            data['error'] = True
+            data['errorMsg'] = 'Error al realitzar el préstec.'
+            return render(request, 'loans_form.html', data)
+
+@api_view(['GET'])
+def get_user_loans(request):
+    try:
+        email = request.GET.get('email')
+        user = User_ieti.objects.get(email=email)
+        user_loans = Loan.objects.filter(user=user)
+
+        loan_data = LoanSerializer(user_loans, many=True).data
+        for loan in loan_data:
+            catalogue_id = loan['catalogue']
+            catalogue = Catalogue.objects.get(id=catalogue_id)
+            catalogue_serializer = catalogue.serialize()  # Utiliza la nueva función serialize
+            loan['catalogue'] = catalogue_serializer
+
+        return Response(loan_data)
+
+    except Exception as e:
+        return Response({'error': 'Hubo un error al obtener los préstamos del usuario: ' + e}, status=500)
+
+@api_view(['GET'])
+def delete_loan(request):
+    try:
+        loan_id = request.GET.get('id')
+        # Utiliza get() en lugar de filter() para obtener un solo objeto Loan por su ID
+        loan_to_delete = Loan.objects.get(id=loan_id)
+
+        loan_to_delete.delete()
+
+        return Response({"success": 'Devolució de préstec realitzat correctament'})
+
+    except Loan.DoesNotExist:
+        return Response({'error': 'El préstamo no existe'}, status=404)
+
+    except Exception as e:
+        return Response({'error': 'Hubo un error al eliminar un préstamo: ' + e}, status=500)
+
+
+        

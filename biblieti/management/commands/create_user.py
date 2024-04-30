@@ -7,5 +7,5 @@ class Command(BaseCommand):
         User = get_user_model()
 
         # Crea un usuario utilizando el modelo personalizado
-        user = User.objects.create_user("isaac", "ifuriomartin.cf@iesesteveterradas.cat", "isaac123")
+        user = User.objects.create_user("tiyi", "ifuriomartin.cf@iesesteveterradas.cat", "Tianleyin32_")
         user.save()

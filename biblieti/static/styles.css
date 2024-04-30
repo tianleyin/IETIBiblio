@@ -500,9 +500,9 @@ main {
     width: 100%;
     border-radius: 4px;
     min-height: 100px;
-    margin: 12px 0;
+    margin: 15px 0;
     font-family: 'Inter', sans-serif;
-    padding: 8px;
+    padding: 15px;
     background-color: var(--dark-brown);
     color: var(--white)
 }
@@ -510,11 +510,16 @@ main {
 .product-card h2 {
     font-size: 16px;
     font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .product-card p {
     font-size: 14px;
-    margin: 4px 0
+    margin: 9px 0
+}
+
+.product-card p:last-child {
+    margin-bottom: 15px !important;
 }
 
 .notification {
@@ -819,4 +824,159 @@ main {
 #user-list h2 {
     font-size: 18px;
     margin: 12px 0;
+}
+
+/* Loans */
+.loan-button {
+    margin: 25px auto;
+    text-decoration: none;  
+    color: var(--white);
+    padding: 3px 6px;
+    background-color: var(--accent-green);
+    border-radius: 4px;
+}
+
+/* loans_form */
+#loan-form-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#loan-form-header svg {
+    margin-right: 10px;
+}
+
+#loan-form-header nav {
+    display: flex;
+    gap: 12px;
+}
+
+#loan-form-header nav ul {
+    display: flex;
+    gap:12px;
+    list-style: none;
+    align-items: center;
+}
+
+#btn-logout {
+    border: none;
+    background-color: transparent;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+#btn-logout:hover {
+    border-bottom: solid 1px var(--white);
+    cursor: pointer;
+}
+
+#loans-form-main {
+    margin: 0 auto; /* Margen automático en los lados para centrar */
+    text-align: center; /* Centrar el contenido horizontalmente */
+}
+
+#loans-form-main h1 {
+    margin-top: 55px;
+    margin-bottom: 20px;
+}
+
+#loans-form-main h2 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#loans-form-main ul {
+    list-style: none;
+    padding: 0;
+}
+
+#loans-form-main label {
+    display: block;
+    margin-top: 10px;
+}
+
+#loans-form-main input[type="email"],
+#loans-form-main input[type="submit"] {
+    width: 40%;
+    padding: 10px;
+    margin-top: 15px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: none;
+}
+
+#loans-form-main input[type="hidden"] {
+    display: none;
+}
+
+#loans-form-main ul {
+    margin-bottom: 25px;
+}
+
+#loans-form-main ul li {
+    margin-bottom: 10px;
+}
+
+#loans-form-main input[type="submit"]:hover {
+    cursor: pointer;
+}
+
+/* return_loan */
+#return-loan-main {
+    margin: 0 auto; /* Centra el main horizontalmente */
+    padding: 20px; /* Agrega espacio interno al main */
+}
+
+.title {
+    margin-top: 45px;
+    text-align: center; /* Centra el título horizontalmente */
+}
+
+#search-loan {
+    margin: 30px auto; /* Agrega espacio debajo del formulario */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#return-loan-main label {
+    display: block; /* Muestra cada etiqueta en una línea */
+    margin-bottom: 10px; /* Agrega espacio entre las etiquetas */
+}
+
+#return-loan-main input[type="email"] {
+    width: 40%; /* Ocupa todo el ancho disponible */
+    padding: 10px; /* Agrega espacio interno al input */
+    margin-bottom: 15px; /* Agrega espacio entre inputs */
+    border-radius: 4px;
+    border: none;
+}
+
+#return-loan-main button {
+    width: 40%; /* Ocupa todo el ancho disponible */
+    padding: 10px; /* Agrega espacio interno al botón */
+    background-color: var(--accent-green); /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    border: none; /* Quita el borde del botón */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    border-radius: 4px;
+    border: none;
+}
+
+#user-loans {
+    list-style-type: none; /* Quita los marcadores de lista */
+    padding: 0; /* Quita el espacio interno de la lista */
+}
+
+#user-loans li {
+    margin-bottom: 10px; /* Agrega espacio entre elementos de la lista */
+    padding: 10px; /* Agrega espacio interno a cada elemento de la lista */
+    border: 1px solid #ccc; /* Agrega un borde alrededor de cada elemento de la lista */
+    background-color: #f9f9f9; /* Color de fondo de cada elemento de la lista */
 }

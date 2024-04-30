@@ -60,6 +60,12 @@
     </main>
 </div>
 
+{% if info %}
+    <script>
+        createNotification("info", "{{ infoMsg }}", $("#search-product"));
+    </script>
+{% endif %} 
+
 <script src="{% static 'search_product_controller.js' %}?no-cache={% now "U" %}"></script>
 <script src="{% static 'loans_controller.js' %}?no-cache={% now "U" %}"></script>
 

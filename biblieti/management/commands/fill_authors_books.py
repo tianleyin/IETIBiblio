@@ -2,7 +2,10 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from datetime import timedelta
 from faker import Faker
+from faker.providers import lorem
 import random
+import string
+import requests
 
 from biblieti.models import *
 
@@ -12,7 +15,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         fake_es = Faker('es_ES')
         fake_en = Faker('en_US')
-
+        
         titles_cat = [
             "Cent anys de solitud",
             "El petit príncep",
@@ -116,35 +119,36 @@ class Command(BaseCommand):
             author_list.append(fake_es.name())
 
 
+
+        
         for author_name in author_list:
             num_books = random.randint(1,4)
             for _ in range(num_books):
-                if random.choice([True, False]):
-                    title = random.choice(titles_cat)
-                else: 
-                    title = random.choice(titles_es)
+                # if random.choice([True, False]):
+                #     title = random.choice(titles_cat)
+                # else: 
+                #     title = random.choice(titles_es)
                     
                 Book.objects.create(
-                    name = title,
+                    name = random.choice(all_titles),
                     author = author_name,
                     ISBN = fake_es.isbn10(),
                     publication_year = fake_es.year()
                 )
                 
                 Book.objects.create(
-                    name = fake_es.sentence(nb_words=random.randint(1, 5)),
+                    name = random.choice(all_titles),
                     author = author_name,
                     ISBN = fake_es.isbn10(),
                     publication_year = fake_es.year()
                 )
                 
-                Book.objects.create(
-                    name = fake_en.sentence(nb_words=random.randint(1, 5)),
-                    author = author_name,
-                    ISBN = fake_es.isbn10(),
-                    publication_year = fake_es.year()
-                )
-                
+                # Book.objects.create(
+                #     name = fake_en.sentence(nb_words=random.randint(1, 5)),
+                #     author = author_name,
+                #     ISBN = fake_es.isbn10(),
+                #     publication_year = fake_es.year()
+                # )
 
         for _ in range(3):
             User_ieti.objects.create(
