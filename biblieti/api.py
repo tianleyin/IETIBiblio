@@ -207,7 +207,6 @@ def do_loan(request):
 
 @api_view(['GET'])
 def get_user_loans(request):
-    # ojo pensar en como devolver tambien el objeto, si es cd, dv, book...
     try:
         email = request.GET.get('email')
         user = User_ieti.objects.get(email=email)
@@ -217,14 +216,30 @@ def get_user_loans(request):
         for loan in loan_data:
             catalogue_id = loan['catalogue']
             catalogue = Catalogue.objects.get(id=catalogue_id)
-            catalogue_serializer = CatalogueSerializer(catalogue).data
+            catalogue_serializer = catalogue.serialize()  # Utiliza la nueva función serialize
             loan['catalogue'] = catalogue_serializer
 
         return Response(loan_data)
 
     except Exception as e:
-        print(e)
-        return Response({'error': 'Hubo un error al obtener los préstamos del usuario'}, status=500)
+        return Response({'error': 'Hubo un error al obtener los préstamos del usuario: ' + e}, status=500)
+
+@api_view(['GET'])
+def delete_loan(request):
+    try:
+        loan_id = request.GET.get('id')
+        # Utiliza get() en lugar de filter() para obtener un solo objeto Loan por su ID
+        loan_to_delete = Loan.objects.get(id=loan_id)
+
+        loan_to_delete.delete()
+
+        return Response({"success": 'Devolució de préstec realitzat correctament'})
+
+    except Loan.DoesNotExist:
+        return Response({'error': 'El préstamo no existe'}, status=404)
+
+    except Exception as e:
+        return Response({'error': 'Hubo un error al eliminar un préstamo: ' + e}, status=500)
 
 
         

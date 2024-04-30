@@ -3,7 +3,7 @@
 {% block content %}
 <nav>
     <ul>
-        <li><a href="/">DASHBOARD</a></li>
+        <li><a href="/dashboard">DASHBOARD</a></li>
         <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button id="btn-logout" type="submit">TANCAR SESSIÓ</button>
