@@ -43,9 +43,9 @@
 
 
 <script src="{% static 'return_loan_controller.js' %}?no-cache={% now "U" %}"></script>
-{% if notification %}
+{% if error %}
     <script>
-        createNotification("{{notification}}", "{{ notificationMsg }}");
+        createNotification("{{error}}", "{{ errorMsg }}");
     </script>
 {% endif %}
 

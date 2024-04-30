@@ -11,11 +11,15 @@ function getLoans(email) {
         data: { email: email },
         success: function(response) {
             // Manejar la respuesta exitosa aquí
-            displayLoans(response)
+            if (response.error) {
+                createNotification("error", response.error, $("#user-loans"))
+            } else {
+                displayLoans(response)
+            }
         },
         error: function(xhr, status, error) {
             // Manejar errores aquí
-            console.error(error);
+            console.log(error)
         }
     });
 }

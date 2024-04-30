@@ -208,9 +208,15 @@ def do_loan(request):
 @api_view(['GET'])
 def get_user_loans(request):
     try:
+        data = {}
+
         email = request.GET.get('email')
         user = User_ieti.objects.get(email=email)
         user_loans = Loan.objects.filter(user=user)
+
+        if not user_loans.exists():
+            # Si no hay préstamos para el usuario, manejar el caso aquí
+            return Response({'error': f"No hi ha préstecs per al usuari amb correu: {email}"})
 
         loan_data = LoanSerializer(user_loans, many=True).data
         for loan in loan_data:
@@ -220,6 +226,10 @@ def get_user_loans(request):
             loan['catalogue'] = catalogue_serializer
 
         return Response(loan_data)
+
+    except User_ieti.DoesNotExist:
+            # Si el usuario no existe, hacer algo aquí
+            return Response({'error': f"Usuari amb correu: {email} no trobat."})
 
     except Exception as e:
         return Response({'error': 'Hubo un error al obtener los préstamos del usuario: ' + e}, status=500)
