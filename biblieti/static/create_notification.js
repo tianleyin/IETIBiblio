@@ -32,17 +32,13 @@ function createNotification(type, msg, node) {
         options.position = "center"
     } else {
         options.position = "left"
-        options.offset = {
-            x: node.offset().left,
-            y: node.offset().top - node.height()
-        }
         options.style = {
             "flex-direction": "row-reverse",
         }
     }
     let toast = Toastify(options)
     toast.showToast();
-    console.log(options.offset.x)
     $(toast.toastElement).css("transition-property", "top")
-    $(toast.toastElement).css("left", $(node).width()/2 - $(toast.toastElement).width()/2)
+    $(toast.toastElement).css("top", node[0].getBoundingClientRect().top - $(toast.toastElement).height() - 30)
+    $(toast.toastElement).css("left", node.offset().left + $(node).width()/2 - $(toast.toastElement).width()/2)
 }

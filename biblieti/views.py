@@ -124,17 +124,30 @@ def import_csv(request):
 
 def add_user(request):
     if request.method == "POST":
-        print(request.POST)
+        if User_ieti.objects.filter(email=request.POST.get("email")).exists():
+            return render(request, 'add_user.html', {"error": True, "errorMsg": "Aquest correu electrònic ja està registrat."})
         username = request.POST.get("name")
         email = request.POST.get("email")
         role = request.POST.get("role")
         cycle = request.POST.get("cycle")
-        User_ieti.objects.create(username=username, email=email, role=role, cycle=cycle, password="Password12345erfdsc<vs")
+        User_ieti.objects.create(username=username, email=email, role=role, cycle=cycle, password="Password12345")
     return render(request, 'add_user.html')
 
 def edit_user_list(request):
     data = {"users": list(User_ieti.objects.all())}
     return render(request, 'edit_user_list.html', data)
+
+def edit_user_form(request, email):
+    user = User_ieti.objects.get(email=email)
+    if request.method == "POST":
+        user.username = request.POST.get("name")
+        user.email = request.POST.get("email")
+        user.role = request.POST.get("role")
+        user.cycle = request.POST.get("cycle")
+        user.save()
+        return redirect('edit_user_list')
+    data = {"user": user}
+    return render(request, 'edit_user_form.html', data)
 
 def test(request):
     return render(request, 'test.html')

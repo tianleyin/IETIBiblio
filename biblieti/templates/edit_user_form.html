@@ -34,13 +34,29 @@
             </ul>
         </nav>
     </header>
-    <main id="user-list">
-        <h2>Llistat d'usuaris</h2>
-        <ul>
-            {% for user in users %}
-            <li><a href="/edit_user/{{user.email}}">{{user.email}}</a></li>
-            {% endfor %}
-        </ul>
+    <main id="user-data">
+        <form id="update-form" method="POST">
+            {% csrf_token %}
+            <img src="{{ user.picture }}">
+            <label for="name">Nom d'usuari:</label>
+            <input type="text" id="name" name="name" value="{{ user.username }}">
+            <label for="email">Correu electrònic:</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}">
+            <label for="role">Rol:</label>
+            <select name="role" id="role">
+                <option value="student" {% if user.role == "student" %} selected {% endif %} >Estudiant</option>
+                <option value="librarian" {% if user.role == "librarian" %} selected {% endif %} >Bibliotecari</option>
+            </select>
+            <!--
+            <label for="birth-date">Data de naixement</label>
+            <input type="date" id="birth-date" name="birth-date" value="{{ user.date_of_birth }}">
+            <label for="school">Escola:</label>
+            <input type="text" id="school" name="school" value="{{ user.school }}">
+            -->
+            <label for="cycle">Cicle:</label>
+            <input type="text" id="cycle" name="cycle" value="{{ user.cycle }}">
+            <input type="submit" id="update-user-data" value="Desar canvis">
+        </form>
     </main>
     <script src="{% static 'edit_user_controller.js' %}?no-cache={% now "U" %}"></script>
 </div>

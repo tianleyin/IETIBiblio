@@ -35,12 +35,16 @@
         </nav>
     </header>
     <main id="import_csv">
+        <h2>
+            Importar CSV
+        </h2>
         <form id="import_form" method="POST">
             {% csrf_token %}
             <textarea name="data"></textarea>
-            <input type="submit" value="Importar">
+            <input type="submit" id="import-button" value="Importar">
         </form>
     </main>
+    <script src="{% static 'import_csv_controller.js' %}?no-cache={% now "U" %}"></script>
     {% if info %}
     <script>
         createNotification("info", "{{ infoMsg }}");

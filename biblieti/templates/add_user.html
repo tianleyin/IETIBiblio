@@ -39,11 +39,11 @@
             {% csrf_token %}
             <img src="{{ user.picture }}">
             <label for="name">Nom d'usuari:</label>
-            <input type="text" id="name" name="name" value="">
+            <input type="text" id="name" name="name" value="" required>
             <label for="email">Correu electrònic:</label>
-            <input type="email" id="email" name="email" value="">
+            <input type="email" id="email" name="email" value="" required>
             <label for="role">Rol:</label>
-            <select name="role" id="role">
+            <select name="role" id="role" required>
                 <option value="student">Estudiant</option>
                 <option value="librarian">Bibliotecari</option>
             </select>
@@ -55,9 +55,15 @@
             -->
             <label for="cycle">Cicle:</label>
             <input type="text" id="cycle" name="cycle" value="">
-            <input type="submit" id="update-user-data" value="Desar usuari">
+            <input type="submit" id="add-user-button" value="Desar usuari">
         </form>
     </main>
     <script src="{% static 'add_user_controller.js' %}?no-cache={% now "U" %}"></script>
+    {% if error %}
+    <script>
+        createNotification("error", "{{ errorMsg }}", $("#create-form"));
+    </script>
+    {% endif %}
+        
 </div>
 {% endblock %}

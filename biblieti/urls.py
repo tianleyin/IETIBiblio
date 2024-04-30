@@ -43,4 +43,5 @@ urlpatterns = [
     path('loan_form/', loans_form, name='loans_form'),
     path('add_user', add_user, name='add_user'),
     path('edit_user', edit_user_list, name='edit_user_list'),
+    path('edit_user/<str:email>', edit_user_form, name='edit_user_form')
 ]
