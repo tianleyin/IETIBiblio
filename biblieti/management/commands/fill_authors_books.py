@@ -112,7 +112,10 @@ class Command(BaseCommand):
             "Em poso en contacte amb vosaltres per suggerir l'afegiment d'un nou CD a la nostra col·lecció de mitjans audiovisuals. Després d'explorar el nostre catàleg actual, he notat que hi ha una manca de diversitat en la nostra col·lecció de CDs. Creu que l'afegiment d'un nou CD podria enriquir les opcions disponibles per als nostres usuaris."
         ]
         
-        author_list = []
+        author_list = []   
+        
+        
+        all_titles = list(set(titles_es + titles_cat))
 
         # Create books with random authors
         for _ in range(100):
@@ -124,31 +127,28 @@ class Command(BaseCommand):
         for author_name in author_list:
             num_books = random.randint(1,4)
             for _ in range(num_books):
-                # if random.choice([True, False]):
-                #     title = random.choice(titles_cat)
-                # else: 
-                #     title = random.choice(titles_es)
+                title = random.choice(all_titles)
                     
                 Book.objects.create(
-                    name = random.choice(all_titles),
+                    name = title,
                     author = author_name,
                     ISBN = fake_es.isbn10(),
                     publication_year = fake_es.year()
                 )
                 
                 Book.objects.create(
-                    name = random.choice(all_titles),
+                    name = fake_es.sentence(nb_words=random.randint(1,5)),
                     author = author_name,
                     ISBN = fake_es.isbn10(),
                     publication_year = fake_es.year()
                 )
                 
-                # Book.objects.create(
-                #     name = fake_en.sentence(nb_words=random.randint(1, 5)),
-                #     author = author_name,
-                #     ISBN = fake_es.isbn10(),
-                #     publication_year = fake_es.year()
-                # )
+                Book.objects.create(
+                    name = fake_en.sentence(nb_words=random.randint(1, 5)),
+                    author = author_name,
+                    ISBN = fake_es.isbn10(),
+                    publication_year = fake_es.year()
+                )
 
         for _ in range(3):
             User_ieti.objects.create(
