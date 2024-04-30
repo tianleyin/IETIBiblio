@@ -436,7 +436,7 @@ label {
 
 /* Estilos para el título */
 .right-container h2 {
-    margin-bottom: 10px;
+    padding: 10px 0;
     /* Espacio inferior */
 }
 
@@ -539,6 +539,7 @@ main {
     font-weight: 600;
     margin: 0 12px;
     border-radius: 4px;
+    white-space: pre-line;
 }
 
 .notification .message svg {
@@ -569,9 +570,14 @@ main {
 #welcome {
     padding: 32px 16px 0;
     width: 100%;
+}
+
+#welcome a {
+    display: block;
+    margin: 24px 0;
+    width: 400px;
     display: flex;
     align-items: center;
-    gap: 48px;
 }
 
 #welcome h1 {
@@ -706,6 +712,118 @@ main {
     cursor: pointer;
     border: none;
     color: var(--white);
+}
+
+
+#import_csv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+#import_csv form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    gap: 12px;
+}
+
+#import_csv textarea {
+    resize: none;
+    width: calc(100vw - 360px);
+    height: calc(100vh - 300px);
+}
+
+#import_csv h2 {
+    font-size: 18px;
+    margin: 12px 0;
+}
+
+#import_csv input[type="submit"] {
+    flex: 0 0 '';
+    width: 200px;
+    height: 50px;
+    background-color: var(--accent-green);
+    cursor: pointer;
+    border: none;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+}
+
+#loans_form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loans_form form {
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+#loans_form input:not([type="submit"]) {
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: var(--gray);
+}
+
+#user-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#user-list ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    padding: 0;
+}
+
+#user-list li {
+    border: 1px solid var(--dark-brown);
+    padding: 6px 18px;
+    border-collapse: collapse;
+    width: 100%;
+    color: var(--black);
+    transition: background-color 0.3s ease-in-out;
+}
+
+#user-list a {
+    width: 100%;
+    display: inline-block;
+    text-decoration: none;
+    color: var(--black);
+    font-family: 'Inter', sans-serif;
+    transition: color 0.3s ease-in-out;
+}
+
+#user-list li:hover {
+    background-color: var(--dark-brown);
+}
+
+#user-list li:hover a {
+    color: var(--white)
+}
+
+#user-list h2 {
+    font-size: 18px;
+    margin: 12px 0;
 }
 
 /* Loans */

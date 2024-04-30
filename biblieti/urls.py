@@ -43,4 +43,9 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='logout_custom.html'), name='logout'),
     path('change_password/', auth_views.PasswordChangeView.as_view(success_url=reverse_lazy('dashboard')), name='change_password'),
     path('user_data/', user_data, name='user_data'),
+    path('import_csv/', import_csv, name='import_csv'),
+    path('loan_form/', loans_form, name='loans_form'),
+    path('add_user', add_user, name='add_user'),
+    path('edit_user', edit_user_list, name='edit_user_list'),
+    path('edit_user/<str:email>', edit_user_form, name='edit_user_form')
 ]

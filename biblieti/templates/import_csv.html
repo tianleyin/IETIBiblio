@@ -25,32 +25,39 @@
         
         <nav>
             <ul>
-                <li><a href="/">TORNAR A L'INICI</a></li>
+                <li><a href="/dashboard">DASHBOARD</a></li>
                 <li><a href="/change_password">CANVIAR CONTRASENYA</a></li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button id="btn-logout" type="submit">TANCAR SESSIÓ</button>
+                    <button type="submit" id="btn-logout">TANCAR SESSIÓ</button>
                 </form>
             </ul>
         </nav>
     </header>
-    <main>
-        <div id="welcome">
-            <h1>BENVINGUT/DA {{ user.username }}</h1>
-            <a href="/user_data" class="btn-user-data">Mostrar les meves dades</a>
-            {% if user.role == 'librarian' %}
-            <a href="/add_user" class="btn-user-data">Afegir un usuari</a>
-            <a href="/edit_user" class="btn-user-data">Editar un usuari</a>
-            <a href="/import_csv" class="btn-user-data">Importar usuaris</a>
-            <a href="/loans" class="btn-user-data">Realitzar un préstec</a>
-            <a href="/return_loan" class="btn-user-data">Retornar un préstec</a>
-            {% endif %}
-        </div>
+    <main id="import_csv">
+        <h2>
+            Importar CSV
+        </h2>
+        <form id="import_form" method="POST">
+            {% csrf_token %}
+            <textarea name="data"></textarea>
+            <input type="submit" id="import-button" value="Importar">
+        </form>
     </main>
-    <script src="{% static 'dashboard_controller.js' %}?no-cache={% now "U" %}"></script>
-    {% if notification %}
+    <script src="{% static 'import_csv_controller.js' %}?no-cache={% now "U" %}"></script>
+    {% if info %}
     <script>
-        createNotification("{{notification}}", "{{ notificationMsg }}");
+        createNotification("info", "{{ infoMsg }}");
+    </script>
+    {% endif %}
+    {% if warning %}
+    <script>
+        createNotification("warning", "{{ warningMsg }}");
+    </script>
+    {% endif %}
+    {% if error %}
+    <script>
+        createNotification("error", "{{ errorMsg }}");
     </script>
     {% endif %}
 </div>

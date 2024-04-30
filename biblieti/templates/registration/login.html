@@ -53,7 +53,7 @@
     </main>
     {% if error %}
     <script>
-        createNotification("error", "{{ errorMsg }}", $("#loginForm"));
+        createNotification("error", "{{ errorMsg }}", $(".right-container h2"));
     </script>
     {% endif %}    
     <script src="{% static 'landing_page_controller.js' %}?no-cache={% now "U" %}"></script>

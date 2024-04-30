@@ -133,5 +133,66 @@ def login_view(request):
             data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
     return render(request, "registration/login.html", data)
 
+def import_csv(request):
+    data = {}
+    if request.method == 'POST':
+        # Importar csv
+        print(request.POST.get("data"))
+        rows = request.POST.get("data").split('\n')
+        for row in rows:
+            row = row.split(',')
+            print(row)
+            print(User_ieti.objects.filter(email=row[1]).exists())
+            if (User_ieti.objects.filter(email=row[1]).exists()):
+                if data.get('warning') is None:
+                    data['warning'] = True
+                    data['warningMsg'] = "Les adreces de correu electrònic següents ja estan registrades:\\n"
+                data['warningMsg'] += row[1] + "\\n"
+                continue
+            try:
+                user = User_ieti.objects.create(username=row[0], email=row[1], first_name=row[2], last_name=row[3], role=row[4], date_of_birth=row[5].replace("\r", ""))
+                user.save()
+            except Exception as e:
+                print(e)
+                if data.get('error') is None:
+                    data['error'] = True
+                    data['errorMsg'] = "S'ha produït un error en la importació dels següents usuaris:\\n"
+                data['errorMsg'] += row[1] + "\\n"
+                continue
+        data['info'] = True
+        data['infoMsg'] = "Importació finalitzada correctament."
+        if data.get('error'):
+            data['errorMsg'] += "Si us plau, revisa els camps i torna a intentar-ho."
+            #product = Product.objects.create(ISBN=row[0], name=row[1], author=row[2], publication_year=row[3], price=row[4], availability=row[5])
+            #product.save()
+    return render(request, 'import_csv.html', data)
+
+def add_user(request):
+    if request.method == "POST":
+        if User_ieti.objects.filter(email=request.POST.get("email")).exists():
+            return render(request, 'add_user.html', {"error": True, "errorMsg": "Aquest correu electrònic ja està registrat."})
+        username = request.POST.get("name")
+        email = request.POST.get("email")
+        role = request.POST.get("role")
+        cycle = request.POST.get("cycle")
+        User_ieti.objects.create(username=username, email=email, role=role, cycle=cycle, password="Password12345")
+    return render(request, 'add_user.html')
+
+def edit_user_list(request):
+    data = {"users": list(User_ieti.objects.all())}
+    return render(request, 'edit_user_list.html', data)
+
+def edit_user_form(request, email):
+    user = User_ieti.objects.get(email=email)
+    if request.method == "POST":
+        user.username = request.POST.get("name")
+        user.email = request.POST.get("email")
+        user.role = request.POST.get("role")
+        user.cycle = request.POST.get("cycle")
+        user.save()
+        return redirect('edit_user_list')
+    data = {"user": user}
+    return render(request, 'edit_user_form.html', data)
+
 def test(request):
     return render(request, 'test.html')
