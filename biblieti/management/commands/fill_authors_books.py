@@ -4,8 +4,6 @@ from datetime import timedelta
 from faker import Faker
 from faker.providers import lorem
 import random
-import string
-import requests
 
 from biblieti.models import *
 
