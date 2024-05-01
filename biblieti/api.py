@@ -221,9 +221,12 @@ def get_user_loans(request):
         loan_data = LoanSerializer(user_loans, many=True).data
         for loan in loan_data:
             catalogue_id = loan['catalogue']
-            catalogue = Catalogue.objects.get(id=catalogue_id)
-            catalogue_serializer = catalogue.serialize()  # Utiliza la nueva función serialize
-            loan['catalogue'] = catalogue_serializer
+            try:
+                catalogue = Catalogue.objects.get(id=catalogue_id)
+                catalogue_serializer = catalogue.serialize()
+                loan['catalogue'] = catalogue_serializer
+            except Catalogue.DoesNotExist:
+                loan['catalogue'] = None
 
         return Response(loan_data)
 
@@ -232,7 +235,7 @@ def get_user_loans(request):
             return Response({'error': f"Usuari amb correu: {email} no trobat."})
 
     except Exception as e:
-        return Response({'error': 'Hubo un error al obtener los préstamos del usuario: ' + e}, status=500)
+        return Response({'error': 'Hubo un error al obtener los préstamos del usuario: ' + str(e)}, status=500)
 
 @api_view(['GET'])
 def delete_loan(request):
