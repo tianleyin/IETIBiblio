@@ -127,7 +127,11 @@ $(() => {
     $("#search-button").off().click(function(e) {
         e.preventDefault()
         let productName = $("#product-name").val() == "" ? "null" : $("#product-name").val()
-        let availability = "Available"
+  
+        let availability = "not-available"
+        if ($("#available").is(":checked")) {
+            availability = "Available"
+        }
 
         let author = 'null'
         let ISBN = 'null'
@@ -203,7 +207,7 @@ $(() => {
                     break
             }
             let translatedAvailability = ""
-            if (element.available) {
+            if (element.available) { // ojo mirar de reimplementar esto!!!!!!
                 translatedAvailability = "Disponible"
                 $("#search-results").append(`
                 <li>

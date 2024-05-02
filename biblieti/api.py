@@ -18,7 +18,7 @@ def hello(request):
         }, safe=False)
 
 @api_view(['GET'])
-def get_products_landing(request, search):
+def get_products_landing(request, search, availability): # mirar de modificar y verifacar esto para incluir el checkbox de disponible o no en landing
     try:
         search_int = int(search)
     except ValueError:
@@ -40,7 +40,15 @@ def get_products_landing(request, search):
 
     ).distinct()
 
-    #return JsonResponse(list(filteredData.values()), safe=False)
+    # Anotar la cuenta de préstamos por cada artículo
+    filteredData = filteredData.annotate(num_loans=Count('loan'))
+
+    # Filtrar según la disponibilidad
+    if availability == 'available':
+        filteredData = filteredData.filter(num_loans=0)
+    elif availability == 'not-available':
+        filteredData = filteredData.exclude(num_loans=0)
+
     # Serializa los resultados y devuelve una respuesta JSON
     serialized_data = [item.serialize() for item in filteredData]
     return JsonResponse(serialized_data, safe=False)
@@ -125,8 +133,10 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
         filteredData = list(Device.objects.filter(name__contains=name,manufacturer__contains=manufacturer,model__contains=model).values())
         for item in filteredData:
             item['type'] = 'Device'
-    for item in filteredData:
-        if Booking.objects.filter(catalogue_id=item['id']).exists():
+
+    # logica antigua de filtrar por available o not-available
+    """for item in filteredData:
+        if Loan.objects.filter(catalogue_id=item['id']).exists():
             if availability == 'available':
                 filteredData.remove(item)
             else:
@@ -135,7 +145,16 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
             if availability == 'not-available':
                 filteredData.remove(item)
             else:
-                item['available'] = True
+                item['available'] = True"""
+
+    # Lógica de filtrado nueva por disponibilidad
+    if availability == 'available':
+        # Filtrar solo los elementos con is_loanable=True y sin préstamos asociados
+        for item in filteredData:
+            if not item.get('is_loanable', False) or item.get('num_loans', 0) > 0:
+                filteredData.remove(item)
+
+    
     return JsonResponse(filteredData, safe=False)
 
 @api_view(['POST'])
