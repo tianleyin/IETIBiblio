@@ -1,4 +1,4 @@
-function createNotification(type, msg, node) {
+function createNotification(type, msg, node=false) {
     let nodeElement = ""
     switch (type) {
         case "info":
@@ -39,6 +39,8 @@ function createNotification(type, msg, node) {
     let toast = Toastify(options)
     toast.showToast();
     $(toast.toastElement).css("transition-property", "top")
-    $(toast.toastElement).css("top", node[0].getBoundingClientRect().top - $(toast.toastElement).height() - 30)
-    $(toast.toastElement).css("left", node.offset().left + $(node).width()/2 - $(toast.toastElement).width()/2)
+    if (node) {
+        $(toast.toastElement).css("top", node[0].getBoundingClientRect().top - $(toast.toastElement).height() - 30)
+        $(toast.toastElement).css("left", node.offset().left + $(node).width()/2 - $(toast.toastElement).width()/2)
+    }
 }
