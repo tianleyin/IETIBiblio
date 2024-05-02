@@ -25,7 +25,7 @@
         
         <nav>
             <ul>
-                <li><a href="/dashboard">DASHBOARD</a></li>
+                <li><a href="/dashboard">PANELL</a></li>
                 <li><a href="/change_password">CANVIAR CONTRASENYA</a></li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
@@ -34,7 +34,8 @@
             </ul>
         </nav>
     </header>
-    <main id="user-data">
+    <main id="user-data">   
+        <h1>EDITAR USUARI</h1>
         <form id="update-form" method="POST">
             {% csrf_token %}
             <img src="{{ user.picture }}">

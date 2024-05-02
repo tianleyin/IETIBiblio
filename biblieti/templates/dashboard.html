@@ -29,7 +29,7 @@
                 <li><a href="/change_password">CANVIAR CONTRASENYA</a></li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button id="btn-logout" type="submit">TANCAR SESSIÓ</button>
+                    <button id="btn-logout" type="submit">TANCAR SESSIÓ DE {{ user.username }}</button>
                 </form>
             </ul>
         </nav>

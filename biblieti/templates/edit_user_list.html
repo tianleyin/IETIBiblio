@@ -25,11 +25,11 @@
         
         <nav>
             <ul>
-                <li><a href="/dashboard">DASHBOARD</a></li>
+                <li><a href="/dashboard">PANELL</a></li>
                 <li><a href="/change_password">CANVIAR CONTRASENYA</a></li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit" id="btn-logout">TANCAR SESSIÓ</button>
+                    <button type="submit" id="btn-logout">TANCAR SESSIÓ DE {{ user.username }}</button>
                 </form>
             </ul>
         </nav>
