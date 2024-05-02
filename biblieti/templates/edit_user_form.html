@@ -59,5 +59,10 @@
         </form>
     </main>
     <script src="{% static 'edit_user_controller.js' %}?no-cache={% now "U" %}"></script>
+    {% if notification %}
+    <script>
+        createNotification("info", "{{ notificationMsg }}");
+    </script>
+    {% endif %}
 </div>
 {% endblock %}

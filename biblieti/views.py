@@ -180,6 +180,11 @@ def add_user(request):
 
 def edit_user_list(request):
     data = {"users": list(User_ieti.objects.all())}
+    if request.session.get('notification') is not None:
+        data['notification'] = request.session.get('notification')
+        data['notificationMsg'] = request.session.get('notificationMsg')
+        request.session.pop('notification')
+        request.session.pop('notificationMsg')
     return render(request, 'edit_user_list.html', data)
 
 def edit_user_form(request, email):
@@ -190,6 +195,8 @@ def edit_user_form(request, email):
         user.role = request.POST.get("role")
         user.cycle = request.POST.get("cycle")
         user.save()
+        request.session['notification'] = 'info'
+        request.session['notificationMsg'] = 'Dades actualitzades correctament.'
         return redirect('edit_user_list')
     data = {"user": user}
     return render(request, 'edit_user_form.html', data)
