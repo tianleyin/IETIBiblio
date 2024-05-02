@@ -137,12 +137,12 @@ def import_csv(request):
     data = {}
     if request.method == 'POST':
         # Importar csv
-        print(request.POST.get("data"))
+        #print(request.POST.get("data"))
         rows = request.POST.get("data").split('\n')
         for row in rows:
             row = row.split(',')
-            print(row)
-            print(User_ieti.objects.filter(email=row[1]).exists())
+            #print(row)
+            #print(User_ieti.objects.filter(email=row[1]).exists())
             if (User_ieti.objects.filter(email=row[1]).exists()):
                 if data.get('warning') is None:
                     data['warning'] = True
