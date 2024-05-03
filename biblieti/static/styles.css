@@ -309,6 +309,26 @@ label {
     font-family: "Inter", sans-serif;
 }
 
+/* search_products header */
+header #search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: smaller;
+}
+
+header #search-row {
+    margin-left: 5px;
+}
+
+header #checkbox-disponibility {
+    margin: auto;
+}
+
+header #checkbox-disponibility label {
+    width: 55%;
+}
+
 /* landing_page */
 #landing-page header {
     background-color: var(--dark-brown);
@@ -380,6 +400,10 @@ label {
     position: relative;
 }
 
+#btn-search:hover {
+    cursor: pointer;
+}
+
 #search-row {
     display: flex;
     max-height: 28px;
@@ -422,6 +446,22 @@ label {
 
 #absolute-div ul.item li {
     padding: 0;
+}
+
+#checkbox-disponibility {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+#checkbox-disponibility input {
+    width: 20%;
+}
+
+#checkbox-disponibility input:hover, #checkbox-disponibility label:hover {
+    cursor: pointer;
 }
 
 .right-container {
@@ -490,6 +530,11 @@ main {
     min-height: calc(100vh - 50px);
     background-color: var(--light-brown);
     overflow-y: scroll;
+}
+
+#search-results-title {
+    margin: 25px auto;
+    margin-left: 35px;
 }
 
 #search-results {
@@ -679,6 +724,10 @@ main {
     /* Centrado horizontal */
     text-align: center;
     /* Alineación del texto */
+}
+
+#user-data h1 {
+    margin-bottom: 25px;
 }
 
 #user-data form {
@@ -979,4 +1028,9 @@ main {
     padding: 10px; /* Agrega espacio interno a cada elemento de la lista */
     border: 1px solid #ccc; /* Agrega un borde alrededor de cada elemento de la lista */
     background-color: #f9f9f9; /* Color de fondo de cada elemento de la lista */
+}
+
+/* edit_user */ 
+#update-form select {
+    margin-bottom: 15px;
 }

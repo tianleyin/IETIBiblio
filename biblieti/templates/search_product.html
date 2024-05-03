@@ -5,15 +5,15 @@
 <div id="search-product">
     <header class="expanding-header">
         <div class="visible-section">
-            <span id="expand-header">
-                CERCA AVANÇADA
+            <span id="expand-header" accesskey="c" title="Cerca Avançada (ALT + C)">
+                <span style="text-decoration: underline;">C</span>ERCA AVANÇADA
                 <div id="chevron-container">
                     <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>
                 </div>
             </span>
             <nav>
                 <ul>
-                    <li><a href="/">TORNAR A L'INICI</a></li>
+                    <li><a href="/" accesskey="i" title="Inici (ALT + I)">TORNAR A L'<span style="text-decoration: underline;">I</span>NICI</a></li>
                 </ul>
             </nav>
         </div>
@@ -32,8 +32,8 @@
                 <legend>Filtres de cerca</legend>
                 <div class="form-row space-around">
                     <div>
-                        <label for="product-name">Nom del producte</label>
-                        <input type="text" id="product-name">
+                        <label for="product-name"><span style="text-decoration: underline;">N</span>om del producte</label>
+                        <input type="text" id="product-name" accesskey="n" title="Nom (ALT + N)">
                     </div>
                     <div>
                         <label for="product-type">Tipus</label>
@@ -60,6 +60,7 @@
         </form>
     </header>
     <main>
+        <h1 id="search-results-title"></h1>
         <ul id="search-results">
         </ul>
     </main>
