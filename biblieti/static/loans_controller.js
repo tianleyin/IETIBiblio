@@ -183,46 +183,57 @@ $(() => {
         $("#search-results").empty()
         data.forEach(element => {
             let translatedType = ""
-            let href = ""
+            let elementData = ""
             switch (element.type) {
                 case "Book":
                     translatedType = "Llibre"
-                    href = `${element.id},${element.name},${element.ISBN},${element.author},${element.publication_year}`
+                    elementData = `<p>- ISBN: ${element.ISBN}</p><p>- Autor/a: ${element.author}</p><p>- Data de publicació:${element.publication_year}</p>`
                     break
                 case "CD":
                     translatedType = "CD"
-                    href = `${element.id},${element.name},${element.ISBN},${element.artist},${element.tracks}`
+                    elementData = `<p>- Artista: ${element.artist}</p><p>- Pistes: ${element.tracks}</p>`
                     break
                 case "DVD":
                     translatedType = "DVD"
-                    href = `${element.id},${element.name},${element.director},${element.duration}`
+                    elementData = `<p>- Director/a: ${element.director}</p><p>Duració: ${element.duration}</p>`
                     break
                 case "BR":
                     translatedType = "Blu-Ray"
-                    href = `${element.id},${element.name},${element.resolution}`
+                    elementData = `<p>- Resolució: ${element.resolution}</p>`
                     break
                 case "Device":
                     translatedType = "Dispositiu"
-                    href = `${element.id},${element.manufacturer},${element.model}`
+                    elementData = `<p>- Fabricant: ${element.manufacturer}</p><p>- Model: ${element.model}</p>`
                     break
             }
-            let translatedAvailability = ""
-            if (element.available) { // ojo mirar de reimplementar esto!!!!!!
-                translatedAvailability = "Disponible"
-                
-            } else {
-                translatedAvailability = "No disponible"
-            }
-            $("#search-results").append(`
+            var liElement = ""
+
+            if (element.is_same_school && element.state == "Disponible") { // logica de mostrar solamente el boton de prestar en cosas de tu biblioteca y si es disponible
+                liElement = `
                 <li>
                     <div class="product-card">
                         <h2>${element.name}</h2>
-                        <p>${translatedType}</p>
-                        <p>${translatedAvailability}</p>
+                        <p>- Tipus: ${translatedType}</p>
+                        ${elementData}
+                        <p>- Estat: ${element.state}</p>
+                        <p>- Escola: ${element.school}</p>
                         <a href="/loans_form/" class='loan-button' data='${JSON.stringify(element)}'>Prestar</a>
                     </div>
-                </li>
-                `)
+                </li>`
+            } else {
+                liElement = `
+                <li>
+                    <div class="product-card">
+                        <h2>${element.name}</h2>
+                        <p>- Tipus: ${translatedType}</p>
+                        ${elementData}
+                        <p>- Estat: ${element.state}</p>
+                        <p>- Escola: ${element.school}</p>
+                    </div>
+                </li>`
+            }
+
+            $("#search-results").append(liElement)
             
         });
         $(".loan-button").click(function (event) {

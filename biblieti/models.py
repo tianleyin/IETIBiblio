@@ -35,7 +35,7 @@ class Catalogue(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     picture = models.ImageField(upload_to='imgs/', blank=True, null=True)
-    school = models.CharField(max_length=255, null=True)
+    school = models.CharField(max_length=255, null=True, default='Institut Esteve Terradas i Illa')
     is_loanable = models.BooleanField(default=True)
     def __str__(self):
         return self.name

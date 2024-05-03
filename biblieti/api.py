@@ -57,6 +57,7 @@ def get_products_landing(request, search, availability): # mirar de modificar y 
 @api_view(['GET'])
 def get_products(request, type, availability, name, author, ISBN, publication_year, artist, tracks, director, duration, resolution, manufacturer, model, page):
     print(type)
+    user = request.user
     if (name == 'null'):
         name = ''
     if (author == 'null'):
@@ -150,25 +151,38 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
 
     # Lógica de filtrado nueva por disponibilidad
     if availability == 'Available':
-        # Filtrar solo los elementos con is_loanable=True y sin préstamos asociados
+        # Filtrar solo los elementos con is_loanable=True y sin préstamos asociados      
+
         for item in filteredData:
             # Calcula el número de préstamos asociados
-            num_loans = Loan.objects.filter(catalogue=item).count()
+            num_loans = Loan.objects.filter(catalogue_id=item['id']).count()
             # Calcula el número de reservas asociadas
-            num_bookings = Booking.objects.filter(catalogue=item).count()
+            num_bookings = Booking.objects.filter(catalogue_id=item['id']).count()
 
             if not item.get('is_loanable', False) or num_loans > 0 or num_bookings > 0:
                 filteredData.remove(item)
 
+            elif request.user.is_authenticated:
+                if item.get('school') != user.school:
+                    filteredData.remove(item)
+                else:
+                    item['state'] = 'Disponible'
+                    item['is_same_school'] = True
+
             else: # añadir una variable de estado a cada uno de los items que sea state: disponible
                 item['state'] = 'Disponible'
+                item['is_same_school'] = True
                 
     else: # not-available
         for item in filteredData:
             # Calcula el número de préstamos asociados
-            num_loans = Loan.objects.filter(catalogue=item).count()
+            num_loans = Loan.objects.filter(catalogue_id=item['id']).count()
             # Calcula el número de reservas asociadas
-            num_bookings = Booking.objects.filter(catalogue=item).count()
+            num_bookings = Booking.objects.filter(catalogue_id=item['id']).count()
+
+            if request.user.is_authenticated:
+                if item.get('school') == user.school:
+                    item['is_same_school'] = True
 
             if not item.get('is_loanable', False): # estat no disponible
                 item['state'] = 'No disponible'

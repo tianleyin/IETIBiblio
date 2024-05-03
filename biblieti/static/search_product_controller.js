@@ -141,24 +141,24 @@ $(() => {
         let model = 'null'
         switch (productType) {
             case "Book":
-                author = $("#author").val()
-                ISBN = $("#ISBN").val()
-                publishYear = $("#publish-year").val()
+                author = $("#author").val() == "" ? "null" : $("#author").val()
+                ISBN = $("#ISBN").val() == "" ? "null" : $("#ISBN").val()
+                publishYear = $("#publish-year").val() == "" ? "null" : $("#publish-year").val()
                 break
             case "CD":
-                artist = $("#artist").val()
-                tracks = $("#tracks").val()
+                artist = $("#artist").val() == "" ? "null" : $("#artist").val()
+                tracks = $("#tracks").val() == "" ? 0 : $("#tracks").val()
                 break
             case "DVD":
-                director = $("#director").val()
+                director = $("#director").val() == "" ? "null" : $("#director").val()
                 duration = $("#duration").val()
                 break
             case "BR":
-                resolution = $("#resolution").val()
+                resolution = $("#resolution").val() == "" ? "null" : $("#resolution").val()
                 break
             case "Device":
-                manufacturer = $("#manufacturer").val()
-                model = $("#model").val()
+                manufacturer = $("#manufacturer").val() == "" ? "null" : $("#manufacturer").val()
+                model = $("#model").val() == "" ? "null" : $("#model").val()
                 break
         }
         requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model)
@@ -178,38 +178,41 @@ $(() => {
         $("#search-results").empty()
         data.forEach(element => {
             let translatedType = ""
+            let elementData = ""
             switch (element.type) {
                 case "Book":
                     translatedType = "Llibre"
+                    elementData = `<p>- ISBN: ${element.ISBN}</p><p>- Autor/a: ${element.author}</p><p>- Data de publicació:${element.publication_year}</p>`
                     break
                 case "CD":
                     translatedType = "CD"
+                    elementData = `<p>- Artista: ${element.artist}</p><p>- Pistes: ${element.tracks}</p>`
                     break
                 case "DVD":
                     translatedType = "DVD"
+                    elementData = `<p>- Director/a: ${element.director}</p><p>Duració: ${element.duration}</p>`
                     break
                 case "BR":
                     translatedType = "Blu-Ray"
+                    elementData = `<p>- Resolució: ${element.resolution}</p>`
                     break
                 case "Device":
                     translatedType = "Dispositiu"
+                    elementData = `<p>- Fabricant: ${element.manufacturer}</p><p>- Model: ${element.model}</p>`
                     break
             }
-            let translatedAvailability = ""
-            if (element.availability == "available") {
-                translatedAvailability = "Disponible"
-            } else {
-                translatedAvailability = "No disponible"
-            }
-            $("#search-results").append(`
+            var liElement = `
             <li>
                 <div class="product-card">
                     <h2>${element.name}</h2>
-                    <p>${translatedType}</p>
-                    <p>${translatedAvailability}</p>
+                    <p>- Tipus: ${translatedType}</p>
+                    ${elementData}
+                    <p>- Estat: ${element.state}</p>
+                    <p>- Escola: ${element.school}</p>
                 </div>
-            </li>
-            `)
+            </li>`
+
+            $("#search-results").append(liElement)
         });
         $(".expanding-header").removeClass("expanded")
         
