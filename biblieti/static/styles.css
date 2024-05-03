@@ -309,6 +309,26 @@ label {
     font-family: "Inter", sans-serif;
 }
 
+/* search_products header */
+header #search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: smaller;
+}
+
+header #search-row {
+    margin-left: 5px;
+}
+
+header #checkbox-disponibility {
+    margin: auto;
+}
+
+header #checkbox-disponibility label {
+    width: 55%;
+}
+
 /* landing_page */
 #landing-page header {
     background-color: var(--dark-brown);
@@ -510,6 +530,11 @@ main {
     min-height: calc(100vh - 50px);
     background-color: var(--light-brown);
     overflow-y: scroll;
+}
+
+#search-results-title {
+    margin: 25px auto;
+    margin-left: 35px;
 }
 
 #search-results {

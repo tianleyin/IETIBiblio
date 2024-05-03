@@ -164,6 +164,12 @@ $(() => {
     })
 
     function requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model) {
+        if (productName==="null") {
+            $("#search-results-title").text("Mostrando todos los Productos");
+
+        } else {
+            $("#search-results-title").text('Resultados de la búsqueda: "' + productName + '"')
+        }
         return new Promise((resolve, reject) => {
             fetch(`/api/get_products/${productType},${availability},${productName},${author},${ISBN},${publishYear},${artist},${tracks},${director},${duration},${resolution},${manufacturer},${model}`)
             .then(response => response.json())
@@ -210,6 +216,9 @@ $(() => {
             </li>
             `)
         });
+        if ($("#search-results").children().length === 0) {
+            createNotification("info", "No se encontraron resultados para la búsqueda.");
+        }
         $(".expanding-header").removeClass("expanded")
         
         $("#chevron-container").html(`<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>`)

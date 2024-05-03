@@ -165,6 +165,12 @@ $(() => {
     })
 
     function requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model) {
+        if (productName==="null") {
+            $("#search-results-title").text("Mostrando todos los Productos");
+
+        } else {
+            $("#search-results-title").text('Resultados de la búsqueda: "' + productName + '"')
+        }
         return new Promise((resolve, reject) => {
             fetch(`/api/get_products/${productType},${availability},${productName},${author},${ISBN},${publishYear},${artist},${tracks},${director},${duration},${resolution},${manufacturer},${model}`)
             .then(response => response.json())
@@ -220,6 +226,9 @@ $(() => {
             }
             
         });
+        if ($("#search-results").children().length === 0) {
+            createNotification("info", "No se encontraron resultados para la búsqueda.");
+        }
         $(".loan-button").click(function (event) {
             event.preventDefault()
             let datos = $(this).attr('data')
