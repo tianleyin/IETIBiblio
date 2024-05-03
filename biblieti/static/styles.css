@@ -1030,7 +1030,16 @@ main {
     background-color: #f9f9f9; /* Color de fondo de cada elemento de la lista */
 }
 
+#user-loans li:has(button) {
+    text-align: center;
+}
+
 /* edit_user */ 
 #update-form select {
     margin-bottom: 15px;
+}
+
+/* add_user */
+#role {
+    margin-bottom: 10px;
 }

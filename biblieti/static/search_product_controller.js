@@ -165,10 +165,10 @@ $(() => {
 
     function requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model) {
         if (productName==="null") {
-            $("#search-results-title").text("Mostrando todos los Productos");
+            $("#search-results-title").text("Mostrant tots els Productes");
 
         } else {
-            $("#search-results-title").text('Resultados de la búsqueda: "' + productName + '"')
+            $("#search-results-title").text('Resultats de la cerca: "' + productName + '"')
         }
         return new Promise((resolve, reject) => {
             fetch(`/api/get_products/${productType},${availability},${productName},${author},${ISBN},${publishYear},${artist},${tracks},${director},${duration},${resolution},${manufacturer},${model}`)
@@ -217,7 +217,7 @@ $(() => {
             `)
         });
         if ($("#search-results").children().length === 0) {
-            createNotification("info", "No se encontraron resultados para la búsqueda.");
+            createNotification("info", "No s'han trobat resultats per a la cerca.");
         }
         $(".expanding-header").removeClass("expanded")
         

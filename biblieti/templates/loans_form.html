@@ -22,10 +22,10 @@
     </svg>
     <nav>
         <ul>
-            <li><a href="/dashboard">PANELL</a></li>
+            <li><a href="/dashboard" accesskey="p" title="Panell (ALT + P)"><span style="text-decoration: underline;">P</span>ANELL</a></li>            
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button id="btn-logout" type="submit">TANCAR SESSIÓ DE {{ user.username }}</button>
+                <button type="submit" id="btn-logout" accesskey="t" title="Tancar Sessió (ALT + T)"><span style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
             </form>
         </ul>
     </nav>
@@ -38,8 +38,8 @@
     <form action="{% url 'do_loan' %}" method="post" id="loanForm">
         {% csrf_token %}
         {{ form}}
-        <label for="email">Adreça de correu electrònic de l'usuari que vol fer el préstec:</label>
-        <input type="email" id="email" name="email" required>
+        <label for="email"><span style="text-decoration: underline;">A</span>dreça de correu electrònic de l'usuari que vol fer el préstec:</label>
+        <input type="email" id="email" name="email" required accesskey="a" title="Adreça de correu electrònic (ALT + A)">
         <input type="hidden" id="id" name="id">
         <br>
         <input type="submit" value="Fer préstec">
