@@ -138,14 +138,16 @@ class Command(BaseCommand):
                     name = fake_es.sentence(nb_words=random.randint(1,5)),
                     author = author_name,
                     ISBN = fake_es.isbn10(),
-                    publication_year = fake_es.year()
+                    publication_year = fake_es.year(),
+                    CDU=random.randint(50, 300)
                 )
                 
                 Book.objects.create(
                     name = fake_en.sentence(nb_words=random.randint(1, 5)),
                     author = author_name,
                     ISBN = fake_es.isbn10(),
-                    publication_year = fake_es.year()
+                    publication_year = fake_es.year(),
+                    CDU=random.randint(50, 300)
                 )
 
         for _ in range(3):

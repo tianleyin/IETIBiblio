@@ -85,6 +85,7 @@ class Book(Catalogue):
     author = models.CharField(max_length=100)
     ISBN = models.CharField(max_length=20)
     publication_year = models.IntegerField()
+    CDU = models.CharField(max_length=100)
 
 class CD(Catalogue):
     artist = models.CharField(max_length=100)
@@ -147,7 +148,7 @@ class CatalogueSerializer(serializers.ModelSerializer):
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ['author', 'ISBN', 'publication_year']
+        fields = ['author', 'ISBN', 'publication_year', 'CDU']
 
 class CDSerializer(serializers.ModelSerializer):
     class Meta:

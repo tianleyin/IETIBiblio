@@ -31,6 +31,7 @@ def get_products_landing(request, search, availability): # mirar de modificar y 
         Q(book__author__icontains=search) |
         Q(book__ISBN__icontains=search) |
         Q(book__publication_year__icontains=search_int) |
+        Q(book__CDU__icontains=search) |
         Q(cd__artist__icontains=search) |
         Q(cd__tracks__contains=search_int) |
         Q(dvd__director__icontains=search) |
