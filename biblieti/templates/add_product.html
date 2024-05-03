@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<nav>
+    <ul>
+        <li><a href="/dashboard">PANELL</a></li>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button id="btn-logout" type="submit">TANCAR SESSIÓ DE {{ user.username }}</button>
+        </form>
+    </ul>
+</nav>
+<main>
+    
+</main>
+
+{% endblock %}

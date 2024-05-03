@@ -74,12 +74,13 @@
             <h2>Rol: Super Administrador/a</h2>
             {% endif %}
             <a href="/user_data" class="btn-user-data" accesskey="m" title="Perfil (ALT + M)">Mostrar les meves dades</a>
-            {% if user.role == 'librarian' %}
+            {% if user.role == 'librarian' or user.role == 'Super Admin'%}
             <a href="/add_user" class="btn-user-data">Afegir un usuari</a>
             <a href="/edit_user" class="btn-user-data">Editar un usuari</a>
             <a href="/import_csv" class="btn-user-data">Importar usuaris</a>
             <a href="/loans" class="btn-user-data">Realitzar un préstec</a>
             <a href="/return_loan" class="btn-user-data">Retornar un préstec</a>
+            <a href="/add_product" class="btn-user-data">Afegir un producte al catàleg</a>
             {% endif %}
         </div>
     </main>

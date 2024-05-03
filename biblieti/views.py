@@ -205,5 +205,11 @@ def edit_user_form(request, email):
     data = {"user": user}
     return render(request, 'edit_user_form.html', data)
 
+def add_product(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+        
+    return render(request, 'add_product.html')
+
 def test(request):
     return render(request, 'test.html')
