@@ -158,8 +158,15 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
             # Calcula el número de reservas asociadas
             num_bookings = Booking.objects.filter(catalogue_id=item['id']).count()
 
-            if not item.get('is_loanable', False) or num_loans > 0 or num_bookings > 0 or item.get('school') != user.school:
+            if not item.get('is_loanable', False) or num_loans > 0 or num_bookings > 0:
                 filteredData.remove(item)
+
+            elif request.user.is_authenticated:
+                if item.get('school') != user.school:
+                    filteredData.remove(item)
+                else:
+                    item['state'] = 'Disponible'
+                    item['is_same_school'] = True
 
             else: # añadir una variable de estado a cada uno de los items que sea state: disponible
                 item['state'] = 'Disponible'
@@ -172,8 +179,9 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
             # Calcula el número de reservas asociadas
             num_bookings = Booking.objects.filter(catalogue_id=item['id']).count()
 
-            if item.get('school') == user.school:
-                item['is_same_school'] = True
+            if request.user.is_authenticated:
+                if item.get('school') == user.school:
+                    item['is_same_school'] = True
 
             if not item.get('is_loanable', False): # estat no disponible
                 item['state'] = 'No disponible'

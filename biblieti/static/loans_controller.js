@@ -208,7 +208,7 @@ $(() => {
             }
             var liElement = ""
 
-            if (element.is_same_school) { // logica de mostrar solamente cosas de tu biblioteca 
+            if (element.is_same_school && element.state == "Disponible") { // logica de mostrar solamente el boton de prestar en cosas de tu biblioteca y si es disponible
                 liElement = `
                 <li>
                     <div class="product-card">
