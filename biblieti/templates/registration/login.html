@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load socialaccount %}
 {% block content %}
     <div id="landing-page">
     
@@ -17,7 +18,7 @@
             <path d="M14 9l4 -1" />
             <path d="M16 16l3.923 -.98" />
         </svg>
-        <h1>Biblioteca MariCarmen Brito</h1>
+        <h1>Biblioteca Mari Carmen Brito</h1>
     </header>
     <main>
         <div class="left-container">
@@ -53,6 +54,7 @@
                 <a href="{% url 'forgot_password' %}" class="accent-color-link">Has oblidat la contrasenya?</a>
                 <input type="submit" value="Iniciar Sessió">
             </form>
+            <a href="{% provider_login_url 'google' %}">Login with Google</a>
         </div>
     </main>
     {% if error %}

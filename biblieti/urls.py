@@ -30,8 +30,8 @@ urlpatterns = [
     path('api/get_user_loans/', api.get_user_loans, name='get_user_loans'),
     path('api/delete_loan/', api.delete_loan, name='delete_loan'),
     path('api/hello/', api.hello, name='hello'),
-    path('api/get_products/<str:type>,<str:availability>,<str:name>,<str:author>,<str:ISBN>,<str:publication_year>,<str:artist>,<int:tracks>,<str:director>,<int:duration>,<str:resolution>,<str:manufacturer>,<str:model>', api.get_products, name='get_products'),
-    path('api/get_products_landing/<str:search>,<str:availability>', api.get_products_landing, name='get_products_landing'),
+    path('api/get_products/<str:type>,<str:availability>,<str:name>,<str:author>,<str:ISBN>,<str:publication_year>,<str:artist>,<int:tracks>,<str:director>,<int:duration>,<str:resolution>,<str:manufacturer>,<str:model>,<int:page>', api.get_products, name='get_products'),
+    path('api/get_products_landing/<str:search>', api.get_products_landing, name='get_products_landing'),
     path('api/send_log/', api.send_log),
     path('test/', test),
     path('', login_view, name='login'),
@@ -48,5 +48,6 @@ urlpatterns = [
     path('add_user', add_user, name='add_user'),
     path('edit_user', edit_user_list, name='edit_user_list'),
     path('edit_user/<str:email>', edit_user_form, name='edit_user_form'),
-    path('add_product/', add_product, name='add_product')
+    path('accounts/', include('allauth.urls')), 
+    path('add_product/', add_product, name='add_product'),
 ]

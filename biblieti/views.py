@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import *
+from .forms import *
 from django.utils import timezone
 import re
 
@@ -109,6 +110,7 @@ def login_view(request):
     data = {}
     page_title = "INICI - "
     if request.method == "POST":
+        print(request.POST)
         username = request.POST.get("username").lower()
         password = request.POST.get("password")
         try:
@@ -121,7 +123,7 @@ def login_view(request):
                 current_date = timezone.now()
                 level = "info"
                 client_ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_CLIENT_IP') or request.META.get('REMOTE_ADDR')
-                action = "succesfull login of " + username
+                action = "succesful login of " + username
                 current_page = "landing_page"
 
                 log_entry = Logs.objects.create(date=current_date, type=level, client_ip=client_ip, action=action, current_page=current_page)
@@ -142,37 +144,49 @@ def login_view(request):
 def import_csv(request):
     page_title = "IMPORTAR CSV - "
     data = {}
+
     if request.method == 'POST':
-        # Importar csv
-        #print(request.POST.get("data"))
-        rows = request.POST.get("data").split('\n')
-        for row in rows:
-            row = row.split(',')
-            #print(row)
-            #print(User_ieti.objects.filter(email=row[1]).exists())
-            if (User_ieti.objects.filter(email=row[1]).exists()):
-                if data.get('warning') is None:
-                    data['warning'] = True
-                    data['warningMsg'] = "Les adreces de correu electrònic següents ja estan registrades:\\n"
-                data['warningMsg'] += row[1] + "\\n"
-                continue
-            try:
-                user = User_ieti.objects.create(username=row[0], email=row[1], first_name=row[2], last_name=row[3], role=row[4], date_of_birth=row[5].replace("\r", ""))
-                user.save()
-            except Exception as e:
-                print(e)
-                if data.get('error') is None:
-                    data['error'] = True
-                    data['errorMsg'] = "S'ha produït un error en la importació dels següents usuaris:\\n"
-                data['errorMsg'] += row[1] + "\\n"
-                continue
-        data['info'] = True
-        data['infoMsg'] = "Importació finalitzada correctament."
-        if data.get('error'):
-            data['errorMsg'] += "Si us plau, revisa els camps i torna a intentar-ho."
-            #product = Product.objects.create(ISBN=row[0], name=row[1], author=row[2], publication_year=row[3], price=row[4], availability=row[5])
-            #product.save()
-    return render(request, 'import_csv.html', {'data':data, 'page_title':page_title})
+        form = fileForm(request.POST, request.FILES)
+        if form.is_valid():
+            fileData = request.FILES.get('file')
+            print(fileData)
+            #rows = fileData.read().split('\n')
+            for row in fileData:
+                row = row.decode('utf-8')
+                row = str(row).splitlines()
+                row = row[0].split(',')
+                print(row)
+                #print(User_ieti.objects.filter(email=row[1]).exists())
+                if (User_ieti.objects.filter(email=row[1]).exists()):
+                    if data.get('warning') is None:
+                        data['warning'] = True
+                        data['warningMsg'] = "Les adreces de correu electrònic següents ja estan registrades:\\n"
+                    data['warningMsg'] += row[1] + "\\n"
+                    continue
+                try:
+                    user = User_ieti.objects.create(username=row[0], email=row[1], first_name=row[2], last_name=row[3], role=row[4], date_of_birth=row[5])
+                    user.save()
+                    if data.get('info') is None:
+                        data['info'] = True
+                        data['infoMsg'] = "S'han afegit correctament els següents usuaris:\\n"
+                    data['infoMsg'] += row[1] + "\\n"
+                except Exception as e:
+                    print(e)
+                    if data.get('error') is None:
+                        data['error'] = True
+                        data['errorMsg'] = "S'ha produït un error en la importació dels següents usuaris:\\n"
+                    data['errorMsg'] += row[1] + "\\n"
+                    continue
+            if data.get('error'):
+                data['errorMsg'] += "Si us plau, revisa els camps i torna a intentar-ho."
+                #product = Product.objects.create(ISBN=row[0], name=row[1], author=row[2], publication_year=row[3], price=row[4], availability=row[5])
+                #product.save()
+    else:
+        form = fileForm()
+    data['form'] = form
+    print(data)
+    data['page_title'] = page_title
+    return render(request, 'import_csv.html', data)
 
 def add_user(request):
     page_title = "AFEGIR USUARI - "

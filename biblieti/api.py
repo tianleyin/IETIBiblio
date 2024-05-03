@@ -7,6 +7,7 @@ from django.contrib import messages
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from datetime import timedelta
+from django.core.paginator import Paginator
 import json
 # from rest_framework.decorators import api_view
 
@@ -52,7 +53,7 @@ def get_products_landing(request, search, availability): # mirar de modificar y 
     return JsonResponse(serialized_data, safe=False)
 
 @api_view(['GET'])
-def get_products(request, type, availability, name, author, ISBN, publication_year, artist, tracks, director, duration, resolution, manufacturer, model):
+def get_products(request, type, availability, name, author, ISBN, publication_year, artist, tracks, director, duration, resolution, manufacturer, model, page):
     print(type)
     user = request.user
     if (name == 'null'):
@@ -192,8 +193,14 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
                 
             else: # estat disponible
                 item['state'] = 'Disponible'
-    
-    return JsonResponse(filteredData, safe=False)
+    pages = Paginator(filteredData, 25)
+    if (page > pages.num_pages):
+        page = pages.num_pages
+    elif (page < 1):
+        page = 1
+    filteredData = pages.get_page(page).object_list
+    print(filteredData)
+    return JsonResponse({'data': filteredData, 'num_pages': pages.num_pages}, safe=False)
 
 @api_view(['POST'])
 def send_log(request):
