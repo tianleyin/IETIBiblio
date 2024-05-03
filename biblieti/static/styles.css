@@ -472,6 +472,28 @@ header .icon {
     cursor: pointer;
 }
 
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.pagination-container button {
+    border: none;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+}
+
+.d-none {
+    display: none !important;
+}
+
 .right-container {
     background-color: #292021;
     padding: 35% 20px;

@@ -200,8 +200,9 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
         page = pages.num_pages
     elif (page < 1):
         page = 1
-    filteredData = pages.get_page(page)
-    return JsonResponse(filteredData, safe=False)
+    filteredData = pages.get_page(page).object_list
+    print(filteredData)
+    return JsonResponse({'data': filteredData, 'num_pages': pages.num_pages}, safe=False)
 
 @api_view(['POST'])
 def send_log(request):

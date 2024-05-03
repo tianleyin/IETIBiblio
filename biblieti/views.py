@@ -186,7 +186,7 @@ def import_csv(request):
     data['form'] = form
     print(data)
     data['page_title'] = page_title
-    return render(request, 'import_csv.html', page_title)
+    return render(request, 'import_csv.html', data)
 
 def add_user(request):
     page_title = "AFEGIR USUARI - "

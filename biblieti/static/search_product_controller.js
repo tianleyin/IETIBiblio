@@ -1,6 +1,19 @@
 $(() => {
     let productType = "Any"
+    let availability = "All"
+    let productName = "null"
+    let author = 'null'
+    let ISBN = 'null'
+    let publishYear = 'null'
+    let artist = 'null'
+    let tracks = 0
+    let director = 'null'
+    let duration = 0
+    let resolution = 'null'
+    let manufacturer = 'null'
+    let model = 'null'
     let page = 1;
+    let maxPage = 1;
     let url = new URL(window.location)
     if (url.searchParams && url.searchParams.get("searchInfo")) {
         requestProducts(url.searchParams.get("searchInfo"), "All", "null", "null", "null", "null", 0, "null", 0, "null", "null", "null")
@@ -124,21 +137,21 @@ $(() => {
 
     $("#search-button").off().click(function(e) {
         e.preventDefault()
-        let productName = $("#product-name").val() == "" ? "null" : $("#product-name").val()
-        let availability = "All"
+        productName = $("#product-name").val() == "" ? "null" : $("#product-name").val()
+        availability = "All"
         if ($("#available").is(":checked")) {
             availability = "Available"
         }
-        let author = 'null'
-        let ISBN = 'null'
-        let publishYear = 'null'
-        let artist = 'null'
-        let tracks = 0
-        let director = 'null'
-        let duration = 0
-        let resolution = 'null'
-        let manufacturer = 'null'
-        let model = 'null'
+        author = 'null'
+        ISBN = 'null'
+        publishYear = 'null'
+        artist = 'null'
+        tracks = 0
+        director = 'null'
+        duration = 0
+        resolution = 'null'
+        manufacturer = 'null'
+        model = 'null'
         switch (productType) {
             case "Book":
                 author = $("#author").val() == "" ? "null" : $("#author").val()
@@ -175,7 +188,8 @@ $(() => {
             fetch(`/api/get_products/${productType},${availability},${productName},${author},${ISBN},${publishYear},${artist},${tracks},${director},${duration},${resolution},${manufacturer},${model},${page}`)
             .then(response => response.json())
             .then(data => {
-                renderProducts(data)
+                maxPage = data.num_pages
+                renderProducts(data.data)
             })
         })
     }
@@ -224,7 +238,34 @@ $(() => {
             createNotification("info", "No se encontraron resultados para la búsqueda.");
         }
         $(".expanding-header").removeClass("expanded")
+        if (maxPage > 1) {
+            $(".pagination-container").removeClass("d-none")
+            $("#previous-page").removeClass("disabled")
+            $("#next-page").removeClass("disabled")
+            if (page === 1) {
+                $("#previous-page").addClass("disabled")
+            } else if (page === maxPage) {
+                $("#next-page").addClass("disabled")
+            }
+        } else {
+            $(".pagination-container").addClass("d-none")
+        }
         
         $("#chevron-container").html(`<svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>`)
     }
+
+    $("#next-page").off().click(function() {
+        if (page < maxPage) {
+            page++
+            requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model)
+            $(window).scrollTop(0)
+        }
+    })
+    $("#previous-page").off().click(function() {
+        if (page > 1) {
+            page--
+            requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model)
+            $(window).scrollTop(0)
+        }
+    })
 })
