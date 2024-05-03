@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from .models import *
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -44,10 +44,8 @@ def get_products_landing(request, search, availability): # mirar de modificar y 
     filteredData = filteredData.annotate(num_loans=Count('loan'))
 
     # Filtrar según la disponibilidad
-    if availability == 'available':
+    if availability == 'Available':
         filteredData = filteredData.filter(num_loans=0)
-    elif availability == 'not-available':
-        filteredData = filteredData.exclude(num_loans=0)
 
     # Serializa los resultados y devuelve una respuesta JSON
     serialized_data = [item.serialize() for item in filteredData]

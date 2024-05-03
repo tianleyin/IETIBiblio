@@ -2,7 +2,11 @@ $(function() {
     $("#searchInfo").off().on('input', function() {
         $("#absolute-div ul").empty()
         if ($("#searchInfo").val().length >= 3) {
-            fetch(`/api/get_products_landing/${$("#searchInfo").val()}`)
+            let availability = "not-available"
+            if ($("#available").is(":checked")) {
+                availability = "Available"
+            }
+            fetch(`/api/get_products_landing/${$("#searchInfo").val()},${availability}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
