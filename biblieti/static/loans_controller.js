@@ -209,7 +209,11 @@ $(() => {
             let translatedAvailability = ""
             if (element.available) { // ojo mirar de reimplementar esto!!!!!!
                 translatedAvailability = "Disponible"
-                $("#search-results").append(`
+                
+            } else {
+                translatedAvailability = "No disponible"
+            }
+            $("#search-results").append(`
                 <li>
                     <div class="product-card">
                         <h2>${element.name}</h2>
@@ -219,9 +223,6 @@ $(() => {
                     </div>
                 </li>
                 `)
-            } else {
-                translatedAvailability = "No disponible"
-            }
             
         });
         $(".loan-button").click(function (event) {

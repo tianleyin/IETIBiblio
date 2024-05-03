@@ -148,12 +148,38 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
                 item['available'] = True"""
 
     # Lógica de filtrado nueva por disponibilidad
-    if availability == 'available':
+    if availability == 'Available':
         # Filtrar solo los elementos con is_loanable=True y sin préstamos asociados
         for item in filteredData:
-            if not item.get('is_loanable', False) or item.get('num_loans', 0) > 0:
+            # Calcula el número de préstamos asociados
+            num_loans = Loan.objects.filter(catalogue=item).count()
+            # Calcula el número de reservas asociadas
+            num_bookings = Booking.objects.filter(catalogue=item).count()
+
+            if not item.get('is_loanable', False) or num_loans > 0 or num_bookings > 0:
                 filteredData.remove(item)
 
+            else: # añadir una variable de estado a cada uno de los items que sea state: disponible
+                item['state'] = 'Disponible'
+                
+    else: # not-available
+        for item in filteredData:
+            # Calcula el número de préstamos asociados
+            num_loans = Loan.objects.filter(catalogue=item).count()
+            # Calcula el número de reservas asociadas
+            num_bookings = Booking.objects.filter(catalogue=item).count()
+
+            if not item.get('is_loanable', False): # estat no disponible
+                item['state'] = 'No disponible'
+
+            elif num_loans > 0: # estat prestat
+                item['state'] = 'Prestat'
+
+            elif num_bookings > 0: # estat reservat
+                item['state'] = 'Reservat'
+                
+            else: # estat disponible
+                item['state'] = 'Disponible'
     
     return JsonResponse(filteredData, safe=False)
 
