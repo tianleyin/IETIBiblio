@@ -150,12 +150,13 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
 
     # Lógica de filtrado nueva por disponibilidad
     if availability == 'Available':
-        # Filtrar solo los elementos con is_loanable=True y sin préstamos asociados
+        # Filtrar solo los elementos con is_loanable=True y sin préstamos asociados      
+
         for item in filteredData:
             # Calcula el número de préstamos asociados
-            num_loans = Loan.objects.filter(catalogue=item).count()
+            num_loans = Loan.objects.filter(catalogue_id=item['id']).count()
             # Calcula el número de reservas asociadas
-            num_bookings = Booking.objects.filter(catalogue=item).count()
+            num_bookings = Booking.objects.filter(catalogue_id=item['id']).count()
 
             if not item.get('is_loanable', False) or num_loans > 0 or num_bookings > 0 or item.get('school') != user.school:
                 filteredData.remove(item)
@@ -167,9 +168,9 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
     else: # not-available
         for item in filteredData:
             # Calcula el número de préstamos asociados
-            num_loans = Loan.objects.filter(catalogue=item).count()
+            num_loans = Loan.objects.filter(catalogue_id=item['id']).count()
             # Calcula el número de reservas asociadas
-            num_bookings = Booking.objects.filter(catalogue=item).count()
+            num_bookings = Booking.objects.filter(catalogue_id=item['id']).count()
 
             if item.get('school') == user.school:
                 item['is_same_school'] = True
