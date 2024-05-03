@@ -206,23 +206,32 @@ $(() => {
                     href = `${element.id},${element.manufacturer},${element.model}`
                     break
             }
-            let translatedAvailability = ""
-            if (element.available) { // ojo mirar de reimplementar esto!!!!!!
-                translatedAvailability = "Disponible"
-                
-            } else {
-                translatedAvailability = "No disponible"
-            }
-            $("#search-results").append(`
+            var liElement = ""
+
+            if (element.is_same_school) { // logica de mostrar solamente cosas de tu biblioteca 
+                liElement = `
                 <li>
                     <div class="product-card">
                         <h2>${element.name}</h2>
-                        <p>${translatedType}</p>
-                        <p>${translatedAvailability}</p>
+                        <p>- Tipus: ${translatedType}</p>
+                        <p>- Estat: ${element.state}</p>
+                        <p>- Escola: ${element.school}</p>
                         <a href="/loans_form/" class='loan-button' data='${JSON.stringify(element)}'>Prestar</a>
                     </div>
-                </li>
-                `)
+                </li>`
+            } else {
+                liElement = `
+                <li>
+                    <div class="product-card">
+                        <h2>${element.name}</h2>
+                        <p>- Tipus: ${translatedType}</p>
+                        <p>- Estat: ${element.state}</p>
+                        <p>- Escola: ${element.school}</p>
+                    </div>
+                </li>`
+            }
+
+            $("#search-results").append(liElement)
             
         });
         $(".loan-button").click(function (event) {
