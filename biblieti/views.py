@@ -103,6 +103,7 @@ def user_data(request):
 def login_view(request):
     data = {}
     if request.method == "POST":
+        print(request.POST)
         username = request.POST.get("username").lower()
         password = request.POST.get("password")
         try:
@@ -115,7 +116,7 @@ def login_view(request):
                 current_date = timezone.now()
                 level = "info"
                 client_ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('HTTP_CLIENT_IP') or request.META.get('REMOTE_ADDR')
-                action = "succesfull login of " + username
+                action = "succesful login of " + username
                 current_page = "landing_page"
 
                 log_entry = Logs.objects.create(date=current_date, type=level, client_ip=client_ip, action=action, current_page=current_page)
