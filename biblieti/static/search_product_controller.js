@@ -1,5 +1,6 @@
 $(() => {
     let productType = "Any"
+    let page = 1;
     let url = new URL(window.location)
     if (url.searchParams && url.searchParams.get("searchInfo")) {
         requestProducts(url.searchParams.get("searchInfo"), "All", "null", "null", "null", "null", 0, "null", 0, "null", "null", "null")
@@ -165,7 +166,7 @@ $(() => {
 
     function requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model) {
         return new Promise((resolve, reject) => {
-            fetch(`/api/get_products/${productType},${availability},${productName},${author},${ISBN},${publishYear},${artist},${tracks},${director},${duration},${resolution},${manufacturer},${model}`)
+            fetch(`/api/get_products/${productType},${availability},${productName},${author},${ISBN},${publishYear},${artist},${tracks},${director},${duration},${resolution},${manufacturer},${model},${page}`)
             .then(response => response.json())
             .then(data => {
                 renderProducts(data)
