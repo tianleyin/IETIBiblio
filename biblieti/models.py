@@ -35,6 +35,8 @@ class Catalogue(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     picture = models.ImageField(upload_to='imgs/', blank=True, null=True)
+    school = models.CharField(max_length=255, null=True)
+    is_loanable = models.BooleanField(default=True)
     def __str__(self):
         return self.name
 
@@ -140,7 +142,7 @@ class Logs(models.Model):
 class CatalogueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Catalogue
-        fields = ['id', 'name', 'picture']
+        fields = ['id', 'name', 'picture', 'school', 'is_loanable']
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
