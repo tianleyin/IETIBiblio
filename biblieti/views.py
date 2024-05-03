@@ -40,9 +40,11 @@ def landing_page(request):
     return render(request, 'landing_page.html')
 
 def busqueda(request):
-    return render(request, 'search_product.html')
+    page_title = "CERCA - "  # Definir el título dinámico de la página
+    return render(request, 'search_product.html', {'page_title': page_title})
 
 def dashboard(request, notification=None, notificationMsg=None):
+    page_title = "PANELL - "
     if not request.user.is_authenticated:
         return redirect('login')
     if request.session.get('notification') is not None:
@@ -50,10 +52,11 @@ def dashboard(request, notification=None, notificationMsg=None):
         notificationMsg = request.session.get('notificationMsg')
         request.session.pop('notification')
         request.session.pop('notificationMsg')
-        return render(request, 'dashboard.html', {'user': request.user, 'notification': notification, 'notificationMsg': notificationMsg})
-    return render(request, 'dashboard.html', {'user': request.user})
+        return render(request, 'dashboard.html', {'user': request.user, 'notification': notification, 'notificationMsg': notificationMsg, 'page_title': page_title})
+    return render(request, 'dashboard.html', {'user': request.user, 'page_title': page_title})
 
 def loans(request):
+    page_title = "Préstecs - "
     if not request.user.is_authenticated:
         return redirect('login')
     if not request.user.role == "librarian" and not request.user.role == "superadmin":
@@ -64,7 +67,7 @@ def loans(request):
     for message in message_list:
         data['info'] = True
         data['infoMsg'] = message
-    return render(request, "loans.html", data)
+    return render(request, "loans.html", {'data':data, 'page_title':page_title})
 
 def loans_form(request):
     if not request.user.is_authenticated:
@@ -74,16 +77,18 @@ def loans_form(request):
     return render(request, "loans_form.html")
     
 def return_loan(request):
+    page_title = "RETORNAR - "
     if not request.user.is_authenticated:
         return redirect('login')
     if not request.user.role == "librarian" and not request.user.role == "superadmin":
         return redirect('dashboard')
     
     data = {}
-    return render(request, "return_loan.html", data)
+    return render(request, "return_loan.html", {'data':data, 'page_title':page_title})
 
 
 def user_data(request):
+    page_title = "PERFIL - "
     if not request.user.is_authenticated:
         return redirect('login')
     if request.method == 'POST':
@@ -99,10 +104,11 @@ def user_data(request):
         request.session['notificationMsg'] = 'Dades actualitzades correctament.'
         return redirect('dashboard')
     print(request.user.username)
-    return render(request, 'user_data.html', {'user': request.user})
+    return render(request, 'user_data.html', {'user': request.user, 'page_title':page_title})
 
 def login_view(request):
     data = {}
+    page_title = "INICI - "
     if request.method == "POST":
         print(request.POST)
         username = request.POST.get("username").lower()
@@ -133,9 +139,10 @@ def login_view(request):
         except:
             data['error'] = True
             data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
-    return render(request, "registration/login.html", data)
+    return render(request, "registration/login.html", {'data': data, 'page_title': page_title})
 
 def import_csv(request):
+    page_title = "IMPORTAR CSV - "
     data = {}
 
     if request.method == 'POST':
@@ -178,9 +185,11 @@ def import_csv(request):
         form = fileForm()
     data['form'] = form
     print(data)
-    return render(request, 'import_csv.html', data)
+    data['page_title'] = page_title
+    return render(request, 'import_csv.html', page_title)
 
 def add_user(request):
+    page_title = "AFEGIR USUARI - "
     if request.method == "POST":
         if User_ieti.objects.filter(email=request.POST.get("email")).exists():
             return render(request, 'add_user.html', {"error": True, "errorMsg": "Aquest correu electrònic ja està registrat."})
@@ -189,16 +198,12 @@ def add_user(request):
         role = request.POST.get("role")
         cycle = request.POST.get("cycle")
         User_ieti.objects.create(username=username, email=email, role=role, cycle=cycle, password="Password12345")
-    return render(request, 'add_user.html')
+    return render(request, 'add_user.html', {'page_title':page_title})
 
 def edit_user_list(request):
+    page_title = "EDITAR USUARI"  # Definir el título de la página
     data = {"users": list(User_ieti.objects.all())}
-    if request.session.get('notification') is not None:
-        data['notification'] = request.session.get('notification')
-        data['notificationMsg'] = request.session.get('notificationMsg')
-        request.session.pop('notification')
-        request.session.pop('notificationMsg')
-    return render(request, 'edit_user_list.html', data)
+    return render(request, 'edit_user_list.html', {'page_title': page_title, **data})
 
 def edit_user_form(request, email):
     user = User_ieti.objects.get(email=email)

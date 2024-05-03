@@ -25,10 +25,10 @@
             <h2>CERCA AL CATÀLEG</h2>
             <div class="search-container" id="search-container">
                 <form action="/busqueda/" method="GET" id="search-form">
-                    <label for="searchInfo">Cerca general:</label>
+                    <label for="searchInfo"><span style="text-decoration: underline;">C</span>erca general:</label>
                     <div id="search-row">
                         <div class="search-container-inner" id="search-container-inner">
-                            <input type="text" id="searchInfo" name="searchInfo">
+                            <input type="text" id="searchInfo" name="searchInfo" accesskey="c" title="Cercar Productes (ALT + C)">
                             <div id="absolute-div">
                                 <ul>
                                 </ul>
@@ -36,15 +36,19 @@
                         </div>
                         <input type="submit" value="Buscar" id="btn-search">
                     </div>
+                    <div id="checkbox-disponibility">
+                        <input type="checkbox" name="producte-availability" id="available" accesskey="p" title="Mostrar Disponibles (ALT + P)">
+                        <label for="available">Mostrar <span style="text-decoration: underline;">P</span>roductes Disponibles:</label>
+                    </div>
                 </form>
             </div>
         </div>
         <div class="right-container">
-            <h2 class="">INICIA SESSIÓ</h2>
+            <h2 class=""><span style="text-decoration: underline;">I</span>NICIA SESSIÓ</h2>
             <form action="" method="post" id="loginForm">
                 {% csrf_token %}
                 <label for="username">Nom d'usuari:</label>
-                <input type="text" id="username" name="username">
+                <input type="text" id="username" name="username" accesskey="i" title="Iniciar Sessió (ALT + I)">
                 <label for="password">Contrasenya:</label>
                 <input type="password" id="password" name="password">
                 <a href="{% url 'forgot_password' %}" class="accent-color-link">Has oblidat la contrasenya?</a>
