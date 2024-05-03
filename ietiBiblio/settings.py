@@ -159,7 +159,16 @@ EMAIL_HOST_USER = 'etamanosantos.cf@iesesteveterradas.cat'
 EMAIL_HOST_PASSWORD = 'Dennis12Erik19!'
 
 SOCIALACCOUNT_PROVIDERS = {
-    
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+   
 }
 
 SITE_ID = 1
