@@ -111,13 +111,13 @@ def login_view(request):
     page_title = "INICI - "
     if request.method == "POST":
         print(request.POST)
-        username = request.POST.get("username").lower()
+        username = request.POST.get("username")
         password = request.POST.get("password")
         try:
             user = User_ieti.objects.get(username=username)
-            print(password)
-            if user is not None and validar_contrasena(password) and check_password(password, user.password):
-                login(request, user)
+            if user is not None and check_password(password, user.password):
+                print("ENTRA")
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
                 # save log of login user
                 current_date = timezone.now()
@@ -136,7 +136,8 @@ def login_view(request):
                     data['errorMsg'] = "La contrasenya ha de tenir entre 8 i 16 caràcters, com a mínim una lletra majúscula, una lletra minúscula, un número i un símbol."
                 else:
                     data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
-        except:
+        except Exception as e:
+            print(e)
             data['error'] = True
             data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
     return render(request, "registration/login.html", {'data': data, 'page_title': page_title})
