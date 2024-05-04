@@ -256,6 +256,17 @@ def do_loan(request):
             data['error'] = True
             data['errorMsg'] = 'Error al realitzar el préstec.'
             return render(request, 'loans_form.html', data)
+        
+@api_view(['GET'])
+def search_product_isbn(request):
+    try:
+        print("en proceso")
+    except Exception as e:
+        print(e)
+
+@api_view(['POST'])
+def add_product(request):
+    print("en proceso")
 
 @api_view(['GET'])
 def get_user_loans(request):
@@ -306,5 +317,3 @@ def delete_loan(request):
     except Exception as e:
         return Response({'error': 'Hubo un error al eliminar un préstamo: ' + e}, status=500)
 
-
-        
