@@ -110,13 +110,14 @@ def login_view(request):
     data = {}
     page_title = "INICI - "
     if request.method == "POST":
-        username = request.POST.get("username").lower()
+        print(request.POST)
+        username = request.POST.get("username")
         password = request.POST.get("password")
         try:
             user = User_ieti.objects.get(username=username)
-            if user is not None and validar_contrasena(password) and check_password(password, user.password):
-                #user.backend = 'django.contrib.auth.backends.ModelBackend'
-                login(request, user)
+            if user is not None and check_password(password, user.password):
+                print("ENTRA")
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
                 # save log of login user
                 current_date = timezone.now()
