@@ -135,19 +135,6 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
         for item in filteredData:
             item['type'] = 'Device'
 
-    # logica antigua de filtrar por available o not-available
-    """for item in filteredData:
-        if Loan.objects.filter(catalogue_id=item['id']).exists():
-            if availability == 'available':
-                filteredData.remove(item)
-            else:
-                item['available'] = False
-        else:
-            if availability == 'not-available':
-                filteredData.remove(item)
-            else:
-                item['available'] = True"""
-
     # Lógica de filtrado nueva por disponibilidad
     if availability == 'Available':
         # Filtrar solo los elementos con is_loanable=True y sin préstamos asociados      

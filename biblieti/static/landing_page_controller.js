@@ -22,7 +22,8 @@ $(function() {
                         listItemContent += `<ul class="book item">
                             <li> - Autor/a: ${data[i].book.author}</li>
                             <li> - Any de Publicació: ${data[i].book.publication_year} </li>
-                            <li> - ISBN: ${data[i].book.ISBN}</li>    
+                            <li> - ISBN: ${data[i].book.ISBN}</li>
+                            <li> - CDU: ${data[i].book.CDU}</li> 
                         </ul>`
                     }
                     else if (data[i].cd) {

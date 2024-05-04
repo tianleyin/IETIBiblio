@@ -131,7 +131,8 @@ class Command(BaseCommand):
                     name = title,
                     author = author_name,
                     ISBN = fake_es.isbn10(),
-                    publication_year = fake_es.year()
+                    publication_year = fake_es.year(),
+                    CDU=random.randint(50, 300)
                 )
                 
                 Book.objects.create(

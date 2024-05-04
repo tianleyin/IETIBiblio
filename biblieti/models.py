@@ -51,7 +51,8 @@ class Catalogue(models.Model):
             data['book'] = {
                 'author': self.book.author,
                 'ISBN': self.book.ISBN,
-                'publication_year': self.book.publication_year
+                'publication_year': self.book.publication_year,
+                'CDU': self.book.CDU
             }
 
         if hasattr(self, 'cd'):
@@ -85,7 +86,7 @@ class Book(Catalogue):
     author = models.CharField(max_length=100)
     ISBN = models.CharField(max_length=20)
     publication_year = models.IntegerField()
-    CDU = models.CharField(max_length=100)
+    CDU = models.CharField(max_length=100, null=True)
 
 class CD(Catalogue):
     artist = models.CharField(max_length=100)
