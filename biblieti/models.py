@@ -142,6 +142,8 @@ class Logs(models.Model):
             raise ValidationError('El tipo de log no es válido.')
 
 class CatalogueSerializer(serializers.ModelSerializer):
+    picture = serializers.ImageField(required=False)
+
     class Meta:
         model = Catalogue
         fields = ['id', 'name', 'picture', 'school', 'is_loanable']

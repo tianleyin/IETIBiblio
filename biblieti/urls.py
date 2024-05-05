@@ -50,7 +50,7 @@ urlpatterns = [
     path('edit_user/<str:email>', edit_user_form, name='edit_user_form'),
     path('accounts/', include('allauth.urls')), 
     path('add_product/', add_product_view, name='add_product_view'),
-    path('api/search_product_isbn/', api.search_product_isbn, name='search_product_isbn'),
+    path('api/search_book_isbn/<str:isbn>', api.search_book_isbn, name='search_book_isbn'),
     path('api/add_product/', api.add_product, name='add_product')
 
 ]

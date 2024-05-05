@@ -221,8 +221,14 @@ def edit_user_form(request, email):
 def add_product_view(request):
     if not request.user.is_authenticated:
         return redirect('login')
-        
-    return render(request, 'add_product.html')
+    
+    data = {}
+    message_list = messages.get_messages(request)
+    for message in message_list:
+        data["info"] = True
+        data['infoMsg'] = message
+
+    return render(request, "add_product.html", {'data':data})
 
 def test(request):
     return render(request, 'test.html')

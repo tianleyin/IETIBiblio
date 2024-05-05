@@ -5,10 +5,11 @@ from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from rest_framework.decorators import api_view
+from rest_framework import status
 from rest_framework.response import Response
 from datetime import timedelta
 from django.core.paginator import Paginator
-import json
+import json, requests
 # from rest_framework.decorators import api_view
 
 def hello(request):
@@ -258,15 +259,62 @@ def do_loan(request):
             return render(request, 'loans_form.html', data)
         
 @api_view(['GET'])
-def search_product_isbn(request):
+def search_book_isbn(request, isbn):
     try:
-        print("en proceso")
+        url = f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}"
+        response = requests.get(url)
+        data = response.json()
+        
+        if "items" in data:
+            book = data["items"][0]["volumeInfo"]
+            title = book.get("title", "Sin título")
+            authors = book.get("authors", [])
+            publisher = book.get("publisher", "Sin editorial")
+            published_date = book.get("publishedDate", "Sin fecha de publicación")
+            
+            book_data = {
+                "title": title,
+                "authors": authors,
+                "publisher": publisher,
+                "published_date": published_date
+            }
+            return JsonResponse(book_data)
+        else:
+            return JsonResponse({"error": "No s'ha trobat cap llibre amb aquest ISBN"}, status=404)
     except Exception as e:
         print(e)
 
 @api_view(['POST'])
 def add_product(request):
-    print("en proceso")
+    if request.method == 'POST':
+        try:
+            # Parsea los datos de la solicitud POST
+            data = request.data
+
+            # Serializa los datos para validarlos
+            book_serializer = BookSerializer(data=data)
+
+            # Verifica si los datos son válidos
+            if book_serializer.is_valid():
+                # Crea una nueva instancia de Book
+                book_instance = book_serializer.save(name=data["name"], is_loanable=data["is_loanable"])
+
+                messages.success(request, 'Llibre registrat al catàleg correctament')
+                return redirect("add_product_view")
+            else:
+                # codigo de estado 400 (Bad Request)
+                messages.error(request, 'Error al registrar el llibre')
+                return redirect("add_product_view")
+            
+        except Catalogue.DoesNotExist:
+            print("No s'ha trobat el catàleg que va amb el llibre")
+            messages.error(request, "No s'ha trobat el catàleg que va amb el llibre")
+            return redirect("add_product_view")
+
+        except Exception as e:
+            print(e)
+            messages.error(request, 'Error al registrar el llibre')
+            return redirect("add_product_view")
 
 @api_view(['GET'])
 def get_user_loans(request):
