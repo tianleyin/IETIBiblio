@@ -42,10 +42,10 @@
 
 <script src="{% static 'add_product_controller.js' %}?no-cache={% now "U" %}"></script>
 
-{% if info %}
+{% if notification %}
     <script>
-        createNotification("info", "{{ infoMsg }}", $("main"));
+        createNotification("{{notification}}", "{{ notificationMsg }}");
     </script>
-{% endif %} 
+{% endif %}
 
 {% endblock %}

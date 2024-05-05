@@ -291,6 +291,15 @@ def add_product(request):
             # Parsea los datos de la solicitud POST
             data = request.data
 
+            # Verifica si ya existe un libro con el mismo ISBN
+            existing_books = Book.objects.filter(ISBN=data['ISBN'])
+
+            if existing_books.exists():
+                # Si ya existe un libro con el mismo ISBN, mostrar un mensaje de error
+                request.session['notification'] = 'error'
+                request.session['notificationMsg'] = 'Ja hi ha un llibre amb aquest ISBN'
+                return redirect("add_product_view")
+
             # Serializa los datos para validarlos
             book_serializer = BookSerializer(data=data)
 
@@ -299,21 +308,26 @@ def add_product(request):
                 # Crea una nueva instancia de Book
                 book_instance = book_serializer.save(name=data["name"], is_loanable=data["is_loanable"])
 
-                messages.success(request, 'Llibre registrat al catàleg correctament')
+                request.session['notification'] = 'info'
+                request.session['notificationMsg'] = 'Llibre registrat al catàleg correctament'
+
                 return redirect("add_product_view")
             else:
                 # codigo de estado 400 (Bad Request)
-                messages.error(request, 'Error al registrar el llibre')
+                request.session['notification'] = 'error'
+                request.session['notificationMsg'] = 'Error al registrar el llibre'
                 return redirect("add_product_view")
             
         except Catalogue.DoesNotExist:
+            request.session['notification'] = 'error'
+            request.session['notificationMsg'] = "No s'ha trobat el catàleg que va amb el llibre"
             print("No s'ha trobat el catàleg que va amb el llibre")
-            messages.error(request, "No s'ha trobat el catàleg que va amb el llibre")
             return redirect("add_product_view")
 
         except Exception as e:
             print(e)
-            messages.error(request, 'Error al registrar el llibre')
+            request.session['notification'] = 'error'
+            request.session['notificationMsg'] = 'Error al registrar el llibre'
             return redirect("add_product_view")
 
 @api_view(['GET'])

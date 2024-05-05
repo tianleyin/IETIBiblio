@@ -222,13 +222,15 @@ def add_product_view(request):
     if not request.user.is_authenticated:
         return redirect('login')
     
-    data = {}
-    message_list = messages.get_messages(request)
-    for message in message_list:
-        data["info"] = True
-        data['infoMsg'] = message
+    if request.session.get('notification') is not None:
+        notification = request.session.get('notification')
+        notificationMsg = request.session.get('notificationMsg')
+        request.session.pop('notification')
+        request.session.pop('notificationMsg')
 
-    return render(request, "add_product.html", {'data':data})
+        return render(request, "add_product.html", {'notification': notification, 'notificationMsg': notificationMsg})
+    
+    return render(request, "add_product.html")
 
 def test(request):
     return render(request, 'test.html')
