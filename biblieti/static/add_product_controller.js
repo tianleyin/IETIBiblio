@@ -1,4 +1,10 @@
 $(function () {
+    $("#isbn").keypress(function(e){
+        if(e.which == 13){ // Verifica si la tecla presionada es "Enter"
+            $('#btn-submit-isbn-form').click()
+        }
+    })
+
     $("#btn-submit-isbn-form").click(function () {
         toggleHidden(true)
         if ($("#isbn").val().trim() === "") {
