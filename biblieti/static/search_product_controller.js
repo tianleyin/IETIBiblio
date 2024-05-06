@@ -214,7 +214,7 @@ $(() => {
             switch (element.type) {
                 case "Book":
                     translatedType = "Llibre"
-                    elementData = `<p>- ISBN: ${element.ISBN}</p><p>- Autor/a: ${element.author}</p><p>- Data de publicació:${element.publication_year}</p>`
+                    elementData = `<p>- CDU: ${element.CDU}</p><p>- ISBN: ${element.ISBN}</p><p>- Autor/a: ${element.author}</p><p>- Data de publicació:${element.publication_year}</p>`
                     break
                 case "CD":
                     translatedType = "CD"

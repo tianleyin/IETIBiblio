@@ -110,13 +110,11 @@ def login_view(request):
     data = {}
     page_title = "INICI - "
     if request.method == "POST":
-        print(request.POST)
         username = request.POST.get("username")
         password = request.POST.get("password")
         try:
             user = User_ieti.objects.get(username=username)
             if user is not None and check_password(password, user.password):
-                print("ENTRA")
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
                 # save log of login user
@@ -219,6 +217,20 @@ def edit_user_form(request, email):
         return redirect('edit_user_list')
     data = {"user": user}
     return render(request, 'edit_user_form.html', data)
+
+def add_product_view(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
+    if request.session.get('notification') is not None:
+        notification = request.session.get('notification')
+        notificationMsg = request.session.get('notificationMsg')
+        request.session.pop('notification')
+        request.session.pop('notificationMsg')
+
+        return render(request, "add_product.html", {'notification': notification, 'notificationMsg': notificationMsg})
+    
+    return render(request, "add_product.html")
 
 def test(request):
     return render(request, 'test.html')

@@ -51,7 +51,8 @@ class Catalogue(models.Model):
             data['book'] = {
                 'author': self.book.author,
                 'ISBN': self.book.ISBN,
-                'publication_year': self.book.publication_year
+                'publication_year': self.book.publication_year,
+                'CDU': self.book.CDU
             }
 
         if hasattr(self, 'cd'):
@@ -85,6 +86,7 @@ class Book(Catalogue):
     author = models.CharField(max_length=100)
     ISBN = models.CharField(max_length=20)
     publication_year = models.IntegerField()
+    CDU = models.CharField(max_length=100, null=True)
 
 class CD(Catalogue):
     artist = models.CharField(max_length=100)
@@ -140,6 +142,8 @@ class Logs(models.Model):
             raise ValidationError('El tipo de log no es válido.')
 
 class CatalogueSerializer(serializers.ModelSerializer):
+    picture = serializers.ImageField(required=False)
+
     class Meta:
         model = Catalogue
         fields = ['id', 'name', 'picture', 'school', 'is_loanable']
@@ -147,7 +151,7 @@ class CatalogueSerializer(serializers.ModelSerializer):
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ['author', 'ISBN', 'publication_year']
+        fields = ['author', 'ISBN', 'publication_year', 'CDU']
 
 class CDSerializer(serializers.ModelSerializer):
     class Meta:

@@ -105,6 +105,7 @@ class Command(BaseCommand):
                 author=fake.name(),
                 ISBN=fake.isbn10(),
                 publication_year=fake.year(),
+                CDU=random.randint(50, 300)
             )
 
         # Seed CDs

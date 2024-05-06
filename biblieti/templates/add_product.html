@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<nav>
+    <ul>
+        <li><a href="/dashboard">PANELL</a></li>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button id="btn-logout" type="submit">TANCAR SESSIÓ DE {{ user.username }}</button>
+        </form>
+    </ul>
+</nav>
+<main>
+    <h2 class="isbn-form-header">Realitza una addició al catàleg per ISBN</h2>
+    <div id="search-product-isbn-form">
+        <label for="isbn">Introdueix l'ISBN del llibre a buscar:</label>
+        <input type="text" name="isbn" id="isbn" required>
+        <button id="btn-submit-isbn-form">Buscar llibre</input>
+    </div>
+    
+    <form id="dinamyc-form" method="post" action="{% url 'add_product' %}" hidden>
+        {% csrf_token %}
+        <h2 class="dinamyc-form-header">Element trobat:</h2>
+        <label for="name">Nom:</label>
+        <input type="text" name="name" id="name" required>
+        <label for="dynamic-isbn">ISBN:</label>
+        <input type="text" name="ISBN" id="dynamic-isbn" required>
+        <label for="is-loanable">Es pot prestar (no es d'exposició)</label>
+        <input type="radio" name="is_loanable" id="is-loanable" value="True" required checked>
+        <label for="not-loanable">NO es pot donar de préstec (es un llibre d'exposició)</label>
+        <input type="radio" name="is_loanable" id="not-loanable" value="False" required>
+        <label for="author">Autor/a:</label>
+        <input type="text" name="author" id="author" required>
+        <label for="publication-year">Any de publicació:</label>
+        <input type="number" name="publication_year" id="publication-year" min="1900" max="2100" required>
+        <label for="CDU">CDU:</label>
+        <input type="text" name="CDU" id="CDU" required>
+        <button id="btn-submit-dinamyc-form" type="submit">Guardar al catàleg</button>
+    </form>
+</main>
+
+<script src="{% static 'add_product_controller.js' %}?no-cache={% now "U" %}"></script>
+
+{% if notification %}
+    <script>
+        createNotification("{{notification}}", "{{ notificationMsg }}");
+    </script>
+{% endif %}
+
+{% endblock %}

@@ -1,14 +1,15 @@
 from django.http import JsonResponse
 from .models import *
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from rest_framework.decorators import api_view
+from rest_framework import status
 from rest_framework.response import Response
 from datetime import timedelta
 from django.core.paginator import Paginator
-import json
+import json, requests
 # from rest_framework.decorators import api_view
 
 def hello(request):
@@ -31,6 +32,7 @@ def get_products_landing(request, search, availability): # mirar de modificar y 
         Q(book__author__icontains=search) |
         Q(book__ISBN__icontains=search) |
         Q(book__publication_year__icontains=search_int) |
+        Q(book__CDU__icontains=search) |
         Q(cd__artist__icontains=search) |
         Q(cd__tracks__contains=search_int) |
         Q(dvd__director__icontains=search) |
@@ -45,10 +47,8 @@ def get_products_landing(request, search, availability): # mirar de modificar y 
     filteredData = filteredData.annotate(num_loans=Count('loan'))
 
     # Filtrar según la disponibilidad
-    if availability == 'available':
+    if availability == 'Available':
         filteredData = filteredData.filter(num_loans=0)
-    elif availability == 'not-available':
-        filteredData = filteredData.exclude(num_loans=0)
 
     # Serializa los resultados y devuelve una respuesta JSON
     serialized_data = [item.serialize() for item in filteredData]
@@ -135,19 +135,6 @@ def get_products(request, type, availability, name, author, ISBN, publication_ye
         filteredData = list(Device.objects.filter(name__contains=name,manufacturer__contains=manufacturer,model__contains=model).values())
         for item in filteredData:
             item['type'] = 'Device'
-
-    # logica antigua de filtrar por available o not-available
-    """for item in filteredData:
-        if Loan.objects.filter(catalogue_id=item['id']).exists():
-            if availability == 'available':
-                filteredData.remove(item)
-            else:
-                item['available'] = False
-        else:
-            if availability == 'not-available':
-                filteredData.remove(item)
-            else:
-                item['available'] = True"""
 
     # Lógica de filtrado nueva por disponibilidad
     if availability == 'Available':
@@ -270,6 +257,78 @@ def do_loan(request):
             data['error'] = True
             data['errorMsg'] = 'Error al realitzar el préstec.'
             return render(request, 'loans_form.html', data)
+        
+@api_view(['GET'])
+def search_book_isbn(request, isbn):
+    try:
+        url = f"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}"
+        response = requests.get(url)
+        data = response.json()
+        
+        if "items" in data:
+            book = data["items"][0]["volumeInfo"]
+            title = book.get("title", "Sin título")
+            authors = book.get("authors", [])
+            publisher = book.get("publisher", "Sin editorial")
+            published_date = book.get("publishedDate", "Sin fecha de publicación")
+            
+            book_data = {
+                "title": title,
+                "authors": authors,
+                "publisher": publisher,
+                "published_date": published_date
+            }
+            return JsonResponse(book_data)
+        else:
+            return JsonResponse({"error": "No s'ha trobat cap llibre amb aquest ISBN"}, status=404)
+    except Exception as e:
+        print(e)
+
+@api_view(['POST'])
+def add_product(request):
+    if request.method == 'POST':
+        try:
+            # Parsea los datos de la solicitud POST
+            data = request.data
+
+            # Verifica si ya existe un libro con el mismo ISBN
+            existing_books = Book.objects.filter(ISBN=data['ISBN'])
+
+            if existing_books.exists():
+                # Si ya existe un libro con el mismo ISBN, mostrar un mensaje de error
+                request.session['notification'] = 'error'
+                request.session['notificationMsg'] = 'Ja hi ha un llibre amb aquest ISBN'
+                return redirect("add_product_view")
+
+            # Serializa los datos para validarlos
+            book_serializer = BookSerializer(data=data)
+
+            # Verifica si los datos son válidos
+            if book_serializer.is_valid():
+                # Crea una nueva instancia de Book
+                book_instance = book_serializer.save(name=data["name"], is_loanable=data["is_loanable"])
+
+                request.session['notification'] = 'info'
+                request.session['notificationMsg'] = 'Llibre registrat al catàleg correctament'
+
+                return redirect("add_product_view")
+            else:
+                # codigo de estado 400 (Bad Request)
+                request.session['notification'] = 'error'
+                request.session['notificationMsg'] = 'Error al registrar el llibre'
+                return redirect("add_product_view")
+            
+        except Catalogue.DoesNotExist:
+            request.session['notification'] = 'error'
+            request.session['notificationMsg'] = "No s'ha trobat el catàleg que va amb el llibre"
+            print("No s'ha trobat el catàleg que va amb el llibre")
+            return redirect("add_product_view")
+
+        except Exception as e:
+            print(e)
+            request.session['notification'] = 'error'
+            request.session['notificationMsg'] = 'Error al registrar el llibre'
+            return redirect("add_product_view")
 
 @api_view(['GET'])
 def get_user_loans(request):
@@ -320,5 +379,3 @@ def delete_loan(request):
     except Exception as e:
         return Response({'error': 'Hubo un error al eliminar un préstamo: ' + e}, status=500)
 
-
-        
