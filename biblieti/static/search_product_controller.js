@@ -15,8 +15,12 @@ $(() => {
     let page = 1;
     let maxPage = 1;
     let url = new URL(window.location)
-    if (url.searchParams && url.searchParams.get("searchInfo")) {
-        requestProducts(url.searchParams.get("searchInfo"), "All", "null", "null", "null", "null", 0, "null", 0, "null", "null", "null")
+    if (url.searchParams) {
+        if (url.searchParams.get("searchInfo")) {
+            requestProductsFromLandingPage(url.searchParams.get("searchInfo"))
+        } else {
+            requestProducts(url.searchParams.get("searchInfo") ? url.searchParams.get("searchInfo") : "null", "All", "null", "null", "null", "null", 0, "null", 0, "null", "null", "null")
+        }
     }
     $("#expand-header").off().on("click", () => {
         $(".expanding-header").toggleClass("expanded")
@@ -176,6 +180,14 @@ $(() => {
         }
         requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model)
     })
+
+    function requestProductsFromLandingPage(searchInfo) {
+        fetch(`/api/get_products_landing/${searchInfo}`)
+        .then(response => response.json())
+        .then(data => {
+            renderProducts(data)
+        })
+    }
 
     function requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model) {
         if (productName==="null") {
