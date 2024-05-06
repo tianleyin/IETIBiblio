@@ -1064,3 +1064,22 @@ main {
 #update-form select {
     margin-bottom: 15px;
 }
+
+#google-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#google-login form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    gap: 12px;
+    margin-top: 24px;
+}
