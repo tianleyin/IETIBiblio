@@ -20,15 +20,34 @@
             </svg>
             <h1>Biblioteca Mari Carmen Brito</h1>
         </div>
-            
-        
+
+        <form action="/busqueda/" method="GET" id="search-form">
+            <label for="searchInfo"><span style="text-decoration: underline;">C</span>erca general:</label>
+            <div id="search-row">
+                <div class="search-container-inner" id="search-container-inner">
+                    <input type="text" id="searchInfo" name="searchInfo" accesskey="c" title="Cerca (ALT + C)">
+                    <div id="absolute-div">
+                        <ul>
+                        </ul>
+                    </div>
+                </div>
+                <input type="submit" value="Buscar" id="btn-search">
+            </div>
+            <div id="checkbox-disponibility">
+                <input type="checkbox" name="producte-availability" id="available">
+                <label for="available">Mostrar Productes Disponibles:</label>
+            </div>
+        </form>
         <nav>
             <ul>
-                <li><a href="/" accesskey="i" title="Inici (ALT + I)">TORNAR A L'<span style="text-decoration: underline;">I</span>NICI</a></li>
-                <li><a href="/change_password">CANVIAR CONTRASENYA</a></li>
+                <li><a href="/" accesskey="i" title="Inici (ALT + I)">TORNAR A L'<span
+                            style="text-decoration: underline;">I</span>NICI</a></li>
+                <li><a href="/change_password" accesskey="o" title="Canviar Contrasenya (ALT + O)">CANVIAR C<span
+                            style="text-decoration: underline;">O</span>NTRASENYA</a></li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button id="btn-logout" type="submit" accesskey="t" title="Tancar Sessió (ALT + T)"><span style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
+                    <button id="btn-logout" type="submit" accesskey="t" title="Tancar Sessió (ALT + T)"><span
+                            style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
                 </form>
             </ul>
         </nav>
@@ -43,14 +62,19 @@
             {% elif user.role == 'Super Admin' %}
             <h2>Rol: Super Administrador/a</h2>
             {% endif %}
-            <a href="/user_data" class="btn-user-data" accesskey="m" title="Perfil (ALT + M)">Mostrar les meves dades</a>
-            {% if user.role == 'librarian' or user.role == 'Super Admin'%}
-            <a href="/add_user" class="btn-user-data">Afegir un usuari</a>
-            <a href="/edit_user" class="btn-user-data">Editar un usuari</a>
-            <a href="/import_csv" class="btn-user-data">Importar usuaris</a>
-            <a href="/loans" class="btn-user-data">Realitzar un préstec</a>
-            <a href="/return_loan" class="btn-user-data">Retornar un préstec</a>
-            <a href="/add_product" class="btn-user-data">Afegir un producte al catàleg</a>
+            <a href="/user_data" class="btn-user-data" accesskey="m" title="Perfil (ALT + M)"><span
+                    style="text-decoration: underline;">M</span>ostrar les meves dades</a>
+            {% if user.role == 'librarian' %}
+            <a href="/add_user" class="btn-user-data" accesskey="u" title="Afegir Usuari (ALT + U)">Afegir un&nbsp;<span style="text-decoration: underline;">U</span>suari</a>
+            <a href="/edit_user" class="btn-user-data" accesskey="e" title="Editar Usuari (ALT + E)"><span
+                    style="text-decoration: underline;">E</span>ditar un usuari</a>
+            <a href="/import_csv" class="btn-user-data" accesskey="i" title="Importar Usuari (ALT + I)"><span
+                    style="text-decoration: underline;">I</span>mportar usuaris</a>
+            <a href="/loans" class="btn-user-data" accesskey="p" title="Préstec (ALT + P)">Realitzar un&nbsp;<span
+                    style="text-decoration: underline;">P</span>réstec</a>
+            <a href="/return_loan" class="btn-user-data" accesskey="r" title="Retornar (ALT + R)"><span
+                    style="text-decoration: underline;">R</span>etornar un préstec</a>
+            <a href="/add_product" class="btn-user-data" accesskey="a" title="Afegir Producte (ALT + A)"><span style="text-decoration: underline;">A</span>fegir un producte al catàleg</a>
             {% endif %}
         </div>
     </main>

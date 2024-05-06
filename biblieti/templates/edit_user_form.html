@@ -22,10 +22,10 @@
         </div>
             
         <form action="/busqueda/" method="GET" id="search-form">
-            <label for="searchInfo">Cerca general:</label>
+            <label for="searchInfo"><span style="text-decoration: underline;">C</span>erca general:</label>
             <div id="search-row">
                 <div class="search-container-inner" id="search-container-inner">
-                    <input type="text" id="searchInfo" name="searchInfo">
+                    <input type="text" id="searchInfo" name="searchInfo" accesskey="c" title="Cerca (ALT + C)">
                     <div id="absolute-div">
                         <ul>
                         </ul>
@@ -41,11 +41,11 @@
 
         <nav>
             <ul>
-                <li><a href="/dashboard">PANELL</a></li>
-                <li><a href="/change_password">CANVIAR CONTRASENYA</a></li>
+                <li><a href="/dashboard" accesskey="p" title="Panell (ALT + P)"><span style="text-decoration: underline;">P</span>ANELL</a></li>
+                <li><a href="/change_password" accesskey="o" title="Canviar Contrasenya (ALT + O)">CANVIAR C<span style="text-decoration: underline;">O</span>NTRASENYA</a></li>                
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit" id="btn-logout">TANCAR SESSIÓ</button>
+                    <button type="submit" id="btn-logout" accesskey="t" title="Tancar Sessió (ALT + T)"><span style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
                 </form>
             </ul>
         </nav>
@@ -55,8 +55,8 @@
         <form id="update-form" method="POST">
             {% csrf_token %}
             <img src="{{ user.picture }}">
-            <label for="name">Nom d'usuari:</label>
-            <input type="text" id="name" name="name" value="{{ user.username }}">
+            <label for="name"><span style="text-decoration: underline;">N</span>om d'usuari:</label>
+            <input type="text" id="name" name="name" value="{{ user.username }}" accesskey="n" title="Nom (ALT + N)">
             <label for="email">Correu electrònic:</label>
             <input type="email" id="email" name="email" value="{{ user.email }}">
             <label for="role">Rol:</label>
