@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<header>
+    <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-books">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+            <path d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z" />
+            <path d="M5 8h4" />
+            <path d="M9 16h4" />
+            <path
+                d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z" />
+            <path d="M14 9l4 -1" />
+            <path d="M16 16l3.923 -.98" />
+        </svg>
+        <h1>Biblioteca Mari Carmen Brito</h1>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="/dashboard">PANELL</a></li>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button id="btn-logout" type="submit">TANCAR SESSIÓ DE {{ user.username }}</button>
+            </form>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h2 class="isbn-form-header">Realitza una addició al catàleg per ISBN</h2>
+    <div id="search-product-isbn-form">
+        <label for="isbn">Introdueix l'ISBN del llibre a buscar:</label>
+        <input type="text" name="isbn" id="isbn" required>
+        <button id="btn-submit-isbn-form">Buscar llibre</input>
+    </div>
+    
+    <form id="dinamyc-form" method="post" action="{% url 'add_product' %}" hidden>
+        {% csrf_token %}
+        <h2 class="dinamyc-form-header">Element trobat:</h2>
+        <label for="name">Nom:</label>
+        <input type="text" name="name" id="name" required>
+        <label for="dynamic-isbn">ISBN:</label>
+        <input type="text" name="ISBN" id="dynamic-isbn" required>
+        <label for="is-loanable">Es pot prestar (no es d'exposició)</label>
+        <input type="radio" name="is_loanable" id="is-loanable" value="True" required checked>
+        <label for="not-loanable">NO es pot donar de préstec (es un llibre d'exposició)</label>
+        <input type="radio" name="is_loanable" id="not-loanable" value="False" required>
+        <label for="author">Autor/a:</label>
+        <input type="text" name="author" id="author" required>
+        <label for="publication-year">Any de publicació:</label>
+        <input type="number" name="publication_year" id="publication-year" min="1900" max="2100" required>
+        <label for="CDU">CDU:</label>
+        <input type="text" name="CDU" id="CDU" required>
+        <button id="btn-submit-dinamyc-form" type="submit">Guardar al catàleg</button>
+    </form>
+</main>
+
+<script src="{% static 'add_product_controller.js' %}?no-cache={% now "U" %}"></script>
+
+{% if notification %}
+    <script>
+        createNotification("{{notification}}", "{{ notificationMsg }}");
+    </script>
+{% endif %}
+
+{% endblock %}
