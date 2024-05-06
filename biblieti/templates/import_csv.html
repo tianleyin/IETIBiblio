@@ -21,21 +21,38 @@
             <h1>Biblioteca Mari Carmen Brito</h1>
         </div>
             
+        <form action="/busqueda/" method="GET" id="search-form">
+            <label for="searchInfo"><span style="text-decoration: underline;">C</span>erca general:</label>
+            <div id="search-row">
+                <div class="search-container-inner" id="search-container-inner">
+                    <input type="text" id="searchInfo" name="searchInfo" accesskey="c" title="Cerca (ALT + C)">
+                    <div id="absolute-div">
+                        <ul>
+                        </ul>
+                    </div>
+                </div>
+                <input type="submit" value="Buscar" id="btn-search">
+            </div>
+            <div id="checkbox-disponibility">
+                <input type="checkbox" name="producte-availability" id="available">
+                <label for="available">Mostrar Productes Disponibles:</label>
+            </div>
+        </form>
         
         <nav>
             <ul>
-                <li><a href="/dashboard">PANELL</a></li>
-                <li><a href="/change_password">CANVIAR CONTRASENYA</a></li>
+                <li><a href="/dashboard" accesskey="p" title="Panell (ALT + P)"><span style="text-decoration: underline;">P</span>ANELL</a></li>
+                <li><a href="/change_password" accesskey="o" title="Canviar Contrasenya (ALT + O)">CANVIAR C<span style="text-decoration: underline;">O</span>NTRASENYA</a></li>                
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit" id="btn-logout">TANCAR SESSIÓ DE {{ user.username }}</button>
+                    <button type="submit" id="btn-logout" accesskey="t" title="Tancar Sessió (ALT + T)"><span style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
                 </form>
             </ul>
         </nav>
     </header>
     <main id="import_csv">
         <h2>
-            Importar CSV
+            <span style="text-decoration: underline;">I</span>mportar CSV
         </h2>
         <form id="import_form" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
