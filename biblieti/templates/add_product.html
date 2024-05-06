@@ -19,22 +19,40 @@
         <h1>Biblioteca Mari Carmen Brito</h1>
     </div>
 
+    <form action="/busqueda/" method="GET" id="search-form">
+        <label for="searchInfo"><span style="text-decoration: underline;">C</span>erca general:</label>
+        <div id="search-row">
+            <div class="search-container-inner" id="search-container-inner">
+                <input type="text" id="searchInfo" name="searchInfo" accesskey="c" title="Cerca (ALT + C)">
+                <div id="absolute-div">
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+            <input type="submit" value="Buscar" id="btn-search">
+        </div>
+        <div id="checkbox-disponibility">
+            <input type="checkbox" name="producte-availability" id="available">
+            <label for="available">Mostrar Productes Disponibles:</label>
+        </div>
+    </form>
+
     <nav>
         <ul>
-            <li><a href="/dashboard">PANELL</a></li>
+            <li><a href="/dashboard" accesskey="p" title="Panell (ALT + P)"><span style="text-decoration: underline;">P</span>ANELL</a></li>            
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button id="btn-logout" type="submit">TANCAR SESSIÓ DE {{ user.username }}</button>
+                <button type="submit" id="btn-logout" accesskey="t" title="Tancar Sessió (ALT + T)"><span style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
             </form>
         </ul>
     </nav>
 </header>
 
-<main>
+<main id="add_product-main">
     <h2 class="isbn-form-header">Realitza una addició al catàleg per ISBN</h2>
     <div id="search-product-isbn-form">
-        <label for="isbn">Introdueix l'ISBN del llibre a buscar:</label>
-        <input type="text" name="isbn" id="isbn" required>
+        <label for="isbn">Introdueix l'<span style="text-decoration: underline;">I</span>SBN del llibre a buscar:</label>
+        <input type="text" name="isbn" id="isbn" required accesskey="i" title="Introduïr ISBN (ALT + I)">
         <button id="btn-submit-isbn-form">Buscar llibre</input>
     </div>
     
@@ -45,16 +63,20 @@
         <input type="text" name="name" id="name" required>
         <label for="dynamic-isbn">ISBN:</label>
         <input type="text" name="ISBN" id="dynamic-isbn" required>
-        <label for="is-loanable">Es pot prestar (no es d'exposició)</label>
-        <input type="radio" name="is_loanable" id="is-loanable" value="True" required checked>
-        <label for="not-loanable">NO es pot donar de préstec (es un llibre d'exposició)</label>
-        <input type="radio" name="is_loanable" id="not-loanable" value="False" required>
+        <div class="form-row">
+            <label for="is-loanable">Es pot prestar (no es d'exposició)</label>
+            <input type="radio" name="is_loanable" id="is-loanable" value="True" required checked>
+        </div>
+        <div class="form-row">
+            <label for="not-loanable">NO es pot donar de préstec (es un llibre d'exposició)</label>
+            <input type="radio" name="is_loanable" id="not-loanable" value="False" required>
+        </div>
         <label for="author">Autor/a:</label>
         <input type="text" name="author" id="author" required>
         <label for="publication-year">Any de publicació:</label>
         <input type="number" name="publication_year" id="publication-year" min="1900" max="2100" required>
-        <label for="CDU">CDU:</label>
-        <input type="text" name="CDU" id="CDU" required>
+        <label for="CDU">C<span style="text-decoration: underline;">D</span>U:</label>
+        <input type="text" name="CDU" id="CDU" required accesskey="d" title="CDU (ALT + D)">
         <button id="btn-submit-dinamyc-form" type="submit">Guardar al catàleg</button>
     </form>
 </main>
