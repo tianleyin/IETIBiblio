@@ -185,7 +185,8 @@ $(() => {
         fetch(`/api/get_products_landing/${searchInfo}`)
         .then(response => response.json())
         .then(data => {
-            renderProducts(data)
+            maxPage = data.num_pages
+            renderProducts(data.data)
         })
     }
 
@@ -252,12 +253,12 @@ $(() => {
         $(".expanding-header").removeClass("expanded")
         if (maxPage > 1) {
             $(".pagination-container").removeClass("d-none")
-            $("#previous-page").removeClass("disabled")
-            $("#next-page").removeClass("disabled")
+            $("#previous-page").attr("disabled", "")
+            $("#next-page").attr("disabled", "")
             if (page === 1) {
-                $("#previous-page").addClass("disabled")
+                $("#previous-page").attr("disabled", "disabled")
             } else if (page === maxPage) {
-                $("#next-page").addClass("disabled")
+                $("#next-page").addClass("disabled", "disabled")
             }
         } else {
             $(".pagination-container").addClass("d-none")

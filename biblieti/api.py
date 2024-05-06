@@ -52,7 +52,14 @@ def get_products_landing(request, search, availability): # mirar de modificar y 
 
     # Serializa los resultados y devuelve una respuesta JSON
     serialized_data = [item.serialize() for item in filteredData]
-    return JsonResponse(serialized_data, safe=False)
+    pages = Paginator(serialized_data, 25)
+    if (page > pages.num_pages):
+        page = pages.num_pages
+    elif (page < 1):
+        page = 1
+    serialized_data = pages.get_page(page).object_list
+    print(filteredData)
+    return JsonResponse({'data': serialized_data, 'num_pages': pages.num_pages}, safe=False)
 
 @api_view(['GET'])
 def get_products(request, type, availability, name, author, ISBN, publication_year, artist, tracks, director, duration, resolution, manufacturer, model, page):

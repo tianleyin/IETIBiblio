@@ -39,8 +39,20 @@
             <li><a href="/edit_user/{{user.email}}">{{user.email}}</a></li>
             {% endfor %}
         </ul>
+        {% if num_pages != 1 %}
+        <div class="pagination-container ">
+            <button id="previous-page" class="pagination" {% if cur_page == 1%} disabled {% endif %}>
+                <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                <span>Pàgina anterior</span>
+            </button>
+            <button id="next-page" class="pagination" {% if cur_page == num_pages %} disabled {% endif %}>
+                <span>Pàgina següent</span>
+                <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
+            </button>
+        </div>
+        {% endif %}
     </main>
-    <script src="{% static 'edit_user_controller.js' %}?no-cache={% now "U" %}"></script>
+    <script src="{% static 'edit_user_list_controller.js' %}?no-cache={% now "U" %}"></script>
     {% if notification %}
     <script>
         createNotification("info", "{{ notificationMsg }}");

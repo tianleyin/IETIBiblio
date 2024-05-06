@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 from django.utils import timezone
+from django.core.paginator import Paginator
 import re
 
 
@@ -201,7 +202,10 @@ def add_user(request):
 
 def edit_user_list(request):
     page_title = "EDITAR USUARI"  # Definir el título de la página
-    data = {"users": list(User_ieti.objects.all())}
+    users = list(User_ieti.objects.all())
+    users_pages = Paginator(users, 25)
+    page = users_pages.page(request.GET.get('page'))
+    data = {"users": page, "num_pages": users_pages.num_pages, 'cur_page': int(request.GET.get('page'))}
     return render(request, 'edit_user_list.html', {'page_title': page_title, **data})
 
 def edit_user_form(request, email):
