@@ -270,12 +270,12 @@ $(() => {
         $(".expanding-header").removeClass("expanded")
         if (maxPage > 1) {
             $(".pagination-container").removeClass("d-none")
-            $("#previous-page").removeClass("disabled")
-            $("#next-page").removeClass("disabled")
+            $("#previous-page").removeAttr("disabled")
+            $("#next-page").removeAttr("disabled")
             if (page === 1) {
-                $("#previous-page").addClass("disabled")
+                $("#previous-page").attr("disabled", "disabled")
             } else if (page === maxPage) {
-                $("#next-page").addClass("disabled")
+                $("#next-page").addClass("disabled", "disabled")
             }
         } else {
             $(".pagination-container").addClass("d-none")
