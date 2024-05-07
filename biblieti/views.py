@@ -139,7 +139,8 @@ def login_view(request):
             print(e)
             data['error'] = True
             data['errorMsg'] = "L'usuari o la contrasenya són incorrectes."
-    return render(request, "registration/login.html", {'data': data, 'page_title': page_title})
+    data["page_title"] = page_title
+    return render(request, "registration/login.html", data)
 
 def import_csv(request):
     page_title = "IMPORTAR CSV - "
