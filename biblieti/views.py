@@ -218,7 +218,9 @@ def edit_user_form(request, email):
         user.save()
         request.session['notification'] = 'info'
         request.session['notificationMsg'] = 'Dades actualitzades correctament.'
-        return redirect('edit_user_list')
+        url_redirect = redirect('edit_user_list')
+        url_redirect['Location'] += "?page=1"
+        return url_redirect
     data = {"user": user}
     return render(request, 'edit_user_form.html', data)
 
