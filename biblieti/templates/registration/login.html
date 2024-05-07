@@ -57,9 +57,9 @@
             <a href="{% provider_login_url 'google' %}">Inicia Sessió amb Google</a>
         </div>
     </main>
-    {% if error %}
+    {% if data.error %}
     <script>
-        createNotification("error", "{{ errorMsg }}", $(".right-container h2"));
+        createNotification("error", "{{ data.errorMsg }}", $(".right-container h2"));
     </script>
     {% endif %}    
     <script src="{% static 'landing_page_controller.js' %}?no-cache={% now "U" %}"></script>
