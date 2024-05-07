@@ -20,7 +20,7 @@ def hello(request):
         }, safe=False)
 
 @api_view(['GET'])
-def get_products_landing(request, search, availability): # mirar de modificar y verifacar esto para incluir el checkbox de disponible o no en landing
+def get_products_landing(request, search, availability, page=1): # mirar de modificar y verifacar esto para incluir el checkbox de disponible o no en landing
     try:
         search_int = int(search)
     except ValueError:

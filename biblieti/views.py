@@ -199,6 +199,9 @@ def add_user(request):
         role = request.POST.get("role")
         cycle = request.POST.get("cycle")
         User_ieti.objects.create(username=username, email=email, role=role, cycle=cycle, password="Password12345")
+        request.session['notification'] = 'info'
+        request.session['notificationMsg'] = 'Usuari afegit correctament.'
+        redirect ('dashboard')
     return render(request, 'add_user.html', {'page_title':page_title})
 
 def edit_user_list(request):

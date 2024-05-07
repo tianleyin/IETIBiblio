@@ -9,7 +9,7 @@ $(function() {
             fetch(`/api/get_products_landing/${$("#searchInfo").val()},${availability}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                data = data.data
                 let addedNames = []; // Array para almacenar los nombres ya agregados
                 for (let i = 0; i < 5; i++) {
                     if (!data[i]) {
