@@ -290,12 +290,22 @@ $(() => {
             requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model)
             $(window).scrollTop(0)
         }
+        if (page === 1) {
+            $("#previous-page").attr("disabled", "disabled")
+        } else if (page === maxPage) {
+            $("#next-page").addClass("disabled", "disabled")
+        }
     })
     $("#previous-page").off().click(function() {
         if (page > 1) {
             page--
             requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model)
             $(window).scrollTop(0)
+        }
+        if (page === 1) {
+            $("#previous-page").attr("disabled", "disabled")
+        } else if (page === maxPage) {
+            $("#next-page").addClass("disabled", "disabled")
         }
     })
 })
