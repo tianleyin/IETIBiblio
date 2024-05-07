@@ -14,12 +14,22 @@ $(() => {
     let model = 'null'
     let page = 1;
     let maxPage = 1;
-    let url = new URL(window.location)
-    if (url.searchParams) {
-        if (url.searchParams.get("searchInfo")) {
-            requestProductsFromLandingPage(url.searchParams.get("searchInfo"))
+    let url = new URLSearchParams(window.location.search)
+    if (url) {
+        getParams = {}
+        url.forEach((value, key) => {
+            getParams[key] = value
+        })
+        console.log(getParams)
+        if (Object.keys(getParams).includes("searchInfo")) {
+            if (getParams["product-availability"] === "on") {
+                availability = "Available"
+            } else {
+                availability = "All"
+            }
+            requestProductsFromLandingPage(getParams["searchInfo"] ? getParams["searchInfo"] : "null", availability)
         } else {
-            requestProducts(url.searchParams.get("searchInfo") ? url.searchParams.get("searchInfo") : "null", "All", "null", "null", "null", "null", 0, "null", 0, "null", "null", "null")
+            requestProducts(getParams["searchInfo"] ? getParams["searchInfo"] : "null", "All", "null", "null", "null", "null", 0, "null", 0, "null", "null", "null")
         }
     }
     $("#expand-header").off().on("click", () => {
@@ -181,8 +191,8 @@ $(() => {
         requestProducts(productName, availability, author, ISBN, publishYear, artist, tracks, director, duration, resolution, manufacturer, model)
     })
 
-    function requestProductsFromLandingPage(searchInfo) {
-        fetch(`/api/get_products_landing/${searchInfo}`)
+    function requestProductsFromLandingPage(searchInfo, availability) {
+        fetch(`/api/get_products_landing/${searchInfo},${availability}`)
         .then(response => response.json())
         .then(data => {
             maxPage = data.num_pages
