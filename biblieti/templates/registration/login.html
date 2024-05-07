@@ -2,8 +2,8 @@
 {% load static %}
 {% load socialaccount %}
 {% block content %}
-    <div id="landing-page">
-    
+<div id="landing-page">
+
     <header>
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -28,7 +28,8 @@
                     <label for="searchInfo"><span style="text-decoration: underline;">C</span>erca general:</label>
                     <div id="search-row">
                         <div class="search-container-inner" id="search-container-inner">
-                            <input type="text" id="searchInfo" name="searchInfo" accesskey="c" title="Cercar Productes (ALT + C)">
+                            <input type="text" id="searchInfo" name="searchInfo" accesskey="c"
+                                title="Cercar Productes (ALT + C)">
                             <div id="absolute-div">
                                 <ul>
                                 </ul>
@@ -37,8 +38,10 @@
                         <input type="submit" value="Buscar" id="btn-search">
                     </div>
                     <div id="checkbox-disponibility">
-                        <input type="checkbox" name="producte-availability" id="available" accesskey="p" title="Mostrar Disponibles (ALT + P)">
-                        <label for="available">Mostrar <span style="text-decoration: underline;">P</span>roductes Disponibles:</label>
+                        <input type="checkbox" name="producte-availability" id="available" accesskey="p"
+                            title="Mostrar Disponibles (ALT + P)">
+                        <label for="available">Mostrar <span style="text-decoration: underline;">P</span>roductes
+                            Disponibles:</label>
                     </div>
                 </form>
             </div>
@@ -54,15 +57,48 @@
                 <a href="{% url 'forgot_password' %}" class="accent-color-link">Has oblidat la contrasenya?</a>
                 <input type="submit" value="Iniciar Sessió">
             </form>
-            <a href="{% provider_login_url 'google' %}" class="accent-button">Entra amb google</a>
+            <a href="{% provider_login_url 'google' %}" class="accent-button" accesskey="g" title="Entra amb google (ALT + G)">Entra amb <span style="text-decoration: underline;">G</span>oogle</a>
         </div>
     </main>
-    {% if error %}
+    {% if data.error %}
     <script>
-        createNotification("error", "{{ errorMsg }}", $(".right-container h2"));
+        createNotification("error", "{{ data.errorMsg }}", $(".right-container h2"));
     </script>
-    {% endif %}    
-    <script src="{% static 'landing_page_controller.js' %}?no-cache={% now "U" %}"></script>
+    {% endif %}
+    <script>
+        // Manejar las Accesskeys cuando no funcionan
+        document.addEventListener('keydown', function (event) {
+            // Verificar si la tecla ALT está presionada
+            if (event.altKey) {
+                // Obtener la tecla presionada
+                var key = event.key.toLowerCase();
+
+                // Verificar las teclas Accesskey y ejecutar la acción correspondiente
+                switch (key) {
+                    case 'c':
+                        // Acción para la tecla Accesskey "c"
+                        document.getElementById('searchInfo').focus(); // Enfocar el campo de búsqueda
+                        event.preventDefault(); // Evitar el comportamiento predeterminado del navegador
+                        break;
+                    case 'p':
+                        // Acción para la tecla Accesskey "p"
+                        document.getElementById('available').click(); // Hacer clic en el checkbox
+                        event.preventDefault(); // Evitar el comportamiento predeterminado del navegador
+                        break;
+                    case 'i':
+                        // Acción para la tecla Accesskey "i"
+                        document.getElementById('username').focus(); // Enfocar el campo de nombre de usuario
+                        event.preventDefault(); // Evitar el comportamiento predeterminado del navegador
+                        break;
+                    case 'g':
+                        window.location.href = "{% provider_login_url 'google' %}";
+                        break;
+                }
+            }
+        });
+    </script>
+    </script>
+    <script src="{% static 'landing_page_controller.js' %}?no-cache={% now " U" %}"></script>
 </div>
 
 {% endblock %}

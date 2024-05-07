@@ -38,10 +38,12 @@
     </form>
     <nav>
         <ul>
-            <li><a href="/dashboard" accesskey="p" title="Panell (ALT + P)"><span style="text-decoration: underline;">P</span>ANELL</a></li>            
+            <li><a href="/dashboard" accesskey="p" title="Panell (ALT + P)"><span
+                        style="text-decoration: underline;">P</span>ANELL</a></li>
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button type="submit" id="btn-logout" accesskey="t" title="Tancar Sessió (ALT + T)"><span style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
+                <button type="submit" id="btn-logout" accesskey="t" title="Tancar Sessió (ALT + T)"><span
+                        style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
             </form>
         </ul>
     </nav>
@@ -59,11 +61,20 @@
 
 
 
-<script src="{% static 'return_loan_controller.js' %}?no-cache={% now "U" %}"></script>
+<script src="{% static 'return_loan_controller.js' %}?no-cache={% now " U" %}"></script>
+<script>
+    document.addEventListener('keydown', function (event) {
+        if (event.altKey && event.key.toLowerCase() === 'b') {
+            document.getElementById('email').focus(); // Enfocar en el campo de correo electrónico
+            event.preventDefault();
+        }
+    });
+</script>
+
 {% if error %}
-    <script>
-        createNotification("{{error}}", "{{ errorMsg }}");
-    </script>
+<script>
+    createNotification("{{error}}", "{{ errorMsg }}");
+</script>
 {% endif %}
 
 {% endblock %}
