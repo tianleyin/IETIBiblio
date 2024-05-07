@@ -1,6 +1,5 @@
 $(function() {
     $("#searchInfo").off().on('input', function() {
-        $("#absolute-div ul").empty()
         if ($("#searchInfo").val().length >= 3) {
             let availability = "not-available"
             if ($("#available").is(":checked")) {
@@ -9,6 +8,7 @@ $(function() {
             fetch(`/api/get_products_landing/${$("#searchInfo").val()},${availability}`)
             .then(response => response.json())
             .then(data => {
+                $("#absolute-div ul").empty()
                 data = data.data
                 let addedNames = []; // Array para almacenar los nombres ya agregados
                 for (let i = 0; i < 5; i++) {
