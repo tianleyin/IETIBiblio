@@ -20,7 +20,7 @@
             </svg>
             <h1>Biblioteca Mari Carmen Brito</h1>
         </div>
-            
+
         <form action="/busqueda/" method="GET" id="search-form">
             <label for="searchInfo"><span style="text-decoration: underline;">C</span>erca general:</label>
             <div id="search-row">
@@ -38,14 +38,17 @@
                 <label for="available">Mostrar Productes Disponibles:</label>
             </div>
         </form>
-        
+
         <nav>
             <ul>
-                <li><a href="/dashboard" accesskey="p" title="Panell (ALT + P)"><span style="text-decoration: underline;">P</span>ANELL</a></li>
-                <li><a href="/change_password" accesskey="o" title="Canviar Contrasenya (ALT + O)">CANVIAR C<span style="text-decoration: underline;">O</span>NTRASENYA</a></li>                
+                <li><a href="/dashboard" accesskey="p" title="Panell (ALT + P)"><span
+                            style="text-decoration: underline;">P</span>ANELL</a></li>
+                <li><a href="/change_password" accesskey="o" title="Canviar Contrasenya (ALT + O)">CANVIAR C<span
+                            style="text-decoration: underline;">O</span>NTRASENYA</a></li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit" id="btn-logout" accesskey="t" title="Tancar Sessió (ALT + T)"><span style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
+                    <button type="submit" id="btn-logout" accesskey="t" title="Tancar Sessió (ALT + T)"><span
+                            style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
                 </form>
             </ul>
         </nav>
@@ -60,7 +63,34 @@
             <input type="submit" id="import-button" value="Importar">
         </form>
     </main>
-    <script src="{% static 'import_csv_controller.js' %}?no-cache={% now "U" %}"></script>
+    <script src="{% static 'import_csv_controller.js' %}?no-cache={% now " U" %}"></script>
+    <script>
+        document.addEventListener('keydown', function (event) {
+            if (event.altKey) {
+                var key = event.key.toLowerCase();
+                switch (key) {
+                    case 'c':
+                        document.getElementById('searchInfo').focus();
+                        event.preventDefault();
+                        break;
+                    case 'p':
+                        window.location.href = "/dashboard"; // Redirigir al panel
+                        event.preventDefault();
+                        break;
+                    case 'o':
+                        window.location.href = "/change_password"; // Redirigir a la página de cambiar contraseña
+                        event.preventDefault();
+                        break;
+                    case 't':
+                        document.getElementById('btn-logout').click();
+                        event.preventDefault();
+                        break;
+                    // Agrega más casos según sea necesario para otras teclas Accesskey
+                }
+            }
+        });
+    </script>
+
     {% if info %}
     <script>
         createNotification("info", "{{ infoMsg }}");

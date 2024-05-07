@@ -8,15 +8,22 @@
             <span id="expand-header" accesskey="c" title="Cerca Avançada (ALT + C)">
                 <span style="text-decoration: underline;">C</span>ERCA AVANÇADA
                 <div id="chevron-container">
-                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M6 9l6 6l6 -6" />
+                    </svg>
                 </div>
             </span>
             <nav>
                 <ul>
-                    <li><a href="/dashboard" accesskey="p" title="Panell (ALT + P)"><span style="text-decoration: underline;">P</span>ANELL</a></li>
+                    <li><a href="/dashboard" accesskey="p" title="Panell (ALT + P)"><span
+                                style="text-decoration: underline;">P</span>ANELL</a></li>
                     <form method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
-                        <button id="btn-logout" type="submit" accesskey="t" title="Tancar Sessió (ALT + T)"><span style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
+                        <button id="btn-logout" type="submit" accesskey="t" title="Tancar Sessió (ALT + T)"><span
+                                style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
                     </form>
                 </ul>
             </nav>
@@ -69,24 +76,65 @@
         </ul>
         <div class="pagination-container d-none">
             <button id="previous-page" class="pagination">
-                <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M5 12l14 0" />
+                    <path d="M5 12l6 6" />
+                    <path d="M5 12l6 -6" />
+                </svg>
                 <span>Pàgina anterior</span>
             </button>
             <button id="next-page" class="pagination">
                 <span>Pàgina següent</span>
-                <svg xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M13 18l6 -6" /><path d="M13 6l6 6" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-right">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M5 12l14 0" />
+                    <path d="M13 18l6 -6" />
+                    <path d="M13 6l6 6" />
+                </svg>
             </button>
         </div>
     </main>
 </div>
 
 {% if info %}
-    <script>
-        createNotification("info", "{{ infoMsg }}", $("main"));
-    </script>
-{% endif %} 
+<script>
+    createNotification("info", "{{ infoMsg }}", $("main"));
+</script>
+{% endif %}
 
-<script src="{% static 'search_product_controller.js' %}?no-cache={% now "U" %}"></script>
-<script src="{% static 'loans_controller.js' %}?no-cache={% now "U" %}"></script>
+<script src="{% static 'search_product_controller.js' %}?no-cache={% now " U" %}"></script>
+<script src="{% static 'loans_controller.js' %}?no-cache={% now " U" %}"></script>
+<script>
+    document.addEventListener('keydown', function (event) {
+        if (event.altKey) {
+            var key = event.key.toLowerCase();
+            switch (key) {
+                case 'c':
+                    document.getElementById('expand-header').click();
+                    event.preventDefault();
+                    break;
+                case 'p':
+                    window.location.href = "/dashboard"; // Redirigir al panel
+                    event.preventDefault();
+                    break;
+                case 't':
+                    document.getElementById('btn-logout').click();
+                    event.preventDefault();
+                    break;
+                case 'a':
+                    document.getElementById('email').focus();
+                    event.preventDefault();
+                    break;
+                // Agrega más casos según sea necesario para otras teclas Accesskey
+            }
+        }
+    });
+</script>
+
 
 {% endblock %}

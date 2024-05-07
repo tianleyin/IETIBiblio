@@ -65,7 +65,8 @@
             <a href="/user_data" class="btn-user-data" accesskey="m" title="Perfil (ALT + M)"><span
                     style="text-decoration: underline;">M</span>ostrar les meves dades</a>
             {% if user.role == 'librarian' %}
-            <a href="/add_user" class="btn-user-data" accesskey="u" title="Afegir Usuari (ALT + U)">Afegir un&nbsp;<span style="text-decoration: underline;">U</span>suari</a>
+            <a href="/add_user" class="btn-user-data" accesskey="u" title="Afegir Usuari (ALT + U)">Afegir un&nbsp;<span
+                    style="text-decoration: underline;">U</span>suari</a>
             <a href="/edit_user" class="btn-user-data" accesskey="e" title="Editar Usuari (ALT + E)"><span
                     style="text-decoration: underline;">E</span>ditar un usuari</a>
             <a href="/import_csv" class="btn-user-data" accesskey="i" title="Importar Usuari (ALT + I)"><span
@@ -74,11 +75,66 @@
                     style="text-decoration: underline;">P</span>réstec</a>
             <a href="/return_loan" class="btn-user-data" accesskey="r" title="Retornar (ALT + R)"><span
                     style="text-decoration: underline;">R</span>etornar un préstec</a>
-            <a href="/add_product" class="btn-user-data" accesskey="a" title="Afegir Producte (ALT + A)"><span style="text-decoration: underline;">A</span>fegir un producte al catàleg</a>
+            <a href="/add_product" class="btn-user-data" accesskey="a" title="Afegir Producte (ALT + A)"><span
+                    style="text-decoration: underline;">A</span>fegir un producte al catàleg</a>
             {% endif %}
         </div>
     </main>
     <script src="{% static 'dashboard_controller.js' %}?no-cache={% now " U" %}"></script>
+    <script>
+        document.addEventListener('keydown', function (event) {
+            if (event.altKey) {
+                var key = event.key.toLowerCase();
+                switch (key) {
+                    case 'c':
+                        document.getElementById('searchInfo').focus();
+                        event.preventDefault();
+                        break;
+                    case 'i':
+                        window.location.href = "/"; // Redirigir al inicio
+                        event.preventDefault();
+                        break;
+                    case 'o':
+                        window.location.href = "/change_password"; // Redirigir a la página de cambiar contraseña
+                        event.preventDefault();
+                        break;
+                    case 't':
+                        document.getElementById('btn-logout').click();
+                        event.preventDefault();
+                        break;
+                    case 'm':
+                        window.location.href = "/user_data"; // Redirigir al perfil del usuario
+                        event.preventDefault();
+                        break;
+                    case 'u':
+                        window.location.href = "/add_user"; // Redirigir a la página de agregar usuario
+                        event.preventDefault();
+                        break;
+                    case 'e':
+                        window.location.href = "/edit_user"; // Redirigir a la página de editar usuario
+                        event.preventDefault();
+                        break;
+                    case 'i':
+                        window.location.href = "/import_csv"; // Redirigir a la página de importar usuarios
+                        event.preventDefault();
+                        break;
+                    case 'p':
+                        window.location.href = "/loans"; // Redirigir a la página de préstamo
+                        event.preventDefault();
+                        break;
+                    case 'r':
+                        window.location.href = "/return_loan"; // Redirigir a la página de retorno de préstamo
+                        event.preventDefault();
+                        break;
+                    case 'a':
+                        window.location.href = "/add_product"; // Redirigir a la página de agregar producto al catálogo
+                        event.preventDefault();
+                        break;
+                    // Agrega más casos según sea necesario para otras teclas Accesskey
+                }
+            }
+        });
+    </script>
     {% if notification %}
     <script>
         createNotification("{{notification}}", "{{ notificationMsg }}");

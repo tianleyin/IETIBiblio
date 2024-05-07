@@ -39,10 +39,12 @@
 
     <nav>
         <ul>
-            <li><a href="/dashboard" accesskey="p" title="Panell (ALT + P)"><span style="text-decoration: underline;">P</span>ANELL</a></li>            
+            <li><a href="/dashboard" accesskey="p" title="Panell (ALT + P)"><span
+                        style="text-decoration: underline;">P</span>ANELL</a></li>
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button type="submit" id="btn-logout" accesskey="t" title="Tancar Sessió (ALT + T)"><span style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
+                <button type="submit" id="btn-logout" accesskey="t" title="Tancar Sessió (ALT + T)"><span
+                        style="text-decoration: underline;">T</span>ANCAR SESSIÓ DE {{ user.username }}</button>
             </form>
         </ul>
     </nav>
@@ -51,11 +53,12 @@
 <main id="add_product-main">
     <h2 class="isbn-form-header">Realitza una addició al catàleg per ISBN</h2>
     <div id="search-product-isbn-form">
-        <label for="isbn">Introdueix l'<span style="text-decoration: underline;">I</span>SBN del llibre a buscar:</label>
+        <label for="isbn">Introdueix l'<span style="text-decoration: underline;">I</span>SBN del llibre a
+            buscar:</label>
         <input type="text" name="isbn" id="isbn" required accesskey="i" title="Introduïr ISBN (ALT + I)">
         <button id="btn-submit-isbn-form">Buscar llibre</input>
     </div>
-    
+
     <form id="dinamyc-form" method="post" action="{% url 'add_product' %}" hidden>
         {% csrf_token %}
         <h2 class="dinamyc-form-header">Element trobat:</h2>
@@ -81,12 +84,42 @@
     </form>
 </main>
 
-<script src="{% static 'add_product_controller.js' %}?no-cache={% now "U" %}"></script>
+<script>
+    document.addEventListener('keydown', function (event) {
+        if (event.altKey) {
+            var key = event.key.toLowerCase();
+            switch (key) {
+                case 'c':
+                    document.getElementById('searchInfo').focus();
+                    event.preventDefault();
+                    break;
+                case 'i':
+                    document.getElementById('isbn').focus();
+                    event.preventDefault();
+                    break;
+                case 'p':
+                    window.location.href = "/dashboard"; // Redirigir al panel
+                    event.preventDefault();
+                    break;
+                case 't':
+                    document.getElementById('btn-logout').click();
+                    event.preventDefault();
+                    break;
+                case 'd':
+                    document.getElementById('CDU').focus();
+                    event.preventDefault();
+                    break;
+                // Agrega más casos según sea necesario para otras teclas Accesskey
+            }
+        }
+    });
+</script>
+<script src="{% static 'add_product_controller.js' %}?no-cache={% now " U" %}"></script>
 
 {% if notification %}
-    <script>
-        createNotification("{{notification}}", "{{ notificationMsg }}");
-    </script>
+<script>
+    createNotification("{{notification}}", "{{ notificationMsg }}");
+</script>
 {% endif %}
 
 {% endblock %}
