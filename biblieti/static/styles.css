@@ -1224,6 +1224,11 @@ main {
     .visible-section a {
         font-size: medium;
     }
+    .form-row input {
+        margin: 0;
+        margin-left: auto;
+        margin-right: 5px;
+    }
 
     /*dashboard */
     header:not(.expanding-header) {
