@@ -1,4 +1,5 @@
 function createNotification(type, msg, node=false) {
+    console.log("hey")
     let nodeElement = ""
     switch (type) {
         case "info":
@@ -28,7 +29,8 @@ function createNotification(type, msg, node=false) {
         close: true,
         duration: -1,
     }
-    if (!node) {
+    console.log($(window).width())
+    if (!node || $(window).width() <= 680) {
         options.position = "center"
     } else {
         options.position = "left"
@@ -38,8 +40,10 @@ function createNotification(type, msg, node=false) {
     }
     let toast = Toastify(options)
     toast.showToast();
+    console.log(options.position)
     $(toast.toastElement).css("transition-property", "top")
-    if (node) {
+    if (node && $(window).width() > 680) {
+        console.log("hola")
         $(toast.toastElement).css("top", node[0].getBoundingClientRect().top - $(toast.toastElement).height() - 30)
         $(toast.toastElement).css("left", node.offset().left + $(node).width()/2 - $(toast.toastElement).width()/2)
     }

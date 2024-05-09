@@ -309,6 +309,26 @@ label {
     font-family: "Inter", sans-serif;
 }
 
+/* search_products header */
+header #search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: smaller;
+}
+
+header #search-row {
+    margin-left: 5px;
+}
+
+header #checkbox-disponibility {
+    margin: auto;
+}
+
+header #checkbox-disponibility label {
+    width: 55%;
+}
+
 /* landing_page */
 #landing-page header {
     background-color: var(--dark-brown);
@@ -329,9 +349,17 @@ label {
     margin-right: 10px;
 }
 
-#landing-page header>h1 {
-    letter-spacing: 1px;
-    font-family: 'Bowlby One', sans-serif;
+header h1 {
+    font-family: 'Bowlby One';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    margin-left: 8px;
+}
+
+header .icon {
+    display: flex;
+    align-items: center;
 }
 
 #landing-page main {
@@ -380,6 +408,10 @@ label {
     position: relative;
 }
 
+#btn-search:hover {
+    cursor: pointer;
+}
+
 #search-row {
     display: flex;
     max-height: 28px;
@@ -422,6 +454,44 @@ label {
 
 #absolute-div ul.item li {
     padding: 0;
+}
+
+#checkbox-disponibility {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+#checkbox-disponibility input {
+    width: 20%;
+}
+
+#checkbox-disponibility input:hover, #checkbox-disponibility label:hover {
+    cursor: pointer;
+}
+
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.pagination-container button {
+    border: none;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+}
+
+.d-none {
+    display: none !important;
 }
 
 .right-container {
@@ -490,6 +560,11 @@ main {
     min-height: calc(100vh - 50px);
     background-color: var(--light-brown);
     overflow-y: scroll;
+}
+
+#search-results-title {
+    margin: 25px auto;
+    margin-left: 35px;
 }
 
 #search-results {
@@ -679,6 +754,10 @@ main {
     /* Centrado horizontal */
     text-align: center;
     /* Alineación del texto */
+}
+
+#user-data h1 {
+    margin-bottom: 25px;
 }
 
 #user-data form {
@@ -979,4 +1058,251 @@ main {
     padding: 10px; /* Agrega espacio interno a cada elemento de la lista */
     border: 1px solid #ccc; /* Agrega un borde alrededor de cada elemento de la lista */
     background-color: #f9f9f9; /* Color de fondo de cada elemento de la lista */
+}
+
+#user-loans li:has(button) {
+    text-align: center;
+}
+
+/* edit_user */ 
+#update-form select {
+    margin-bottom: 15px;
+}
+
+#google-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#google-login form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* add_user */
+#role {
+    margin-bottom: 10px;
+}
+
+/* add_product */
+#add_product-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#search-product-isbn-form {
+    margin-bottom: 20px;
+}
+
+.isbn-form-header {
+    margin-bottom: 20px;
+}
+
+#search-product-isbn-form {
+    margin-bottom: 20px;
+}
+
+#search-product-isbn-form input[type="text"] {
+    padding: 5px;
+    border-radius: 4px;
+    border: none;
+}
+
+#search-product-isbn-form button {
+    padding: 8px 16px;
+    border: none;
+    background-color: var(--accent-green);
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#dinamyc-form {
+    margin-top: 25px;
+    text-align: center; /* Centra el contenido horizontalmente */
+}
+
+#dinamyc-form label {
+    display: block; /* Muestra las etiquetas como bloques */
+    width: auto; /* Ancho automático */
+    text-align: left; /* Alinea el texto a la izquierda */
+    margin: 10px auto; /* Espacio inferior entre etiquetas */
+}
+
+#dinamyc-form input[type="text"],
+#dinamyc-form input[type="number"] {
+    width: 100%; /* Ancho automático */
+    margin-bottom: 10px; /* Espacio inferior entre elementos de entrada */
+    padding: 5px;
+    border-radius: 4px;
+    border: none;
+}
+
+#dinamyc-form button {
+    margin-top: 20px; /* Espacio superior para el botón */
+}
+
+.form-row {
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos */
+}
+
+.form-row label {
+    flex: 1; /* El label toma todo el espacio disponible */
+    text-align: left; /* Alinea el texto a la izquierda */
+    font-size: small;
+}
+
+.form-row input {
+    margin-left: 10px; /* Espacio entre la etiqueta y el input */
+}
+
+#dinamyc-form button {
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: var(--accent-green);
+    border: none;
+    color: var(--white);
+}
+
+/* Estilos generales */
+/* Estilos para dispositivos móviles */
+@media only screen and (max-width: 375px) and (max-height: 667px) {
+    /* login */    
+    #landing-page header {
+        text-align: center;
+        height: auto !important;
+    }
+
+    #landing-page header h1 {
+        font-size: 15px;
+    }
+
+    #landing-page main {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        overflow-y: hidden; /* Oculta el desplazamiento vertical */
+    }
+
+    .left-container,
+    .right-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 23% 20px;
+    }
+
+    .left-container h2 {
+        margin-bottom: 15px;
+    }
+
+    .search-container,
+    #loginForm {
+        width: 80%;
+    }
+
+    .search-container label,
+    #loginForm label {
+        font-size: 14px;
+        margin-bottom: 0;
+        margin-right: 5px;
+    }
+
+    .search-container input,
+    #loginForm input {
+        padding: 5px;
+    }
+
+    #loginForm input[type="submit"] {
+        margin: 10px auto;
+    }
+    .right-container h2 {
+        margin-bottom: 15px;
+    }
+
+    /* searchInfo */ 
+    .expanding-header.expanded {
+        height: 400px;
+    }
+    #button-container {
+        margin-bottom: 10px;
+    }
+    .visible-section a {
+        font-size: medium;
+    }
+    .form-row input {
+        margin: 0;
+        margin-left: auto;
+        margin-right: 5px;
+    }
+
+    /*dashboard */
+    header:not(.expanding-header) {
+        height: 200px;
+        flex-direction: column;
+    }
+
+    header:not(.expanding-header) h1 {
+        font-size: 15px;
+    }
+    header #search-form {
+        flex-direction: column;
+    }
+    #search-form > label {
+        align-self: flex-start;
+        margin-bottom: 5px;
+    }
+    header #checkbox-disponibility {
+        margin: 10px auto;
+    }
+    #checkbox-disponibility input {
+        width: auto;
+        margin: 0;
+    }
+    header #checkbox-disponibility label {
+        width: auto;
+        margin-right: 10px;
+    }
+    header nav ul {
+        gap: 10px;
+    }
+    header nav a {
+        font-size: 9px;
+    }
+    #search-product form > button {
+        font-size: 9px;
+    }
+    #welcome a {
+        width: auto;
+    }
+
+    /* user_data */
+    #user-data {
+        min-height: calc(100vh - 200px);
+    }
+    #user-data input {
+        width: 90%;
+        margin: 10px auto;
+    }
+    #user-data label {
+        margin-left: 25px;
+    }
+
+    /* logout */
+    #logout header {
+        height: auto;
+    }
 }

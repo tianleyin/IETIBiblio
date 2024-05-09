@@ -17,13 +17,22 @@
             <path d="M14 9l4 -1" />
             <path d="M16 16l3.923 -.98" />
         </svg>
-        <h1>Biblioteca MariCarmen</h1>
+        <h1>Biblioteca Mari Carmen Brito</h1>
     </header>
     <main>
         <h1>SESSIÓ FINALITZADA</h1>
         <p>Gràcies per dedicar temps de qualitat avui a aquesta web.</p>
-        <a href="/">INICI</a>
+        <a href="/" accesskey="i" title="Inici (ALT + I)"><span style="text-decoration: underline;">I</span>NICI</a>
     </main>
 </div>
+
+<script>
+    document.addEventListener('keydown', function(event) {
+        if (event.altKey && event.key.toLowerCase() === 'i') {
+            window.location.href = "/"; // Redirigir al inicio
+            event.preventDefault();
+        }
+    });
+</script>
 
 {% endblock %}

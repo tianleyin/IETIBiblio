@@ -1,11 +1,15 @@
 $(function() {
     $("#searchInfo").off().on('input', function() {
-        $("#absolute-div ul").empty()
         if ($("#searchInfo").val().length >= 3) {
-            fetch(`/api/get_products_landing/${$("#searchInfo").val()}`)
+            let availability = "not-available"
+            if ($("#available").is(":checked")) {
+                availability = "Available"
+            }
+            fetch(`/api/get_products_landing/${$("#searchInfo").val()},${availability}`)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                $("#absolute-div ul").empty()
+                data = data.data
                 let addedNames = []; // Array para almacenar los nombres ya agregados
                 for (let i = 0; i < 5; i++) {
                     if (!data[i]) {
@@ -18,7 +22,8 @@ $(function() {
                         listItemContent += `<ul class="book item">
                             <li> - Autor/a: ${data[i].book.author}</li>
                             <li> - Any de Publicació: ${data[i].book.publication_year} </li>
-                            <li> - ISBN: ${data[i].book.ISBN}</li>    
+                            <li> - ISBN: ${data[i].book.ISBN}</li>
+                            <li> - CDU: ${data[i].book.CDU}</li> 
                         </ul>`
                     }
                     else if (data[i].cd) {
